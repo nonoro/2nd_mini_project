@@ -8,6 +8,7 @@ public class Test01 {
 		
 		
 		System.out.println("규 테스트");
+		System.out.println("연 테스");
 	}
 
 }
