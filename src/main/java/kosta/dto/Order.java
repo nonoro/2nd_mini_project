@@ -1,5 +1,8 @@
 package kosta.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
 	private int orderCode;
 	private String userId;
@@ -10,6 +13,8 @@ public class Order {
 	private int usedPoint;
 	private int orderTotalPrice;
 	private int orderPay;
+	
+	private List<OrderLine> orderLineList = new ArrayList<OrderLine>();
 	
 	public Order() { }
 
@@ -97,6 +102,14 @@ public class Order {
 
 	public void setOrderPay(int orderPay) {
 		this.orderPay = orderPay;
+	}
+
+	public List<OrderLine> getOrderLineList() {
+		return orderLineList;
+	}
+
+	public void setOrderLineList(List<OrderLine> orderLineList) {
+		this.orderLineList = orderLineList;
 	}
 	
 }
