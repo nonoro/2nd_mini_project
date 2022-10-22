@@ -285,3 +285,6 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,gradle,maven,macos,windows,intellij+all
+
+## 사용자 정의
+context.xml
