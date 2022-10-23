@@ -1,6 +1,6 @@
 package kosta.dto;
 
-public class Order {
+public class OrderDTO {
 	private int orderCode;
 	private String userId;
 	private String orderDate;
@@ -11,9 +11,9 @@ public class Order {
 	private int orderTotalPrice;
 	private int orderPay;
 	
-	public Order() { }
+	public OrderDTO() { }
 
-	public Order(int orderCode, String userId, String orderDate, String orderAddr, int orderComplete, int orderType,
+	public OrderDTO(int orderCode, String userId, String orderDate, String orderAddr, int orderComplete, int orderType,
 			int usedPoint, int orderTotalPrice, int orderPay) {
 		super();
 		this.orderCode = orderCode;

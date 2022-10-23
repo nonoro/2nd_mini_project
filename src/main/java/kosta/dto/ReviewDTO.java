@@ -1,21 +1,21 @@
 package kosta.dto;
 
-public class Review {
+public class ReviewDTO {
 	private int reviewCode;
 	private String userId;
-	private int poductCode;
+	private int productCode;
 	private int reviewGrade;
 	private String reviewDetail;
 	private String reviewPostdate;
 	private String reviewFile;
 	
-	public Review() { }
-	public Review(int reviewCode, String userId, int poductCode, int reviewGrade, String reviewDetail,
+	public ReviewDTO() { }
+	public ReviewDTO(int reviewCode, String userId, int productCode, int reviewGrade, String reviewDetail,
 			String reviewPostdate, String reviewFile) {
 		super();
 		this.reviewCode = reviewCode;
 		this.userId = userId;
-		this.poductCode = poductCode;
+		this.productCode = productCode;
 		this.reviewGrade = reviewGrade;
 		this.reviewDetail = reviewDetail;
 		this.reviewPostdate = reviewPostdate;
@@ -33,11 +33,11 @@ public class Review {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getPoductCode() {
-		return poductCode;
+	public int getProductCode() {
+		return productCode;
 	}
-	public void setPoductCode(int poductCode) {
-		this.poductCode = poductCode;
+	public void setProductCode(int productCode) {
+		this.productCode = productCode;
 	}
 	public int getReviewGrade() {
 		return reviewGrade;

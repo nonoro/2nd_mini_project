@@ -1,15 +1,15 @@
 package kosta.dto;
 
-public class Point {
+public class PointDTO {
 	private int orderCode;
 	private String userId;
 	private int pointSave;
 	private String pointSavedate;
 	private String pointUseddate;
 	
-	public Point() { }
+	public PointDTO() { }
 
-	public Point(int orderCode, String userId, int pointSave, String pointSavedate, String pointUseddate) {
+	public PointDTO(int orderCode, String userId, int pointSave, String pointSavedate, String pointUseddate) {
 		super();
 		this.orderCode = orderCode;
 		this.userId = userId;
