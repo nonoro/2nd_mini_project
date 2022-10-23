@@ -7,8 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kosta.dto.Order;
-import kosta.dto.OrderLine;
+import kosta.dto.OrderDTO;
 import kosta.service.OrderService;
 import kosta.service.OrderServiceImpl;
 
@@ -25,7 +24,7 @@ public class OrderController implements Controller {
 	public ModelAndView orderInsert(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//전송된 데이터 받기
 		
-		Order order = new Order(0, null, null, null, 0, 0, 0, 0, 0);
+		OrderDTO order = new OrderDTO(0, null, null, null, 0, 0, 0, 0, 0);
 		
 		orderService.orderInsert(order);
 		
@@ -34,7 +33,7 @@ public class OrderController implements Controller {
 	
 	public ModelAndView selectOrderByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//전송된 데이터 받기
-		List<Order> orderList = orderService.selectOrderByUserId(null); 
+		List<OrderDTO> orderList = orderService.selectOrderByUserId(null); 
 		
 		return new ModelAndView("order", true);
 	}
