@@ -1,6 +1,6 @@
 package kosta.dto;
 
-public class User {
+public class UserDTO {
 	private String userId;
 	private int userPwd;
 	private String userEmail;
@@ -11,9 +11,9 @@ public class User {
 	private String dogBirthday;
 	private int userPoint;
 	
-	public User() { }
+	public UserDTO() { }
 
-	public User(String userId, int userPwd, String userEmail, String userAddr, String userPhone, String userProfile,
+	public UserDTO(String userId, int userPwd, String userEmail, String userAddr, String userPhone, String userProfile,
 			String dogName, String dogBirthday, int userPoint) {
 		super();
 		this.userId = userId;

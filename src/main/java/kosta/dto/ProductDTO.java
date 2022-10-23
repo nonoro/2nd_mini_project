@@ -1,6 +1,6 @@
 package kosta.dto;
 
-public class Product {
+public class ProductDTO {
 	private int productCode;
 	private int productCategory;
 	private String productName;
@@ -8,9 +8,9 @@ public class Product {
 	private int productQty;
 	private String productExplain;
 	
-	public Product() { }
+	public ProductDTO() { }
 
-	public Product(int productCode, int productCategory, String productName, int productPrice, int productQty,
+	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
 			String productExplain) {
 		super();
 		this.productCode = productCode;

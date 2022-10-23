@@ -1,6 +1,6 @@
 package kosta.dto;
 
-public class Review {
+public class ReviewDTO {
 	private int reviewCode;
 	private String userId;
 	private int poductCode;
@@ -9,8 +9,8 @@ public class Review {
 	private String reviewPostdate;
 	private String reviewFile;
 	
-	public Review() { }
-	public Review(int reviewCode, String userId, int poductCode, int reviewGrade, String reviewDetail,
+	public ReviewDTO() { }
+	public ReviewDTO(int reviewCode, String userId, int poductCode, int reviewGrade, String reviewDetail,
 			String reviewPostdate, String reviewFile) {
 		super();
 		this.reviewCode = reviewCode;
