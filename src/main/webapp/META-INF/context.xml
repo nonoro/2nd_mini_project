@@ -31,7 +31,11 @@
               auth="Container"
               type="javax.sql.DataSource" 
               driverClassName="oracle.jdbc.OracleDriver"
+<<<<<<< HEAD
               url="jdbc:oracle:thin:@G0TEGOI5TB4UECYX_high?TNS_ADMIN=C:/edu/miniproject/Wallet_G0TEGOI5TB4UECYX"
+=======
+              url="jdbc:oracle:thin:@G0TEGOI5TB4UECYX_high?TNS_ADMIN=C:/Edu/miniproject/Wallet_G0TEGOI5TB4UECYX"
+>>>>>>> minjeong
               username="ADMIN" 
               password="Oraclekosta248!" 
               maxTotal="20" 

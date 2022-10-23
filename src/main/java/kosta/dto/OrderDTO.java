@@ -1,11 +1,8 @@
 package kosta.dto;
 
-
-
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class OrderDTO {
 	private int orderCode;
@@ -20,7 +17,9 @@ public class OrderDTO {
 	
 	private List<OrderLineDTO> orderLineList = new ArrayList<OrderLineDTO>();
 
+
 	public OrderDTO() { }
+
 
 	public OrderDTO(int orderCode, String userId, String orderDate, String orderAddr, int orderComplete, int orderType,
 			int usedPoint, int orderTotalPrice, int orderPay) {

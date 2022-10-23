@@ -21,22 +21,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int orderCancel(OrderDTO order) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = orderDao.orderCancel(order);
+		if(result == 0) throw new SQLException("주문이 취소되지 않았습니다.");
+		return result;
 	}
-
-	@Override
-	public int orderPoint(PointDTO point) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int userPoint(UserDTO user) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	@Override
 	public List<OrderDTO> selectOrderByUserId(String userId) throws SQLException {
 		List<OrderDTO> list = orderDao.selectOrderByUserId(userId);
