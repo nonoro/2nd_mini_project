@@ -3,7 +3,7 @@ package kosta.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class OrderDTO {
 	private int orderCode;
 	private String userId;
 	private String orderDate;
@@ -14,11 +14,11 @@ public class Order {
 	private int orderTotalPrice;
 	private int orderPay;
 	
-	private List<OrderLine> orderLineList = new ArrayList<OrderLine>();
+	private List<OrderLineDTO> orderLineList = new ArrayList<OrderLineDTO>();
 	
-	public Order() { }
+	public OrderDTO() { }
 
-	public Order(int orderCode, String userId, String orderDate, String orderAddr, int orderComplete, int orderType,
+	public OrderDTO(int orderCode, String userId, String orderDate, String orderAddr, int orderComplete, int orderType,
 			int usedPoint, int orderTotalPrice, int orderPay) {
 		super();
 		this.orderCode = orderCode;
@@ -104,11 +104,11 @@ public class Order {
 		this.orderPay = orderPay;
 	}
 
-	public List<OrderLine> getOrderLineList() {
+	public List<OrderLineDTO> getOrderLineList() {
 		return orderLineList;
 	}
 
-	public void setOrderLineList(List<OrderLine> orderLineList) {
+	public void setOrderLineList(List<OrderLineDTO> orderLineList) {
 		this.orderLineList = orderLineList;
 	}
 	

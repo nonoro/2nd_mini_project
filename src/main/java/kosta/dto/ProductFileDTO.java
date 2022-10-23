@@ -1,12 +1,12 @@
 package kosta.dto;
 
-public class ProductFile {
+public class ProductFileDTO {
 	private int productFileCode;
 	private int productCode;
 	private String productFile;
 	
-	public ProductFile() { }
-	public ProductFile(int productFileCode, int productCode, String productFile) {
+	public ProductFileDTO() { }
+	public ProductFileDTO(int productFileCode, int productCode, String productFile) {
 		super();
 		this.productFileCode = productFileCode;
 		this.productCode = productCode;

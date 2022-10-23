@@ -7,21 +7,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import kosta.dto.Order;
-import kosta.dto.OrderLine;
-import kosta.dto.Point;
-import kosta.dto.Product;
-import kosta.dto.User;
+import kosta.dto.OrderDTO;
+import kosta.dto.OrderLineDTO;
+import kosta.dto.PointDTO;
+import kosta.dto.ProductDTO;
+import kosta.dto.UserDTO;
 
 public class OrderDAOImpl implements OrderDAO {
 	
-	//ProductDAO productDao = new ProductDAOImpl();
+	ProductDAO productDao = new ProductDAOImpl();
 
 	/**
 	 * 주문하기
 	 * */
 	@Override
-	public int orderInsert(Order order) throws SQLException {
+	public int orderInsert(OrderDTO order) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -51,6 +51,8 @@ public class OrderDAOImpl implements OrderDAO {
 				}
 				
 				decrementQty(con, order.getOrderLineList());
+				savePoint(con, order);
+				saveUserPoint(con, order);
 				con.commit();
 			}
 		} finally {
@@ -61,23 +63,25 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 	}
 	
-	public int getTotalPay(Order order) throws SQLException {
-		List<OrderLine> orderLineList = order.getOrderLineList();
+	public int getTotalPay(OrderDTO order) throws SQLException {
+		List<OrderLineDTO> orderLineList = order.getOrderLineList();
 		int total = 0;
-		/*
-		 * for(OrderLine line: orderLineList) { Product product =
-		 * productDao.productSelectByCode(line.getProductCode()); if(product == null)
-		 * throw new SQLException("상품 코드 오류로 주문 실패했습니다."); else
-		 * if(product.getProductQty() < line.getOrderlineQty()) throw new
-		 * SQLException("재고량이 부족합니다.");
-		 * 
-		 * total += line.getOrderlineQty() * product.getProductPrice(); }
-		 */
+		
+		for(OrderLineDTO line: orderLineList) { 
+			ProductDTO product = productDao.productSelectByCode(line.getProductCode()); 
+				if(product == null)
+					throw new SQLException("상품 코드 오류로 주문 실패했습니다."); 
+				else if(product.getProductQty() < line.getOrderlineQty()) 
+					throw new SQLException("재고량이 부족합니다.");
+		 
+			total += line.getOrderlineQty() * product.getProductPrice(); 
+		}
+		 
 		return total;
 	}
 	
 
-	public int[] orderLineInsert(Connection con, Order order) throws SQLException {
+	public int[] orderLineInsert(Connection con, OrderDTO order) throws SQLException {
 		PreparedStatement ps = null;
 		int result[] = null;
 		try {
@@ -99,12 +103,12 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 	}
 	
-	public int[] decrementQty(Connection con, List<OrderLine> orderLineList) throws SQLException {
+	public int[] decrementQty(Connection con, List<OrderLineDTO> orderLineList) throws SQLException {
 		PreparedStatement ps = null;
 		int result[] = null;
 		try {
 			ps = con.prepareStatement("update product set p_qty = p_qty-? where p_code=?");
-			for(OrderLine orderLine: orderLineList) {
+			for(OrderLineDTO orderLine: orderLineList) {
 				ps.setInt(1, orderLine.getOrderlineQty());
 				ps.setInt(2, orderLine.getProductCode());
 				
@@ -119,7 +123,7 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 	}
 
-	public int savePoint(Connection con, Order order) throws SQLException {
+	public int savePoint(Connection con, OrderDTO order) throws SQLException {
 		PreparedStatement ps = null;
 		int result = 0;
 		
@@ -136,28 +140,100 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 	}
 	
+	public int saveUserPoint(Connection con, OrderDTO order) throws SQLException {
+		PreparedStatement ps = null;
+		int result = 0;
+		
+		try {
+			ps = con.prepareStatement("update users set user_point=user_point+? where users_id=?"); 
+			ps.setInt(1, (int)(order.getOrderPay() * 0.03));
+			ps.setString(2, order.getUserId());
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(null, ps);
+		}
+		
+		return result;
+	}
 	
+	
+	
+	/**
+	 * 주문 취소
+	 * */
 	@Override
-	public int orderCancel(Order order) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int orderCancel(OrderDTO order) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		
+		try {
+			con = DbUtil.getConnection();
+			con.setAutoCommit(false);
+			
+			ps = con.prepareStatement("update orders set order_complete=3 where order_code=?");
+			ps.setInt(1, order.getOrderCode());
+			result = ps.executeUpdate();
+			
+			if(result == 0) {
+				con.rollback();
+				throw new SQLException("주문이 취소되지 않았습니다.");
+			} else {
+				int res [] = orderLineDelete(con, order);
+				for(int i: res) {
+					if(i != 1) {
+						con.rollback();
+						throw new SQLException("주문할 수 없습니다.");
+					}
+				}
+				
+				decrementQty(con, order.getOrderLineList());
+				savePoint(con, order);
+				con.commit();
+			}
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		return result;
+	}
+	
+	public int[] orderLineDelete(Connection con, OrderDTO order) throws SQLException  {
+		PreparedStatement ps = null;
+		int result[] = null;
+		try {
+			ps = con.prepareStatement("delete from orderline where order_code=? and user_id=? and p_code=?");
+			
+			 for(OrderLineDTO orderLine: order.getOrderLineList()) { 
+				 ProductDTO product = productDao.productSelectByCode(orderLine.getProductCode());
+			 
+				 ps.setInt(1, order.getOrderCode()); 
+				 ps.setString(2, order.getUserId()); 
+				 ps.setInt(3, product.getProductCode());
+				 
+				 ps.addBatch(); 
+				 ps.clearParameters(); 
+			}
+			 
+			result = ps.executeBatch();
+			
+		} finally {
+			DbUtil.dbClose(null, ps);
+		}
+		return result;
 	}
 
-	@Override
-	public int orderPoint(Point point) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
+	
 	/**
 	 * 주문 내역 보기
 	 * */
 	@Override
-	public List<Order> selectOrderByUserId(String userId) throws SQLException {
+	public List<OrderDTO> selectOrderByUserId(String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<Order> list = new ArrayList<Order>();
+		List<OrderDTO> list = new ArrayList<OrderDTO>();
 		
 		try {
 			con = DbUtil.getConnection();
@@ -166,8 +242,8 @@ public class OrderDAOImpl implements OrderDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				Order order = new Order(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
-				List<OrderLine> orderLineList = selectOrderLine(con, order.getOrderCode());
+				OrderDTO order = new OrderDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				List<OrderLineDTO> orderLineList = selectOrderLine(con, order.getOrderCode());
 				order.setOrderLineList(orderLineList);
 				list.add(order);
 			}
@@ -177,10 +253,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return list;
 	}
 	
-	public List<OrderLine> selectOrderLine(Connection con, int orderCode) throws SQLException {
+	public List<OrderLineDTO> selectOrderLine(Connection con, int orderCode) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<OrderLine> list = new ArrayList<OrderLine>();
+		List<OrderLineDTO> list = new ArrayList<OrderLineDTO>();
 		
 		try {
 			ps = con.prepareStatement("select * from orderline where order_code = ?");
@@ -188,7 +264,7 @@ public class OrderDAOImpl implements OrderDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				OrderLine orderLine = new OrderLine(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7));
+				OrderLineDTO orderLine = new OrderLineDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7));
 				list.add(orderLine);
 			}
 		} finally {
