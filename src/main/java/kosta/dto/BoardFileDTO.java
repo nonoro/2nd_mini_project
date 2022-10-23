@@ -1,13 +1,13 @@
 package kosta.dto;
 
-public class BoardFile {
+public class BoardFileDTO {
 	private int boardFile; 
 	private int boardCode;
 	private String boardFileName;
 	
-	public BoardFile() { 
+	public BoardFileDTO() { 
 	}
-	public BoardFile(int boardFile, int boardCode, String boardFileName) {
+	public BoardFileDTO(int boardFile, int boardCode, String boardFileName) {
 		super();
 		this.boardFile = boardFile;
 		this.boardCode = boardCode;

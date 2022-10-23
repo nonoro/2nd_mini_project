@@ -1,6 +1,6 @@
 package kosta.dto;
 
-public class Reply {
+public class ReplyDTO {
 	private int replyCode;
 	private int boardCode;
 	private int categoryCode;
@@ -8,8 +8,8 @@ public class Reply {
 	private String replyContent;
 	private String replyregDate;
 	
-	public Reply() { }
-	public Reply(int replyCode, int boardCode, int categoryCode, String userId, String replyContent,
+	public ReplyDTO() { }
+	public ReplyDTO(int replyCode, int boardCode, int categoryCode, String userId, String replyContent,
 			String replyregDate) {
 		super();
 		this.replyCode = replyCode;

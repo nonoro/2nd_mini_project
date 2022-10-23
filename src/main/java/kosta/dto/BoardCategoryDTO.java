@@ -1,12 +1,12 @@
 package kosta.dto;
 
-public class BoardCategory {
+public class BoardCategoryDTO {
 	private int boardCategoryCode;
 	private String categoryContent;
 	
-	public BoardCategory() { }
+	public BoardCategoryDTO() { }
 
-	public BoardCategory(int boardCategoryCode, String categoryContent) {
+	public BoardCategoryDTO(int boardCategoryCode, String categoryContent) {
 		super();
 		this.boardCategoryCode = boardCategoryCode;
 		this.categoryContent = categoryContent;

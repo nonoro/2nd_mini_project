@@ -1,13 +1,13 @@
 package kosta.dto;
 
-public class ProductCategory {
+public class ProductCategoryDTO {
 	private int productCategoryCode;
 	private String productCategory;
 	private String productMgr;
 	
-	public ProductCategory() { }
+	public ProductCategoryDTO() { }
 
-	public ProductCategory(int productCategoryCode, String productCategory, String productMgr) {
+	public ProductCategoryDTO(int productCategoryCode, String productCategory, String productMgr) {
 		super();
 		this.productCategoryCode = productCategoryCode;
 		this.productCategory = productCategory;

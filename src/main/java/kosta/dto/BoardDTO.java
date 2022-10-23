@@ -1,6 +1,6 @@
 package kosta.dto;
  
-public class Board {
+public class BoardDTO {
 	private int boardCode;
 	private int categoryCode;
 	private String userId;
@@ -10,9 +10,9 @@ public class Board {
 	private String boardPostdate;
 	private String boardFile;
 	
-	public Board() { }
+	public BoardDTO() { }
 
-	public Board(int boardCode, int categoryCode, String userId, String boardTitle, String boardContent,
+	public BoardDTO(int boardCode, int categoryCode, String userId, String boardTitle, String boardContent,
 			String boardNick, String boardPostdate, String boardFile) {
 		super();
 		this.boardCode = boardCode;

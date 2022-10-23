@@ -1,8 +1,8 @@
 package kosta.dto;
 
-public class User {
+public class UserDTO {
 	private String userId;
-	private int userPwd;
+	private String userPwd;
 	private String userEmail;
 	private String userAddr;
 	private String userPhone;
@@ -11,9 +11,9 @@ public class User {
 	private String dogBirthday;
 	private int userPoint;
 	
-	public User() { }
+	public UserDTO() { }
 
-	public User(String userId, int userPwd, String userEmail, String userAddr, String userPhone, String userProfile,
+	public UserDTO(String userId, String userPwd, String userEmail, String userAddr, String userPhone, String userProfile,
 			String dogName, String dogBirthday, int userPoint) {
 		super();
 		this.userId = userId;
@@ -26,6 +26,12 @@ public class User {
 		this.dogBirthday = dogBirthday;
 		this.userPoint = userPoint;
 	}
+	
+	public UserDTO(String userId, String userPwd) {
+		this.userId = userId;
+		this.userPwd = userPwd;
+		
+	}
 
 	public String getUserId() {
 		return userId;
@@ -35,11 +41,11 @@ public class User {
 		this.userId = userId;
 	}
 
-	public int getUserPwd() {
+	public String getUserPwd() {
 		return userPwd;
 	}
 
-	public void setUserPwd(int userPwd) {
+	public void setUserPwd(String userPwd) {
 		this.userPwd = userPwd;
 	}
 
