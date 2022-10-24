@@ -44,4 +44,11 @@ public class OrderServiceImpl implements OrderService {
 		return list;
 	}
 
+	@Override
+	public OrderDTO selectState(int orderCode) throws SQLException {
+		OrderDTO order = orderDao.selectState(orderCode);
+		if(order == null) throw new SQLException("배송상태를 조회할 수 없습니다.");
+		
+		return order;
+	}
 }

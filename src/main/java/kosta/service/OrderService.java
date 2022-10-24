@@ -20,4 +20,14 @@ public interface OrderService {
 	 * 주문 내역 보기
 	 * */
 	List<OrderDTO> selectOrderByUserId(String userId) throws SQLException; 
+	
+	
+	/**
+	 * 주문상품 배송상태 조회
+	 */
+	OrderDTO selectState(int orderCode)throws SQLException;
+	
+	
+	
+	
 }
