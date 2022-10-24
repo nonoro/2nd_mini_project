@@ -66,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updatePwd(String userPwd, UserDTO userDTO) throws SQLException {
+	public int updatePwd(String newPwd, UserDTO userDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -77,7 +77,7 @@ public class UserDAOImpl implements UserDAO {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, userPwd);
+			ps.setString(1, newPwd);
 			ps.setString(2, userDTO.getUserId());
 			ps.setString(3, userDTO.getUserPwd());
 			
@@ -92,7 +92,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updateAddr(String userAddr, UserDTO userDTO) throws SQLException {
+	public int updateAddr(String newAddr, UserDTO userDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -103,7 +103,7 @@ public class UserDAOImpl implements UserDAO {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, userAddr);
+			ps.setString(1, newAddr);
 			ps.setString(2, userDTO.getUserId());
 			ps.setString(3, userDTO.getUserPwd());
 			
@@ -118,7 +118,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updateEmail(String userEmail, UserDTO userDTO) throws SQLException {
+	public int updateEmail(String newEmail, UserDTO userDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -129,7 +129,7 @@ public class UserDAOImpl implements UserDAO {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, userEmail);
+			ps.setString(1, newEmail);
 			ps.setString(2, userDTO.getUserId());
 			ps.setString(3, userDTO.getUserPwd());
 			
@@ -144,7 +144,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updatePhone(String userupdatePhone, UserDTO userDTO) throws SQLException {
+	public int updatePhone(String newPhone, UserDTO userDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -155,7 +155,7 @@ public class UserDAOImpl implements UserDAO {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, userupdatePhone);
+			ps.setString(1, newPhone);
 			ps.setString(2, userDTO.getUserId());
 			ps.setString(3, userDTO.getUserPwd());
 			
@@ -170,7 +170,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updateProfile(String userProfile, UserDTO userDTO) throws SQLException {
+	public int updateProfile(String newProfile, UserDTO userDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -181,7 +181,7 @@ public class UserDAOImpl implements UserDAO {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, userProfile);
+			ps.setString(1, newProfile);
 			ps.setString(2, userDTO.getUserId());
 			ps.setString(3, userDTO.getUserPwd());
 			
@@ -196,7 +196,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updateDogName(String userDogName, UserDTO userDTO) throws SQLException {
+	public int updateDogName(String newDogName, UserDTO userDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -207,7 +207,7 @@ public class UserDAOImpl implements UserDAO {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, userDogName);
+			ps.setString(1, newDogName);
 			ps.setString(2, userDTO.getUserId());
 			ps.setString(3, userDTO.getUserPwd());
 			
@@ -222,7 +222,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int updateDogBirthday(String userDogBirthday, UserDTO userDTO) throws SQLException {
+	public int updateDogBirthday(String newDogBirthday, UserDTO userDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -233,7 +233,7 @@ public class UserDAOImpl implements UserDAO {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, userDogBirthday);
+			ps.setString(1, newDogBirthday);
 			ps.setString(2, userDTO.getUserId());
 			ps.setString(3, userDTO.getUserPwd());
 			
@@ -306,7 +306,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		String pwd = null;
 		
-		String sql = "SELECT USER_PWD FROM USER WHERE USER_ID=? PHONE_NUMBER=? AND EMAIL=?";
+		String sql = "SELECT USER_PWD FROM USER WHERE USER_ID=? AND PHONE_NUMBER=? AND EMAIL=?";
 		
 		try {
 			con=DbUtil.getConnection();

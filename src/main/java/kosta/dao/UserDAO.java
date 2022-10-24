@@ -26,43 +26,43 @@ public interface UserDAO {
 	 * 개인정보 수정(비밀번호)
 	 * UPDATE USER SET USER_PWD =? WHERE USER_ID =? AND USER_PWD=?;
 	 */
-	int updatePwd(String userPwd, UserDTO userDTO) throws SQLException;
+	int updatePwd(String newPwd, UserDTO userDTO) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(주소)
 	 * UPDATE USER SET USER_ADDR =? WHERE USER_ID =? AND USER_PWD=?;
 	 */
-	int updateAddr(String userAddr, UserDTO userDTO) throws SQLException;
+	int updateAddr(String newAddr, UserDTO userDTO) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(이메일)
 	 * UPDATE USER SET USER_EMAIL =? WHERE USER_ID =? AND USER_PWD=?;
 	 */
-	int updateEmail(String userEmail, UserDTO userDTO) throws SQLException;
+	int updateEmail(String newEmail, UserDTO userDTO) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(전화번호)
 	 * UPDATE USER SET USER_PHONE =? WHERE USER_ID =? AND USER_PWD=?;
 	 */
-	int updatePhone(String userupdatePhone, UserDTO userDTO) throws SQLException;
+	int updatePhone(String newPhone, UserDTO userDTO) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(프로필)
 	 * UPDATE USER SET USER_PROFILE =? WHERE USER_ID =? AND USER_PWD=?;
 	 */
-	int updateProfile(String userProfile, UserDTO userDTO) throws SQLException;
+	int updateProfile(String newProfile, UserDTO userDTO) throws SQLException;
 
 	/**
 	 * 개인정보 수정(강아지 이름)
 	 * UPDATE USER SET USER_DOGNAME =? WHERE USER_ID =? AND USER_PWD=?;
 	 */
-	int updateDogName(String userDogName, UserDTO userDTO) throws SQLException;
+	int updateDogName(String newDogName, UserDTO userDTO) throws SQLException;
 	
 	/**
 	 * 개인정보 수정(강아지 정보)
 	 * UPDATE USER SET USER_DOGBIRTHDAY =? WHERE USER_ID =? AND USER_PWD=?;
 	 */
-	int updateDogBirthday(String userDogBirthday, UserDTO userDTO) throws SQLException;
+	int updateDogBirthday(String newDogBirthday, UserDTO userDTO) throws SQLException;
 	
 	/**
 	 * 주문내역 조회
