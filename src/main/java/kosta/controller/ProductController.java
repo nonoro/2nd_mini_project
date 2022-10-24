@@ -159,14 +159,28 @@ public class ProductController implements Controller {
 	/**
 	 * 상위카테고리별 
 	 * */
-	public ModelAndView productSelectByCategory(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView productSelectByCategorytop(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
 		
-		List<ProductDTO> cateList=prodService.productSelectByCategory(productCategory, 0);
-		request.setAttribute("cateListTop", cateList);
+		List<ProductDTO> cateList=prodService.productSelectByCategorytop(Integer.parseInt(productCategory));
+		request.setAttribute("cateList", cateList);
 		
-		return new ModelAndView("testForKyu.jsp", true);
+		return new ModelAndView("testForKyu.jsp");
+		
+	}
+	
+	/**
+	 * 하위카테고리별 
+	 * */
+	public ModelAndView productSelectByCategorybottom(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String productCategory=request.getParameter("productCategory");
+		
+		List<ProductDTO> cateBottomList=prodService.productSelectByCategorytop(Integer.parseInt(productCategory));
+		request.setAttribute("cateList2", cateBottomList);
+		
+		return new ModelAndView("testForKyu.jsp");
 		
 	}
 	
@@ -180,9 +194,9 @@ public class ProductController implements Controller {
 		   if(Integer.parseInt(arrange)==1) {
 		      arrange = "order by ordercount desc";
 		   }else if(Integer.parseInt(arrange)==2) {
-		      arrange = "order by ordercount desc";
+		      arrange = "order by reviewcount desc";
 		   }else{
-		      arrange = "order by ordercount desc";
+		      arrange = "order by star_avg desc";
 		   }
 		   System.out.println(arrange);
 		   List<ProductDTO> selectByarrange = prodService.selectByarrange(arrange);

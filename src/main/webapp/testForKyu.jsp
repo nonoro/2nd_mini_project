@@ -19,7 +19,7 @@ ${d.productCode}
 	<a href="${path}/front?key=product&methodName=selectByProductCode&productCode=1">
 		상품이름 값</a> ${productCode.productName} ${productCode.productPrice}
 
-	/////////////////////////////////////////////////////////////////////////////////////첨부파일있으면 멀티파트써 재덕
+	/////////////////////////////////////////////////////////////////////////////////////첨부파일있으면 멀티파트써 지으느으은
 	<form name="writeForm" method="post"
 		action="${path}/front?key=product&methodName=insert"
 		enctype="multipart/form-data">
@@ -112,7 +112,7 @@ ${d.productCode}
 			</tr>
 		</table>
 	</form>
-	/////////////////////////////////////////////////////////////////////////////////////첨부파일 없으면 이거 써 재덕 
+	/////////////////////////////////////////////////////////////////////////////////////첨부파일 없으면 이거 써 지응
 
 	<form name="writeForm" method="post"
 		action="${path}/front?key=product&methodName=update">
@@ -188,7 +188,20 @@ ${monthlyTotal }<br>
 
 <a href="${path }/front?key=product&methodName=yearlySalesByCode&productCode=2&orderDate=22/">상품코드별 년별판매통계 </a><br>
 ${yearlyTotal }<br>
-<a href="${path }/front?key=product&methodName=selectByarrange&arrange=1"> 주문많은거만 </a><br>
+<a href="${path }/front?key=product&methodName=selectByarrange&arrange=2"> 주문많은거만 </a><br>
 ${selectByarrange}
+
+<a href="${path }/front?key=product&methodName=productSelectByCategorytop&productCategory=1"> 대분류 </a><br>
+${cateList}</p>
+<c:forEach items="${cateList}" var="ca">
+${ca.productName}
+</c:forEach>
+
+
+<br>
+
+<a href="${path }/front?key=product&methodName=productSelectByCategorybottom&productCategory=1001"> 중분류 </a><br>
+${cateList2}<br>
+<br><br><br><br><br>
 </body>
 </html>

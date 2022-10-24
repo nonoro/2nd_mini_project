@@ -85,15 +85,6 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
-	@Override
-	public List<ProductDTO> productSelectByCategory(String arrange, int productCategory) throws SQLException {
-		List<ProductDTO> cateList = new ArrayList<ProductDTO>();
-		cateList=prodDAO.productSelectByCategory(arrange, productCategory);
-		if (cateList==null || cateList.size()==0){
-			throw new SQLException(" 등록된 상품이 없습니다.");
-		}
-		return cateList;
-	}
 
 	@Override
 	public List<ProductDTO> selectByarrange(String arrange) throws SQLException {
@@ -103,6 +94,26 @@ public class ProductServiceImpl implements ProductService {
 			throw new SQLException(" 등록된 상품이 없습니다.");
 		}
 		return orderBestList;
+	}
+
+	@Override
+	public List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException {
+		List<ProductDTO> cateList = new ArrayList<ProductDTO>();
+		cateList=prodDAO.productSelectByCategorytop(productCategory);
+		if (cateList==null || cateList.size()==0){
+			throw new SQLException("대분류에 상품이 없습니다.");
+		}
+		return cateList;
+	}
+
+	@Override
+	public List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException {
+		List<ProductDTO> cateBottomList = new ArrayList<ProductDTO>();
+		cateBottomList=prodDAO.productSelectByCategorybottom(productCategory);
+		if (cateBottomList==null || cateBottomList.size()==0){
+			throw new SQLException(" 소분류에 상품이 없습니다.");
+		}
+		return cateBottomList;
 	}
 	
 

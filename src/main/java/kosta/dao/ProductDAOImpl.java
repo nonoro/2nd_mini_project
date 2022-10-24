@@ -191,19 +191,22 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return result;
 	}
+	/**
+	 * 상위 카테고리별 전체 상품 띄우기
+	 * */
 	@Override
-	public List<ProductDTO> productSelectByCategory(String arrange, int productCategory) throws SQLException {
+	public List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException {
 		Connection con=null;
 		PreparedStatement ps =null;
 		ResultSet rs= null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
-		String sql="select p_code, p_name, p_price, p_explain\r\n"
+		String sql="select distinct(p.p_code), p.p_name, p.p_price, p.p_explain\r\n"
 				+ "from product p, product_category pc\r\n"
-				+ "where p.p_category_code = pc.p_category_code and p.p_category_code=?";
+				+ "where p.p_category = pc.p_category and p.p_category=?";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
-			ps.setInt(1,productCategory);
+			ps.setInt(1,productCategory);//1,2,3,4
 			rs= ps.executeQuery();
 			while(rs.next()) {
 				ProductDTO product= new ProductDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
@@ -214,8 +217,38 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return list;
 	}
+	
 	/**
-	 * 주문많은순 정렬
+	 * 하위
+	 * */
+	@Override
+	public List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		List<ProductDTO> list = new ArrayList<ProductDTO>();
+		String sql="select distinct(p.p_code), p.p_name, p.p_price, p.p_explain\r\n"
+				+ "from product p, product_category pc\r\n"
+				+ "where p.p_category = pc.p_category and p.p_category like ?";
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1,Integer.parseInt("%"+productCategory+"__"));//'%0__'
+			rs= ps.executeQuery();
+			while(rs.next()) {
+				ProductDTO product= new ProductDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+			list.add(product);
+			}
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return list;
+	}
+
+	
+	
+	/**
+	 * 정렬 - 주문많은순 1 , 후기 많은순 2, 별점 높은순 
 	 * */
 	@Override
 	public List<ProductDTO> selectByarrange(String arrange) throws SQLException {
@@ -223,7 +256,10 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
-		String sql="select  p.p_code, p.p_name, p.p_price, p.p_explain, count(distinct ol.order_code) as ordercount from product p join orderline ol on ol.p_code=p.p_code group by p.p_code,p.p_name, p.p_price, p.p_explain "+arrange;//주문많은순, 별점, 최신수 ----
+		String sql="select  p.p_code, p.p_name, p.p_price, p.p_explain, count(distinct ol.order_code) as ordercount, count(distinct r.review_code) as reviewcount, NVL(AVG(R.review_GRADE),0) AS STAR_AVG\r\n"
+				+ "from product p join orderline ol on p.p_code=ol.p_code\r\n"
+				+ "LEFT OUTER JOIN t_review r ON p.p_code= r.p_code \r\n"
+				+ "group by p.p_code, p.p_name, p.p_price, p.p_explain " +arrange;
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);

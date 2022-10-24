@@ -50,11 +50,12 @@ public interface ProductDAO {
 	/**
 	 * 상위카테고리에 따라 검색하는 기능 
 	 * */
-	List<ProductDTO> productSelectByCategory(String arrange, int productCategory) throws SQLException;
+	List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException;
 	
 	/**
 	 * 하위카테고리에 따라 검색하는 기능 
 	 * */
+	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;
 	
 	/**
 	 *  정렬하는기능 - 일단 주문많은순만 

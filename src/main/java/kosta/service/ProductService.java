@@ -46,7 +46,12 @@ public interface ProductService {
 	/**
 	 * 상위카테고리에 따라 상품 검색하는 기능 
 	 * */
-	List<ProductDTO> productSelectByCategory(String arrange, int productCategory) throws SQLException;
+	List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException;
+	
+	/**
+	 * 하위카테고리에 따라 상품 검색하는 기능 
+	 * */
+	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;
 	
 	/**
 	 * 주문많은순으로 상품을 검색하는 기능
