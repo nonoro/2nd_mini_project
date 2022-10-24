@@ -1,7 +1,9 @@
 package kosta.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kosta.dao.ProductDAO;
+import kosta.dao.ProductDAOImpl;
 import kosta.dto.ProductDTO;
+import kosta.service.ProductService;
+import kosta.service.ProductServiceImpl;
 
 public class CartController implements Controller {
-	
-	//private ProductService productService = new ProductServiceImpl();
+	private ProductService productService = new ProductServiceImpl();
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -25,40 +30,63 @@ public class CartController implements Controller {
 	
 	/**
 	 * 장바구니에 추가   (String userId, int productCode, int qty)
+	 * @throws SQLException 
 	 * */
 	public ModelAndView putCart(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 		
+		//1)
 		HttpSession session = request.getSession();
-		/* ProductDTO product = productService.productSelectByCode(productCode);
+		String userId = (String)session.getAttribute("userId");
 		
-		String userId = session.getAttribute("userId");
 		if(userId == null) {
 			return new ModelAndView("error", true);
+		} else {
+			int productCode = (int)session.getAttribute("productCode");
+			ProductDTO product = productService.selectByProductCode(productCode);
+			
+			int qty = (int)session.getAttribute("qty");
+			if(product.getProductQty() < qty) {
+				// throw new SQLException("재고량 부족으로 장바구니에 담을 수 없습니다.");
+				return new ModelAndView("error", true);
+			}
+				
+			Map<ProductDTO, Integer> cart = (Map<ProductDTO, Integer>)session.getAttribute("cart");
+				
+			if(cart == null) {
+				cart = new HashMap<>();
+				session.setAttribute("cart", cart);
+			}
+				
+			Integer oldQty = cart.get(product);
+			if(oldQty != null) {
+				qty += oldQty;
+			}
+				
+			cart.put(product, qty);
+			
+			return new ModelAndView("cart"); 
 		}
 		
-		//String productCode = session.getAttribute("productCode");
-		int qty = session.getAttribute("qty");
-		if(product.getProductQty() < qty) {
-			// throw new SQLException("재고량 부족으로 장바구니에 담을 수 없습니다.");
+		//2)
+		/* Object obj = (Object)session.getAttribute("cart");
+		
+		if(userId == null) {
 			return new ModelAndView("error", true);
-		}
+		} else {
+			if(obj == null) {
+				ArrayList<Integer> cart = new ArrayList<Integer>();
 			
-		Map<ProductDTO, Integer> cart = (Map<ProductDTO, Integer>)session.getAttribute("cart");
+				session.setAttribute("cart", cart);
+				obj = session.getAttribute("cart");
+			}
 			
-		if(cart == null) {
-			cart = new HashMap<>();
-			session.setAttribute("cart", cart);
-		}
+			ArrayList<Integer> cart = (ArrayList<Integer>)obj;
+			int productCode = Integer.parseInt(request.getParameter("productCode"));
+			cart.add(productCode);
 			
-		Integer oldQty = cart.get(product);
-		if(oldQty != null) {
-			qty += oldQty;
-		}
-			
-		cart.put(product, qty); */
-		
-		return new ModelAndView("cart"); 
+			return new ModelAndView("product");
+		} */
 	}
 	
 	/**
@@ -67,38 +95,79 @@ public class CartController implements Controller {
 	public ModelAndView viewCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	
+		//1)
 		HttpSession session = request.getSession();
-		/* String userId = session.getAttribute("userId");
+		String userId = (String)session.getAttribute("userId");
+		Map<ProductDTO, Integer> cart = (Map<ProductDTO, Integer>)session.getAttribute("cart");
 		
-		Map<ProductDTO, Integer> cart = (Map<Goods, Integer>)session.getAttribute("cart");
-		session.setAttribute("cart", cart);
-		
-		if(cart = null) {
+		if(userId == null) {
 			return new ModelAndView("error", true);
 		} else {
-			return new ModelAndView("cart");
+			if(cart == null) {
+				return new ModelAndView("error", true);
+			} else {
+				return new ModelAndView("cart");
+			}
+		} 
+		
+		//2)
+		/* response.setContentType("text/html; charset='UTF-8'");
+		
+		ArrayList<String> cartList = (ArrayList<String>)session.getAttribute("cartList");
+		PrintWriter out = response.getWriter();
+		
+		if(userId == null) {
+			return new ModelAndView("error", true);
+		} else {
+			if(cartList == null) {
+				return new ModelAndView("error", true);
+			} else {
+				for(String list: cartList) {
+					out.println(list);
+				}
+				return new ModelAndView("cart");
+			}
 		} */
-		return new ModelAndView("cart");
 	}
 	
 	
 	
 	/**
 	 * 장바구니에 저장된 상품 삭제
+	 * @throws SQLException 
 	 * */
 	public ModelAndView deleteCart(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException, SQLException {
 		
 		HttpSession session = request.getSession();
-		//전체 삭제
-		session.getAttribute("cart");
-		session.removeAttribute("cart"); 
+		String userId = (String)session.getAttribute("userId");
+		int productCode = (int)session.getAttribute("productCode");
 		
-		//해당 상품 삭제???
-		session.removeAttribute("productCode");
-		
-		return new ModelAndView("cart", true);
-		
+		if(session != null && userId != null) {
+			//전체 삭제
+			session.removeAttribute("cart"); 
+			
+			//해당 상품 삭제
+			ProductDAO productDao = new ProductDAOImpl();
+			ProductDTO product = productDao.selectByProductCode(productCode);
+			
+			/* if(product.getProductCode() == productCode) {
+				session.removeAttribute("productCode");
+			} */
+			
+			ArrayList<ProductDTO> cartList = (ArrayList<ProductDTO>)session.getAttribute("cartList");
+			ProductDTO productQty = new ProductDTO();
+			for(int i=0; i < cartList.size(); i++) {
+				productQty = cartList.get(i);
+				if(productQty.getProductCode() == productCode) {
+					cartList.remove(productQty);
+				}
+			}
+			
+			return new ModelAndView("cart", true);
+		} else {
+			return new ModelAndView("error");
+		}
 	}
 	
 	
@@ -106,11 +175,10 @@ public class CartController implements Controller {
 	/**
 	 * 장바구니에 저장된 상품 수량 수정
 	 * */
-	/*
-	 * public ModelAndView updateCart(HttpServletRequest request,
-	 * HttpServletResponse response) throws ServletException, IOException {
-	 * 
-	 * }
-	 */
-	
+	public ModelAndView updateCart(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		return new ModelAndView("cart", true);
+	}
+
 }

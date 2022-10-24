@@ -10,16 +10,15 @@ import java.util.List;
 
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
-import kosta.dto.PointDTO;
 import kosta.util.DbUtil;
 import kosta.dto.ProductDTO;
-import kosta.dto.UserDTO;
 
 public class OrderDAOImpl implements OrderDAO {
+	ProductDAO productDao = new ProductDAOImpl();
 	
-	//ProductDAO productDao = new ProductDAOImpl();
-	
-
+	/**
+	 * 주문하기
+	 * */
 	public int orderInsert(OrderDTO order) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -27,12 +26,13 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement("insert into orders values(order_code_seq.nextval, ?, sysdate, ?, 0, ?, 0, ?, 0)");
+			ps = con.prepareStatement("insert into orders values(order_code_seq.nextval, ?, sysdate, ?, 0, ?, ?, ?, ?)");
 			ps.setString(1, order.getUserId());
 			ps.setString(2, order.getOrderAddr());
 			ps.setInt(3, order.getOrderType());
-			ps.setInt(4, getTotalPay(order));
-			
+			ps.setInt(4, order.getUsedPoint());
+			ps.setInt(5, getTotalPrice(order));
+			ps.setInt(6, getPay(order));
 			result = ps.executeUpdate();
 			
 			if(result == 0) {
@@ -60,39 +60,47 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 	}
 	
-	public int getTotalPay(OrderDTO order) throws SQLException {
+	public int getTotalPrice(OrderDTO order) throws SQLException {
 		List<OrderLineDTO> orderLineList = order.getOrderLineList();
 		int total = 0;
 		
 		for(OrderLineDTO line: orderLineList) { 
-			/*
-			 * ProductDTO product = productDao.productSelectByCode(line.getProductCode());
-			 * if(product == null) throw new SQLException("상품 코드 오류로 주문 실패했습니다."); else
-			 * if(product.getProductQty() < line.getOrderlineQty()) throw new
-			 * SQLException("재고량이 부족합니다.");
-			 * 
-			 * total += line.getOrderlineQty() * product.getProductPrice();
-			 */
+			ProductDTO product = productDao.selectByProductCode(line.getProductCode());
+			if(product == null) 
+				throw new SQLException("상품 코드 오류로 주문 실패했습니다."); 
+			else if(product.getProductQty() < line.getOrderlineQty()) 
+				throw new SQLException("재고량이 부족합니다.");
+			 
+			total += line.getOrderlineQty() * product.getProductPrice();
 		}
 		 
 		return total;
 	}
 	
+	public int getPay(OrderDTO order) throws SQLException {
+		int pay;
+		
+		pay = getTotalPrice(order) - order.getUsedPoint();
+		
+		return pay;
+	}
 
 	public int[] orderLineInsert(Connection con, OrderDTO order) throws SQLException {
 		PreparedStatement ps = null;
 		int result[] = null;
 		try {
 			ps = con.prepareStatement("insert into orderline values(orderline_code_seq.nextval, order_code_seq.currval, ?, ?, ?, ?, ?)");
-			/*
-			 * for(OrderLine orderLine: order.getOrderLineList()) { Product product =
-			 * productDao.productSelectByCode(orderLine.getProductCode());
-			 * 
-			 * ps.setString(1, order.getUserId()); ps.setInt(2, product.getProductCode());
-			 * ps.setInt(3, orderLine.getOrderlinePrice()); ps.setInt(4,
-			 * orderLine.getOrderlineQty()); ps.setInt(5, product.getProductPrice() *
-			 * orderLine.getOrderlineQty()); ps.addBatch(); ps.clearParameters(); }
-			 */
+			for(OrderLineDTO orderLine: order.getOrderLineList()) { 
+				ProductDTO product = productDao.selectByProductCode(orderLine.getProductCode());
+				ps.setString(1, order.getUserId()); 
+				ps.setInt(2, product.getProductCode());
+				ps.setInt(3, orderLine.getOrderlinePrice()); 
+				ps.setInt(4, orderLine.getOrderlineQty()); 
+				ps.setInt(5, product.getProductPrice() * orderLine.getOrderlineQty()); 
+				ps.addBatch(); 
+				ps.clearParameters(); 
+			}
+			
 			result = ps.executeBatch();
 			
 		} finally {
@@ -126,7 +134,7 @@ public class OrderDAOImpl implements OrderDAO {
 		int result = 0;
 		
 		try {
-			ps = con.prepareStatement("update point set point_save=? where orders_code=? and users_id=?");
+			ps = con.prepareStatement("update t_point set point_save=point_save+? where order_code=? and user_id=?");
 			ps.setInt(1, (int)(order.getOrderPay() * 0.03));
 			ps.setInt(2, order.getOrderCode());
 			ps.setString(3, order.getUserId());
@@ -185,8 +193,9 @@ public class OrderDAOImpl implements OrderDAO {
 					}
 				}
 				
-				decrementQty(con, order.getOrderLineList());
-				savePoint(con, order);
+				incrementQty(con, order.getOrderLineList());
+				losePoint(con, order);
+				loseUserPoint(con, order);
 				con.commit();
 			}
 		} finally {
@@ -203,15 +212,12 @@ public class OrderDAOImpl implements OrderDAO {
 			ps = con.prepareStatement("delete from orderline where order_code=? and user_id=? and p_code=?");
 			
 			 for(OrderLineDTO orderLine: order.getOrderLineList()) { 
-					/*
-					 * ProductDTO product =
-					 * productDao.productSelectByCode(orderLine.getProductCode());
-					 * 
-					 * ps.setInt(1, order.getOrderCode()); ps.setString(2, order.getUserId());
-					 * ps.setInt(3, product.getProductCode());
-					 * 
-					 * ps.addBatch(); ps.clearParameters();
-					 */
+				 ProductDTO product = productDao.selectByProductCode(orderLine.getProductCode());
+				 ps.setInt(1, order.getOrderCode()); 
+				 ps.setString(2, order.getUserId());
+				 ps.setInt(3, product.getProductCode());
+				 ps.addBatch(); 
+				 ps.clearParameters();	
 			}
 			 
 			result = ps.executeBatch();
@@ -219,6 +225,59 @@ public class OrderDAOImpl implements OrderDAO {
 		} finally {
 			DbUtil.dbClose(null, ps);
 		}
+		return result;
+	}
+	
+	public int[] incrementQty(Connection con, List<OrderLineDTO> orderLineList) throws SQLException {
+		PreparedStatement ps = null;
+		int result[] = null;
+		try {
+			ps = con.prepareStatement("update product set p_qty = p_qty+? where p_code=?");
+			for(OrderLineDTO orderLine: orderLineList) {
+				ps.setInt(1, orderLine.getOrderlineQty());
+				ps.setInt(2, orderLine.getProductCode());
+				
+				ps.addBatch();
+				ps.clearParameters();
+			}
+			
+			result = ps.executeBatch();
+		} finally {
+			DbUtil.dbClose(null, ps, null);
+		}
+		return result;
+	}
+	
+	public int losePoint(Connection con, OrderDTO order) throws SQLException {
+		PreparedStatement ps = null;
+		int result = 0;
+		
+		try {
+			ps = con.prepareStatement("update t_point set point_save=point_save-? where order_code=? and user_id=?");
+			ps.setInt(1, (int)(order.getOrderPay() * 0.03));
+			ps.setInt(2, order.getOrderCode());
+			ps.setString(3, order.getUserId());
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(null, ps);
+		}
+		
+		return result;
+	}
+	
+	public int loseUserPoint(Connection con, OrderDTO order) throws SQLException {
+		PreparedStatement ps = null;
+		int result = 0;
+		
+		try {
+			ps = con.prepareStatement("update users set user_point=user_point-? where users_id=?"); 
+			ps.setInt(1, (int)(order.getOrderPay() * 0.03));
+			ps.setString(2, order.getUserId());
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(null, ps);
+		}
+		
 		return result;
 	}
 
@@ -272,6 +331,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return list;
 	}
 
+	
+	
+	
+	
 	@Override
 	public OrderDTO selectState(int orderCode) throws SQLException {
 		Connection con=null;
@@ -352,5 +415,6 @@ public class OrderDAOImpl implements OrderDAO {
 	      return list;
 
 	}
+
 
 }

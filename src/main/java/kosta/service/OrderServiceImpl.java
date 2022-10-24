@@ -6,19 +6,23 @@ import java.util.List;
 import kosta.dao.OrderDAO;
 import kosta.dao.OrderDAOImpl;
 import kosta.dto.OrderDTO;
-import kosta.dto.PointDTO;
-import kosta.dto.UserDTO;
 
 public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDao = new OrderDAOImpl();
 
+	/**
+	 * 주문하기
+	 */
 	@Override
 	public int orderInsert(OrderDTO order) throws SQLException {
 		int result = orderDao.orderInsert(order);
 		if(result == 0) throw new SQLException("주문에 실패했습니다.");
 		return result;
 	}
-
+	
+	/**
+	 * 주문 취소
+	 * */
 	@Override
 	public int orderCancel(OrderDTO order) throws SQLException {
 		int result = orderDao.orderCancel(order);
@@ -26,6 +30,9 @@ public class OrderServiceImpl implements OrderService {
 		return result;
 	}
 	
+	/**
+	 * 주문 내역 보기
+	 * */
 	@Override
 	public List<OrderDTO> selectOrderByUserId(String userId) throws SQLException {
 		List<OrderDTO> list = orderDao.selectOrderByUserId(userId);
@@ -33,4 +40,11 @@ public class OrderServiceImpl implements OrderService {
 		return list;
 	}
 
+	@Override
+	public OrderDTO selectState(int orderCode) throws SQLException {
+		OrderDTO order = orderDao.selectState(orderCode);
+		if(order == null) throw new SQLException("배송상태를 조회할 수 없습니다.");
+		
+		return order;
+	}
 }

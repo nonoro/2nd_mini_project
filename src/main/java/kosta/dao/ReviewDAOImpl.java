@@ -67,7 +67,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public int update(int grade, String contetn, ReviewDTO reviewDTO) throws SQLException {
+	public int update(ReviewDTO reviewDTO) throws SQLException {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -77,8 +77,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, grade);
-			ps.setString(2, contetn);
+			ps.setInt(1, reviewDTO.getReviewGrade());
+			ps.setString(2, reviewDTO.getReviewDetail());
 			ps.setInt(3, reviewDTO.getReviewCode());
 			ps.setString(4, reviewDTO.getUserId());
 			
