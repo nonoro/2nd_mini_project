@@ -15,6 +15,10 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductDTO> selectAll() throws SQLException {
 		List<ProductDTO> listAll = new ArrayList<ProductDTO>();
 		listAll=prodDAO.selectAll();
+		if (listAll==null || listAll.size()==0){
+			throw new SQLException(" 등록된 상품이 없습니다.");
+		}
+				
 		return listAll;
 	}
 
@@ -38,43 +42,68 @@ public class ProductServiceImpl implements ProductService {
 		ProductDTO dbPro=prodDAO.selectByProductCode(product.getProductCode());
 		if(dbPro==null) {
 			throw new SQLException("상품코드를 다시 입력해주세요 ");
-		} //수정할때 비밀번호나 사전에 요구사항 없는지 확인 -->id
-		//user꺼 필요한가..?
+		}
 		if(prodDAO.update(product)==0) {
 			throw new SQLException("수정되지않았습니다. ");
 		}
 		
 	}
 
-	@Override
-	public void delete(int productCode, String password) throws SQLException {
+	@Override //id
+	public void delete(int productCode, String loginPwd, String saveDir) throws SQLException {
 		ProductDTO dbPro=prodDAO.selectByProductCode(productCode);
 		if(dbPro==null) {
 			throw new SQLException("상품코드를 다시 입력해주세요 ");
 		} //수정할때 비밀번호나 사전에 요구사항 없는지 확인 -->id
 		//user꺼 필요한가..?
-		if(prodDAO.delete(productCode,password)==0) {
-			throw new SQLException("수정되지않았습니다. ");
+		if(prodDAO.delete(productCode,loginPwd)==0) {
+			throw new SQLException("삭제되지않았습니다. ");
 		}
 	}
 
 	@Override
-	public List<ProductDTO> monthlySalesByCode() throws SQLException {
-
-		return null;
+	public int monthlySalesByCode(int productCode, String orderDate) throws SQLException {
+		int result=prodDAO.monthlySalesByCode(productCode,orderDate);
+		if(result==0) {
+			throw new SQLException("상품코드를 다시 입력해주세요 ");
+		}
+		if (prodDAO.monthlySalesByCode(productCode, orderDate)==0) {
+			throw new SQLException("결과에 해당하는 값이 없습니다.");
+		}
+		return result;
 	}
 
 	@Override
-	public List<ProductDTO> yearlySalesByCode() throws SQLException {
-
-		return null;
+	public int yearlySalesByCode(int productCode, String orderDate) throws SQLException {
+		int result=prodDAO.yearlySalesByCode(productCode,orderDate);
+		if(result==0) {
+			throw new SQLException("상품코드를 다시 입력해주세요 ");
+		}
+		if (prodDAO.monthlySalesByCode(productCode, orderDate)==0) {
+			throw new SQLException("결과에 해당하는 값이 없습니다.");
+		}
+		return result;
 	}
 
 	@Override
-	public List<ReviewDTO> reviewByProductCode(int productCode) throws SQLException {
-		List<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
-		reviewList=prodDAO.reviewByProductCode(productCode);
-		return reviewList;
+	public List<ProductDTO> productSelectByCategory(String arrange, int productCategory) throws SQLException {
+		List<ProductDTO> cateList = new ArrayList<ProductDTO>();
+		cateList=prodDAO.productSelectByCategory(arrange, productCategory);
+		if (cateList==null || cateList.size()==0){
+			throw new SQLException(" 등록된 상품이 없습니다.");
+		}
+		return cateList;
 	}
+
+	@Override
+	public List<ProductDTO> selectByarrange(String arrange) throws SQLException {
+		List<ProductDTO> orderBestList = new ArrayList<ProductDTO>();
+		orderBestList=prodDAO.selectByarrange(arrange);
+		if (orderBestList==null || orderBestList.size()==0){
+			throw new SQLException(" 등록된 상품이 없습니다.");
+		}
+		return orderBestList;
+	}
+	
 
 }

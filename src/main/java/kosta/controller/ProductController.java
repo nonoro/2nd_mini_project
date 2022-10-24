@@ -1,90 +1,197 @@
 package kosta.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ProductController implements Controller {
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kosta.dto.ProductDTO;
+import kosta.service.ProductService;
+import kosta.service.ProductServiceImpl;
+
+
+public class ProductController implements Controller {
+	
+	private ProductService prodService = new ProductServiceImpl();
+	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		return null;
+		
 	}
 
-	
 	/**
 	 * 상품 전체검색
 	 * */
 	public ModelAndView selectAll(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
 		
-		return null;
+		List<ProductDTO> selectAll = prodService.selectAll();
+		request.setAttribute("list", selectAll);//뷰에서 ${list}
+		
+		return new ModelAndView("testForKyu.jsp");  //forward방식으로 이동
 	}
+	
 	
 	/**
 	 * 상품이름에 해당하는 레코드 검색
 	 * */
 	public ModelAndView selectByProductCode(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		String productCode=request.getParameter("productCode") ;
 		
-		return null;
+		ProductDTO selectByCode =prodService.selectByProductCode(Integer.parseInt(productCode));
+		request.setAttribute("productCode", selectByCode);//뷰ㅠ에서 ${producName
+		return new ModelAndView("testForKyu.jsp");
 	}
 	
 	/**
 	 * 상품 등록하기
 	 * */
 	public ModelAndView insert(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		// 상품등록.jsp 에서  enctype="multipart/form-data" 설정되어 있다면 request아닌 MultipartRequest로 처리한다. - cos.jar
+				String saveDir = request.getServletContext().getRealPath("/save"); //
+				int maxSize=1024*1024*100; //100M
+				String encoding="UTF-8";
+		MultipartRequest m= 
+				new MultipartRequest(request, saveDir, maxSize,encoding, new DefaultFileRenamePolicy());
+		//전송데이터 받기 
+		String ProductCode=m.getParameter("productCode"); //아직 등록페이지 없음
+		String ProductCategory=m.getParameter("productCategory");
+		String ProductName=m.getParameter("productName");
+		String ProductPrice=m.getParameter("productPrice");
+		String ProductQty=m.getParameter("productQty");
+		String ProductExplain=m.getParameter("productExplain");
+		String fname=m.getParameter("fname");
+		//받은값넣깅
+		ProductDTO product= new ProductDTO(Integer.parseInt(ProductCode), Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,null);
+				
+		if(m.getFilesystemName("file") != null) {
+			//파일이름저장
+			product.setFname(m.getFilesystemName("file"));
+			
+			prodService.insert(product);
+		}
+		return new ModelAndView("testForKyu.jsp", true);
 		
-		return null;
 	}
 	
 	/**
 	 * 상품 삭제하기 
 	 * */
 	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		String productCode=request.getParameter("productcode");
+		String loginPwd=request.getParameter("loginPwd");
 		
-		return null;
+		//첨부된다면 상품이 삭제 되었을때 첨부파일도 삭제 하는기능 
+		String saveDir=request.getServletContext().getRealPath("/save");
+		prodService.delete(Integer.parseInt(productCode),loginPwd,saveDir);
+		
+		return new ModelAndView("testForKyu.jsp", true);
 	}
 	
 	/**
 	 * 상품 수정하기 
 	 * */
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		//수정할 정보 받아오기 
+		String productCode=request.getParameter("productCode");
+		String productName=request.getParameter("productName");
+		String productPrice=request.getParameter("productPrice");
+		String productQty=request.getParameter("productQty");
+		String productExplain=request.getParameter("productExplain");
 		
-		return null;
+		//페이징처리 자리 
+		String pageNo = request.getParameter("pageNo");
+				
+		prodService.update(new ProductDTO(Integer.parseInt(productCode),productName, Integer.parseInt(productPrice), Integer.parseInt(productQty), productExplain));
+		
+		//ModelAndView mv= new ModelAndView();
+		//mv.setViewName("");
+		//mv.setRedirect(true);
+		
+		return new ModelAndView("testForKyu.jsp", true);
 	}
 	/**
 	 * 상품 코드별 판매통계 조회 월별
 	 */
 	public ModelAndView monthlySalesByCode(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		//값받아오기 
+		String productCode=request.getParameter("productCode");
+		String orderDate=request.getParameter("orderDate");
 		
-		return null;
+		int monthlyTotal=prodService.monthlySalesByCode(Integer.parseInt(productCode), orderDate);
+		
+		request.setAttribute("monthlyTotal", monthlyTotal); 
+		
+		return new ModelAndView("testForKyu.jsp");
+		
 	}
 	
 	/**
 	 * 상품 코드별 판매통계 조회 년별
 	 */
 	public ModelAndView yearlySalesByCode(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
+		//값받아오기 
+				String productCode=request.getParameter("productCode");
+				String orderDate=request.getParameter("orderDate");
+				
+				int yearlyTotal=prodService.monthlySalesByCode(Integer.parseInt(productCode), orderDate);
+				
+				request.setAttribute("yearlyTotal", yearlyTotal); 
+				
+				return new ModelAndView("testForKyu.jsp");
 		
-		return null;
 	}
 	
 	/**
-	 * 상품코드에 해당하는 후기 조회
-	 */
-	public ModelAndView reviewByProductCode(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	 * 상위카테고리별 
+	 * */
+	public ModelAndView productSelectByCategory(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String productCategory=request.getParameter("productCategory");
 		
-		return null;
+		List<ProductDTO> cateList=prodService.productSelectByCategory(productCategory, 0);
+		request.setAttribute("cateListTop", cateList);
+		
+		return new ModelAndView("testForKyu.jsp", true);
+		
 	}
+	
+	/**
+	 * 주문많은순으로 정렬 
+	 * */
+	public ModelAndView selectByarrange(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String arrange = request.getParameter("arrange");
+		  
+		   if(Integer.parseInt(arrange)==1) {
+		      arrange = "order by ordercount desc";
+		   }else if(Integer.parseInt(arrange)==2) {
+		      arrange = "order by ordercount desc";
+		   }else{
+		      arrange = "order by ordercount desc";
+		   }
+		   System.out.println(arrange);
+		   List<ProductDTO> selectByarrange = prodService.selectByarrange(arrange);
+	
+		request.setAttribute("selectByarrange", selectByarrange);
+		
+		return new ModelAndView("testForKyu.jsp");
+		
+	}
+	
 	
 }
