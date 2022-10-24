@@ -83,4 +83,31 @@ public class OrderController implements Controller {
 			return new ModelAndView("error", true);
 		}
 	}
+	
+	
+	public ModelAndView selectState(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String orderCode = request.getParameter("orderCode");
+		
+		OrderDTO order = orderService.selectState(Integer.parseInt(orderCode));
+		
+		int state = order.getOrderComplete();
+		
+		if(state==0) {
+			request.setAttribute("orderState", "준비중");
+		}else if(state==1) {
+			request.setAttribute("orderState", "배송중");
+		}else if(state==2) {
+			request.setAttribute("orderState", "배송완료");
+		}else if(state==3) {
+			request.setAttribute("orderState", "취소");
+		}else {
+			request.setAttribute("orderState", "배송상태를 조회할 수 없습니다.");
+		}
+
+		
+		return new ModelAndView("orderList");
+	}
+	
+	
+	
 }
