@@ -4,9 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kosta.dto.OrderDTO;
-import kosta.dto.OrderLineDTO;
-import kosta.dto.PointDTO;
-import kosta.dto.UserDTO;
 
 public interface OrderDAO {
 	/**
@@ -27,7 +24,6 @@ public interface OrderDAO {
 	/**
 	 * 주문하기
 	 */
-
 	int orderInsert(OrderDTO order) throws SQLException;
 	
 	/**

@@ -1,7 +1,6 @@
 package kosta.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kosta.dto.OrderDTO;
-import kosta.dto.OrderLineDTO;
 import kosta.service.OrderService;
 import kosta.service.OrderServiceImpl;
 
@@ -23,39 +21,66 @@ public class OrderController implements Controller {
 		return null;
 	}
 	
+	
+	
+	/**
+	 * 주문하기
+	 */
 	public ModelAndView orderInsert(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//전송된 데이터 받기
+		//전송된 데이터 받기				
+		String userId = request.getParameter("userId");
+		String orderAddr = request.getParameter("orderAddr");
+		int orderType = Integer.parseInt(request.getParameter("orderType"));
+		int orderUsedPoint = Integer.parseInt(request.getParameter("orderUsedPoint"));
+		int orderTotalPrice = Integer.parseInt(request.getParameter("orderTotalPrice"));		
+		int orderPay = Integer.parseInt(request.getParameter("orderPay"));		
 		
-		OrderDTO order = new OrderDTO(0, null, null, null, 0, 0, 0, 0, 0);
+		OrderDTO order = new OrderDTO(0, userId, null, orderAddr, 0, orderType, orderUsedPoint, orderTotalPrice, orderPay);
 		
-		orderService.orderInsert(order);
-		
-		return new ModelAndView("order", true);
+		if(userId != null) { 
+			orderService.orderInsert(order);
+			return new ModelAndView("order", true);
+		} else {
+			return new ModelAndView("error", true);
+		}		
 	}
 	
 	
 	
+	/**
+	 * 주문 취소
+	 * */
 	public ModelAndView orderCancel(HttpServletRequest request, HttpServletResponse response) throws Exception  {
-		//전송된 데이터 받기
+		//전송된 데이터 받기		
+		String userId = request.getParameter("userId");
+		int OrderCode = Integer.parseInt(request.getParameter("orderCode"));
+
+		OrderDTO order = new OrderDTO(OrderCode, userId, null, null, 0, 0, 0, 0, 0);
 		
-		
-		
-		OrderDTO order = new OrderDTO(0, null, null, null, 0, 0, 0, 0, 0);
-		
-		orderService.orderCancel(order);
-		
-		
-		return new ModelAndView("index", true);
+		if(userId != null) { 
+			orderService.orderCancel(order);
+			return new ModelAndView("index", true);
+		} else {
+			return new ModelAndView("error", true);
+		}
 	}	
 	
 	
 	
+	/**
+	 * 주문 내역 보기
+	 * */
 	public ModelAndView selectOrderByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//전송된 데이터 받기
-
-		List<OrderDTO> orderList = orderService.selectOrderByUserId(null); 
+		String userId = request.getParameter("userId");
 		
-		return new ModelAndView("order", true);
+		if(userId != null) { 
+			List<OrderDTO> orderList = orderService.selectOrderByUserId(userId); 
+			request.setAttribute("orderList", orderList);
+			
+			return new ModelAndView("orderList");
+		} else {
+			return new ModelAndView("error", true);
+		}
 	}
-
 }
