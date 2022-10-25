@@ -1,0 +1,43 @@
+body {
+  margin: auto;
+  padding: 0;
+  background-image: url('https://cdn.imweb.me/thumbnail/20220831/2e030bda65725.jpg');
+
+}
+
+.header {
+  background-color: burlywood;
+  height: 70px;
+  text-align: center;
+  /* padding-top: 20px; */
+  display: table;
+  width: 100%;
+}
+
+.header-center {
+  display: table-cell;
+  width: 40%;
+  height: 100%;
+  text-align: center;
+
+}
+
+.header-side {
+  display: table-cell;
+  width: 30%;
+  height: 100%;
+  text-align: right;
+  padding-right: 30px;
+}
+
+
+/* 로그인 회원가입 ~~ a태그 색깔 */
+a.nav-link {
+  color: white;
+}
+
+
+/* 로그인 회원가입 ~~ a태그 위치 */
+ul.nav.nav-pills {
+  padding-top: 15px;
+}

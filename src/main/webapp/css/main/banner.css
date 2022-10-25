@@ -1,0 +1,39 @@
+
+  /* 배너 */
+  .banner {
+    height: 40px;
+    text-align: center;
+    
+    display: table;
+    width: 100%;
+
+    padding-bottom: 20px;
+
+  }
+
+  .banner-center {
+    display: table-cell;
+    width: 40%;
+    text-align: center;
+
+  }
+
+  .banner-side {
+    display: table-cell;
+    width: 30%;
+    text-align: right;
+    padding-right: 30px;
+  }
+
+  .banner-search {
+    display: table-cell;
+    width: 30%;
+    height: 200px;
+    /* text-align: right; */
+    padding-right: 90px;
+    padding-top: 10px;
+    position: absolute;
+  }
+
+
+  
