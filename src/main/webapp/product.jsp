@@ -101,12 +101,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script type="text/javascript">
 	$(function() {
+		sessionStorage.setItem("userId", "jang");
+		
+		
 
 		$("[name=cartInsert]").click(function() { 
 			let key = $(this).attr("id");
 			let value = $(this).attr("value"); //$(this).val() 가능
 
-			sessionStorage.setItem(key, value);
+			localStorage.setItem(key, value);
 			
 			if(confirm("장바구니를 확인하시겠습니까?")) {
 				location.href = "cartList.html";

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
@@ -29,8 +30,11 @@ public class OrderController implements Controller {
 	 * 주문하기
 	 */
 	public ModelAndView orderInsert(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//전송된 데이터 받기				
-		String userId = request.getParameter("userId");
+		//전송된 데이터 받기	
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		
+		//String userId = request.getParameter("userId");
 		String orderAddr = request.getParameter("orderAddr");
 		int orderType = Integer.parseInt(request.getParameter("orderType"));
 		int orderUsedPoint = Integer.parseInt(request.getParameter("orderUsedPoint"));
@@ -85,8 +89,7 @@ public class OrderController implements Controller {
 			return new ModelAndView("error", true);
 		}
 	}
-	
-	
+
 	
 	/**
 	 * 주문 내역 상세 보기
@@ -102,5 +105,28 @@ public class OrderController implements Controller {
 		} else {
 			return new ModelAndView("error");
 		}
+	}
+
+	public ModelAndView selectState(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String orderCode = request.getParameter("orderCode");
+		
+		OrderDTO order = orderService.selectState(Integer.parseInt(orderCode));
+		
+		int state = order.getOrderComplete();
+		
+		if(state==0) {
+			request.setAttribute("orderState", "준비중");
+		}else if(state==1) {
+			request.setAttribute("orderState", "배송중");
+		}else if(state==2) {
+			request.setAttribute("orderState", "배송완료");
+		}else if(state==3) {
+			request.setAttribute("orderState", "취소");
+		}else {
+			request.setAttribute("orderState", "배송상태를 조회할 수 없습니다.");
+		}
+
+		
+		return new ModelAndView("orderList");
 	}
 }

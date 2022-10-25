@@ -31,25 +31,32 @@ public interface ProductService {
 	/**
 	 * 상품삭제
 	 */
-	void delete(int productCode, String password) throws SQLException;
+	void delete(int productCode, String loginPwd,String saveDir) throws SQLException;
 	
 	/**
 	 * 상품 코드별 판매통계 조회 월별
 	 */
-	List<ProductDTO> monthlySalesByCode() throws SQLException;
-	
-	
+	int monthlySalesByCode(int productCode, String orderDate) throws SQLException;
 	
 	/**
 	 * 판매통계 조회 년별
 	 */
-	List<ProductDTO> yearlySalesByCode() throws SQLException;
-
+	int yearlySalesByCode(int productCode, String orderDate) throws SQLException;
 	
 	/**
-	 * 상품코드에 해당하는 후기 조회
+	 * 상위카테고리에 따라 상품 검색하는 기능 
 	 * */
-	List<ReviewDTO> reviewByProductCode(int productCode) throws SQLException;
+	List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException;
 	
+	/**
+	 * 하위카테고리에 따라 상품 검색하는 기능 
+	 * */
+	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;
+	
+	/**
+	 * 주문많은순으로 상품을 검색하는 기능
+	 * */
+	List<ProductDTO> selectByarrange(String arrange) throws SQLException;
 
+	
 }

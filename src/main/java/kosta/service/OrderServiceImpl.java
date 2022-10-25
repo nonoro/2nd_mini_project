@@ -47,6 +47,11 @@ public class OrderServiceImpl implements OrderService {
 		if(lineList == null || lineList.size() == 0) throw new SQLException(orderCode + "에 해당하는 주문 내역이 없습니다.");
 		return lineList;
 	}
-	
 
+	public OrderDTO selectState(int orderCode) throws SQLException {
+		OrderDTO order = orderDao.selectState(orderCode);
+		if(order == null) throw new SQLException("배송상태를 조회할 수 없습니다.");
+		
+		return order;
+	}
 }

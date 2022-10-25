@@ -22,7 +22,7 @@ public interface ReviewDAO {
 	 * 수정
 	 * UPDATE REVIEW SET GRADE=?, REVIEW_DETAIL=? WHERE REVIEW_CODE=? AND USER_ID=?;
 	 */
-	int update(int grade, String contetn, ReviewDTO reviewDTO) throws SQLException;
+	int update(ReviewDTO reviewDTO) throws SQLException;
 
 	/**
 	 * 삭제

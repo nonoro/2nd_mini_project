@@ -22,9 +22,10 @@ td {text-align: center;}
 		function refreshPage() {
 			let str = ""; 
 			let toalprice = 0;
-			for(let i=0; i < sessionStorage.length; i++) {
-				let key = sessionStorage.key(i); //1001 
-				let value = sessionStorage.getItem(key); //쿵푸팬더,img/movie_image2.jpg,3000
+			
+			for(let i=0; i < localStorage.length; i++) {
+				let key = localStorage.key(i); //1001 
+				let value = localStorage.getItem(key); //쿵푸팬더,img/movie_image2.jpg,3000
 
 				//value의 값을 , 기준으로 분리
 				let arr = value.split(",");
@@ -54,7 +55,7 @@ td {text-align: center;}
 		$(document).on("click", "[name=delItem]", function() { 
 			if(confirm("삭제하시겠습니까?")) {
 				let key = $(this).parent().parent().find("td:eq(1)").text() 
-				sessionStorage.removeItem(key);
+				localStorage.removeItem(key);
 
 				refreshPage();
 			}
@@ -62,7 +63,7 @@ td {text-align: center;}
 		
 		$(document).on("click", "[name=delAllItem]", function() { 
 			if(confirm("전체 삭제하시겠습니까?")) {
-				sessionStorage.clear();
+				localStorage.clear();
 				
 				refreshPage();
 			}
@@ -95,7 +96,7 @@ td {text-align: center;}
 		<section class="link">
 			<table   align="center">
 			<tr><td align="center">
-				<a href="order.jsp">주문하러 가기</a> 
+				<a href="order.html">주문하러 가기</a> 
 				<a href="index.html">DVD LIST</a> 
 			</td></tr>
 			</table>
