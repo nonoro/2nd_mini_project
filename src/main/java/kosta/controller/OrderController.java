@@ -91,6 +91,7 @@ public class OrderController implements Controller {
 		OrderDTO order = orderService.selectState(Integer.parseInt(orderCode));
 		
 		int state = order.getOrderComplete();
+		System.out.println("controller = " + state);
 		
 		if(state==0) {
 			request.setAttribute("orderState", "준비중");
@@ -105,8 +106,10 @@ public class OrderController implements Controller {
 		}
 
 		
-		return new ModelAndView("orderList");
+		return new ModelAndView("jongmintest.jsp");
 	}
+	
+	
 	
 	
 	

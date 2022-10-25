@@ -31,4 +31,10 @@ public interface ReviewDAO {
 	int delete(int reviewCode) throws SQLException;
 	
 	
+	/**
+	 * 코드로 조회
+	 */
+	ReviewDTO selectByCode(int reviewCode) throws SQLException;
+	
+	
 }
