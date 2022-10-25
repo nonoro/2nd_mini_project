@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,99 +99,53 @@
         }
         
     </style>
+    <script type="text/javascript">
+    	$(function() {
+		function C() {
+			
+		}
+	
+		})	
+		
+    </script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script type="text/javascript">
-	$(function() {
-		sessionStorage.setItem("userId", "jang");
-		
-		
-
-		$("[name=cartInsert]").click(function() { 
-			let key = $(this).attr("id");
-			let value = $(this).attr("value"); //$(this).val() 가능
-
-			localStorage.setItem(key, value);
-			
-			if(confirm("장바구니를 확인하시겠습니까?")) {
-				location.href = "cartList.html";
-			}
-		});
-		
-		$("a").click(function() { 
-			//alert("최근 본 상품!")
-			let key = $(this).attr("id");
-			let value = $(this).attr("value"); //$(this).val() 가능
-
-			localStorage.setItem(key, value);
-		});
-		
-		
-
-	}); //readyEnd
-</script>
-    
+   
 </head>
 
 <body>
+
 <div class="header-wrap">헤더자리</div>
-<div class="clear">공백</div>
-
+<div class="clear">
+</div>
+    
 <div class="product_list row">
-
+<c:forEach items="${list}" var="p">
     <!--상품 -->
      <div class="product_box cell">
+     
         <div class="img_box">
-        	<a href="${path}/productDetail.jsp" id="1001" value="쿵푸팬더,img/movie_image2.jpg,3000">
-        		<img id="1001" src="img/movie_image2.jpg">
-        	</a>    
+        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}">
+            <img id="food_01_img" src="food/53346_originalView_01991543.jpeg"> 
+        </a>    
         </div><!--img_box-->
 
         <div class="text_box">
-        	<a id="food_01_title" href="http://www.naver.com" >네츄럴코어 에코 시니어 오리&고구마<br></a>
-            <div class="food_01_text">국내산 100% 고구마 사용</div>
-            <div class="food_01_price"> 49,900원</div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-            <button name="cartInsert" id="1001" value="쿵푸팬더,img/movie_image2.jpg,3000" >장바구니 담기</button> 
+        	<a id="food_01_title" href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}"><!--상품 이름-->
+        	
+            ${p.productName}<br>
+            </a>
+            <div class="food_01_text"><!--상품 설명-->
+            ${p.productExplain}
+            </div>
+            <div class="food_01_price"><!--상품 가격-->
+            ${p.productPrice}
+            </div>
         </div><!--text_box-->
     </div><!--product_box-->
-    
-   <div class="product_box cell">
-        <div class="img_box">
-        	<a href="http://www.naver.com" id="1002" value="어벤져스,img/avengers.jpg,3000">
-        		<img id="1002" src="img/avengers.jpg" value="어벤져스,img/avengers.jpg,3000">
-        	</a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_01_title" href="http://www.naver.com">네츄럴코어 에코 시니어 오리&고구마<br></a>
-            <div class="food_01_text">국내산 100% 고구마 사용</div>
-            <div class="food_01_price"> 49,900원</div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-            <button name="cartInsert" id="1002" value="어벤져스,img/avengers.jpg,3000">장바구니 담기</button>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <div class="product_box cell">
-        <div class="img_box">
-        	<a href="http://www.naver.com" id="1002" value="어벤져스,img/avengers.jpg,3000">
-        		<img id="1003" src="img/BigBuck.jpg" class="recentList">
-        	</a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_01_title" href="http://www.naver.com" class="recentList">네츄럴코어 에코 시니어 오리&고구마<br></a>
-            <div class="food_01_text">국내산 100% 고구마 사용</div>
-            <div class="food_01_price"> 49,900원</div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-            <button name="cartInsert" id="1003" value="빅벅,img/BigBuck.jpg,2500">장바구니 담기</button>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
- </div><!-- product list -->
- 
-<!-- <div class="footer-wrap">푸터자리</div> -->
-<!-- <div class="footer con"></div>   -->
+	</c:forEach> 
+   </div>
+  
 
 
 </body>

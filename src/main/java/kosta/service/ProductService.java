@@ -13,9 +13,14 @@ public interface ProductService {
 	List<ProductDTO> selectAll() throws SQLException;
 
 	/**
-	 * 상품이름에 해당하는 레코드 검색
+	 * 상품코드에 해당하는 레코드 검색
 	 */
 	ProductDTO selectByProductCode(int productCode) throws SQLException;
+	
+	/**
+	 * 상품이름에 해당하는 레코드 검색
+	 */
+	ProductDTO selectByProductName(String productName) throws SQLException;
 	
 	/**
 	 * 상품등록

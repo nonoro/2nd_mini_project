@@ -19,6 +19,11 @@ public interface ProductDAO {
 	ProductDTO selectByProductCode(int productCode) throws SQLException;
 	
 	/**
+	 * 상품이름에 해당하는 레코드 검색
+	 * */
+	ProductDTO selectByProductName(String productName) throws SQLException;
+	
+	/**
 	 * 상품등록
 	 */
 	int insert(ProductDTO product) throws SQLException;
