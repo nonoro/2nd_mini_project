@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -43,13 +42,11 @@
             margin-right: 0px;
         }    
         */
-
         /*
         nth-child 속성
         간단한 사칙연산은 안에 적어줄 수 있다.
         */
         
-
         /* .product_list > .product_box > .img_box > a > img{
             width: 100%;
             height: 20px; 
@@ -60,7 +57,6 @@
         	width: 100%;
         	height: 100%;
         }
-
         .product_list > .product_box > .text_box{
             font-size:large;
             margin-top: 15px;
@@ -70,7 +66,6 @@
             white-space:nowrap;
             
         } 
-
         .cell{
             float: left;
         }
@@ -89,7 +84,6 @@
             background-color: #9999;
             margin-top: 200px;
         }
-
         /*  .footer-wrap > .footer{
             height: 500px;
             background-color: #9999;
@@ -114,6 +108,9 @@
 		})	
 		
     </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+   
 </head>
 
 <body>
@@ -128,8 +125,7 @@
      <div class="product_box cell">
      
         <div class="img_box">
-        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${selectByName.productName}">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
+        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}">
             <img id="food_01_img" src="food/53346_originalView_01991543.jpeg"> 
         </a>    
         </div><!--img_box-->
@@ -145,7 +141,6 @@
             <div class="food_01_price"><!--상품 가격-->
             ${p.productPrice}
             </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
         </div><!--text_box-->
     </div><!--product_box-->
 	</c:forEach> 

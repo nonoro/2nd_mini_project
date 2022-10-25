@@ -26,6 +26,8 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		try {
 			con = DbUtil.getConnection();
+			con.setAutoCommit(false);
+			
 			ps = con.prepareStatement("insert into orders values(order_code_seq.nextval, ?, sysdate, ?, 0, ?, ?, ?, ?)");
 			ps.setString(1, order.getUserId());
 			ps.setString(2, order.getOrderAddr());
@@ -301,8 +303,8 @@ public class OrderDAOImpl implements OrderDAO {
 			
 			while(rs.next()) {
 				OrderDTO order = new OrderDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
-				List<OrderLineDTO> orderLineList = selectOrderLine(con, order.getOrderCode());
-				order.setOrderLineList(orderLineList);
+				//List<OrderLineDTO> orderLineList = selectOrderLine(con, order.getOrderCode());
+				//order.setOrderLineList(orderLineList);
 				list.add(order);
 			}
 		} finally {
@@ -311,12 +313,34 @@ public class OrderDAOImpl implements OrderDAO {
 		return list;
 	}
 	
-	public List<OrderLineDTO> selectOrderLine(Connection con, int orderCode) throws SQLException {
+	/*
+	 * public List<OrderLineDTO> selectOrderLine(Connection con, int orderCode)
+	 * throws SQLException { PreparedStatement ps = null; ResultSet rs = null;
+	 * List<OrderLineDTO> list = new ArrayList<OrderLineDTO>();
+	 * 
+	 * try { ps =
+	 * con.prepareStatement("select * from orderline where order_code = ?");
+	 * ps.setInt(1, orderCode); rs = ps.executeQuery();
+	 * 
+	 * while(rs.next()) { OrderLineDTO orderLine = new OrderLineDTO(rs.getInt(1),
+	 * rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6),
+	 * rs.getInt(7)); list.add(orderLine); } } finally { DbUtil.dbClose(null, ps,
+	 * rs); } return list; }
+	 */
+	
+	
+	
+	/**
+	 * 주문 내역 상세 보기
+	 * */
+	public List<OrderLineDTO> selectOrderLineByOrderCode(int orderCode) throws SQLException {
+		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<OrderLineDTO> list = new ArrayList<OrderLineDTO>();
 		
 		try {
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement("select * from orderline where order_code = ?");
 			ps.setInt(1, orderCode);
 			rs = ps.executeQuery();
@@ -326,7 +350,7 @@ public class OrderDAOImpl implements OrderDAO {
 				list.add(orderLine);
 			}
 		} finally {
-			DbUtil.dbClose(null, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}
 		return list;
 	}

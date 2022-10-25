@@ -3,10 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-  <!-- ServletContext영역에 전달되는 init-param정보  -->
-  <context-param>
-    <param-name>fileName</param-name>
-    <param-value>actionMapping</param-value>
-  </context-param>
-           
+   
+	<!-- ServletContext 영역에 전달되는 init-param 정보 -->
+  	<context-param>
+  		<param-name>fileName</param-name>
+  		<param-value>actionMapping</param-value>
+  	</context-param>
+
 </web-app>
+
