@@ -130,12 +130,5 @@ public class OrderController implements Controller {
 		
 		return new ModelAndView("jongmintest.jsp");
 	}
-<<<<<<< HEAD
-=======
-	
-	
-	
-	
-	
->>>>>>> tests
+
 }
