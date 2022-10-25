@@ -6,6 +6,7 @@ import java.util.List;
 import kosta.dao.OrderDAO;
 import kosta.dao.OrderDAOImpl;
 import kosta.dto.OrderDTO;
+import kosta.dto.OrderLineDTO;
 
 public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDao = new OrderDAOImpl();
@@ -39,5 +40,13 @@ public class OrderServiceImpl implements OrderService {
 		if(list == null || list.size() == 0) throw new SQLException(userId + "님의 주문 내역이 없습니다.");
 		return list;
 	}
+
+	@Override
+	public List<OrderLineDTO> selectOrderLineByOrderCode(int orderCode) throws SQLException {
+		List<OrderLineDTO> lineList = orderDao.selectOrderLineByOrderCode(orderCode);
+		if(lineList == null || lineList.size() == 0) throw new SQLException(orderCode + "에 해당하는 주문 내역이 없습니다.");
+		return lineList;
+	}
+	
 
 }

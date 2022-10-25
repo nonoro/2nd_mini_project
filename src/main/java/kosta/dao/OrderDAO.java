@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kosta.dto.OrderDTO;
+import kosta.dto.OrderLineDTO;
 
 public interface OrderDAO {
 	/**
@@ -35,5 +36,10 @@ public interface OrderDAO {
 	 * 주문 내역 보기
 	 * */
 	List<OrderDTO> selectOrderByUserId(String userId) throws SQLException; 
+	
+	/**
+	 * 주문 내역 상세 보기
+	 * */
+	List<OrderLineDTO> selectOrderLineByOrderCode(int orderCode) throws SQLException; 
 
 }

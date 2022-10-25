@@ -33,11 +33,11 @@ public class DispatcherServlet extends HttpServlet {
 		String methodName = request.getParameter("methodName");
 		
 		if(key==null || key.equals("")) {
-			key="elec";
+			key="order";
 		}
 		
 		if(methodName==null || methodName.equals("")) {
-			methodName="select";//
+			methodName="selectOrderByUserId";//
 		}
 		
 		System.out.println("key = " + key +" , methodName = " + methodName);
