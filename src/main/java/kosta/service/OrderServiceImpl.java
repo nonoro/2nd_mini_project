@@ -7,6 +7,7 @@ import kosta.dao.OrderDAO;
 import kosta.dao.OrderDAOImpl;
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
+import kosta.dto.PointDTO;
 
 public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDao = new OrderDAOImpl();
@@ -53,5 +54,19 @@ public class OrderServiceImpl implements OrderService {
 		if(order == null) throw new SQLException("배송상태를 조회할 수 없습니다.");
 		
 		return order;
+	}
+
+	@Override
+	public void savePoint(PointDTO pointDTO, int orderPay) throws SQLException {
+		int result = orderDao.savePoint(pointDTO, orderPay);
+		if(result == 0) throw new SQLException("포인트 적립에 실패했습니다.");
+		
+	}
+
+	@Override
+	public void saveUserPoint(String userId, int orderPay) throws SQLException {
+		int result = orderDao.saveUserPoint(userId, orderPay);
+		if(result == 0) throw new SQLException("포인트 적립에  실패했습니다.");
+
 	}
 }

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
+import kosta.dto.PointDTO;
 import kosta.service.OrderService;
 import kosta.service.OrderServiceImpl;
 
@@ -31,21 +32,26 @@ public class OrderController implements Controller {
 	 */
 	public ModelAndView orderInsert(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//전송된 데이터 받기	
-		HttpSession session = request.getSession();
-		String userId = (String)session.getAttribute("userId");
+	//	HttpSession session = request.getSession();
+	//	String userId = (String)session.getAttribute("userId");
 		
-		//String userId = request.getParameter("userId");
+		String userId = request.getParameter("userId");
 		String orderAddr = request.getParameter("orderAddr");
-		int orderType = Integer.parseInt(request.getParameter("orderType"));
-		int orderUsedPoint = Integer.parseInt(request.getParameter("orderUsedPoint"));
-		int orderTotalPrice = Integer.parseInt(request.getParameter("orderTotalPrice"));		
-		int orderPay = Integer.parseInt(request.getParameter("orderPay"));		
+		String orderType = request.getParameter("orderType");
+		String orderUsedPoint = request.getParameter("orderUsedPoint");
+		//String orderTotalPrice = request.getParameter("orderTotalPrice");		
+		//String orderPay = request.getParameter("orderPay");		
 		
-		OrderDTO order = new OrderDTO(0, userId, null, orderAddr, 0, orderType, orderUsedPoint, orderTotalPrice, orderPay);
+		OrderDTO order = new OrderDTO(5, userId, null, orderAddr, 0, Integer.parseInt(orderType), Integer.parseInt(orderUsedPoint), 500, 480);
+		PointDTO pointDTO= new PointDTO();
 		
-		if(userId != null) { 
+		
+		if(userId != null) { 			
+			
 			orderService.orderInsert(order);
-			return new ModelAndView("orderList.jsp", true);
+			orderService.savePoint(pointDTO, 480);
+			orderService.saveUserPoint(userId, 480);
+			return new ModelAndView("testForKyu.jsp", true);
 		} else {
 			return new ModelAndView("error", true);
 		}		
