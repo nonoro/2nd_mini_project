@@ -1,6 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,294 +105,52 @@
         }
         
     </style>
+    <script type="text/javascript">
+    	$(function() {
+		function C() {
+			
+		}
+	
+		})	
+		
+    </script>
 </head>
 
 <body>
+
 <div class="header-wrap">헤더자리</div>
-<div class="clear">공백</div>
-
+<div class="clear">
+</div>
+    
 <div class="product_list row">
-
+<c:forEach items="${list}" var="p">
     <!--상품 -->
      <div class="product_box cell">
+     
         <div class="img_box">
-        <a href="http://www.naver.com">
+        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${selectByName.productName}">
             <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
             <img id="food_01_img" src="food/53346_originalView_01991543.jpeg"> 
         </a>    
         </div><!--img_box-->
 
         <div class="text_box">
-        	<a id="food_01_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
+        	<a id="food_01_title" href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}"><!--상품 이름-->
+        	
+            ${p.productName}<br>
             </a>
             <div class="food_01_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
+            ${p.productExplain}
             </div>
             <div class="food_01_price"><!--상품 가격-->
-            49,900원
+            ${p.productPrice}
             </div>
             <a href="http://www.naver.com">👉 후기보러가기 👈</a>
         </div><!--text_box-->
     </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_02_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_02_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_02_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_02_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_03_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_03_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_03_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_04_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_04_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_04_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_04_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_04_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_05_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_05_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_05_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_05_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_06_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_06_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_06_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_06_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_07_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_07_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_07_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_07_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_08_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_08_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_08_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_08_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_09_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_09_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_09_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_09_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_10_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_10_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_10_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_10_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_11_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_11_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_11_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_11_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
-    
-    <!--상품 -->
-     <div class="product_box cell">
-        <div class="img_box">
-        <a href="http://www.naver.com">
-            <!-- <img id="food_01_img" src="/사료/건식사료/20417_originalView_01171472.jpeg"> --><!-- 1 -->
-            <img id="food_12_img" src="food/53346_originalView_01991543.jpeg"> 
-        </a>    
-        </div><!--img_box-->
-
-        <div class="text_box">
-        	<a id="food_12_title" href="http://www.naver.com"><!--상품 이름-->
-            네츄럴코어 에코 시니어 오리&고구마<br>
-            </a>
-            <div class="food_12_text"><!--상품 설명-->
-            국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용국내산 100% 고구마 사용
-            </div>
-            <div class="food_12_price"><!--상품 가격-->
-            49,900원
-            </div>
-            <a href="http://www.naver.com">👉 후기보러가기 👈</a>
-        </div><!--text_box-->
-    </div><!--product_box-->
- </div><!-- product list -->
- 
-<!-- <div class="footer-wrap">푸터자리</div> -->
-<!-- <div class="footer con"></div>   -->
+	</c:forEach> 
+   </div>
+  
 
 
 </body>

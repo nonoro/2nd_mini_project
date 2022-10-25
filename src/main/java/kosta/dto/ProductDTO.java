@@ -80,7 +80,7 @@ public class ProductDTO {
 		this.productCategory = productCategory;
 	}
 
-	public String getProductName() {
+	public String getProductName() {//productDTO.getproductname productDTO.getproductCode
 		return productName;
 	}
 

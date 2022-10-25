@@ -16,8 +16,8 @@
 ${d.productCode} 
 </c:forEach>
 
-	<a href="${path}/front?key=product&methodName=selectByProductCode&productCode=1">
-		상품이름 값</a> ${productCode.productName} ${productCode.productPrice}
+	<a href="${path}/front?key=product&methodName=selectByProductName&productName=${selectByName.productName}">
+		상품이름 값</a> ${selectByName.productName} ${selectByName.productPrice}
 
 	/////////////////////////////////////////////////////////////////////////////////////첨부파일있으면 멀티파트써 지으느으은
 	<form name="writeForm" method="post"

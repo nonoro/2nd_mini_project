@@ -64,6 +64,30 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return product;
 	}
+	/**상품이름별*/
+	@Override
+	public ProductDTO selectByProductName(String productName) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		ProductDTO productbyname = null;
+		
+		String sql= "select * from Product where p_name=?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, productName);
+			
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				productbyname = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
+						rs.getInt(4), rs.getInt(5), rs.getString(6));
+			}
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return productbyname;
+	}
 
 	@Override
 	public int insert(ProductDTO product) throws SQLException {
