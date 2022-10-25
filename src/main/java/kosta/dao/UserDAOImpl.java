@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import kosta.dto.OrderDTO;
 import kosta.dto.UserDTO;
 import kosta.util.DbUtil;
 
@@ -17,7 +20,8 @@ public class UserDAOImpl implements UserDAO {
 		UserDTO user = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO USER VALUE(?,?,?,?,?,NULL,?,?,NULL)";
+		String sql = "INSERT INTO T_USER (USER_ID, USER_PWD, USER_EMAIL, USER_ADDR, USER_PHONE, USER_PROFILE, DOG_NAME, DOG_BIRTHDAY, USER_POINT) \r\n"
+				+ "VALUES (?, ?, ?, ?, ?, NULL, ?, ?, 0)";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -45,7 +49,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		UserDTO user = null;
 		
-		String sql = "SELECT USER_ID, USER_PWD FROM USER WHERE USER_ID=? AND USER_PWD=?";
+		String sql = "SELECT * FROM T_USER WHERE USER_ID=? AND USER_PWD=?";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -55,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
 			
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				user = new UserDTO(rs.getString(1),rs.getString(2));
+				user = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), 0);
 			}
 			
 			
@@ -71,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USER SET USER_PWD =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE T_USER SET USER_PWD =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -97,7 +101,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USER SET USER_ADDR =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE T_USER SET USER_ADDR =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -123,7 +127,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USER SET USER_EMAIL =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE T_USER SET USER_EMAIL =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -149,7 +153,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USER SET USER_PHONE =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE T_USER SET USER_PHONE =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -175,7 +179,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USER SET USER_PROFILE =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE T_USER SET USER_PROFILE =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -201,7 +205,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USER SET USER_DOGNAME =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE T_USER SET USER_DOGNAME =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -227,7 +231,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USER SET USER_DOGBIRTHDAY =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE T_USER SET USER_DOGBIRTHDAY =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -280,7 +284,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		String id = null;
 		
-		String sql = "SELECT USER_ID FROM USER WHERE PHONE_NUMBER=? AND EMAIL=?";
+		String sql = "SELECT USER_ID FROM T_USER WHERE USER_PHONE=? AND USER_EMAIL=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -306,7 +310,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		String pwd = null;
 		
-		String sql = "SELECT USER_PWD FROM USER WHERE USER_ID=? AND PHONE_NUMBER=? AND EMAIL=?";
+		String sql = "SELECT USER_PWD FROM T_USER WHERE USER_ID=? AND USER_PHONE=? AND USER_EMAIL=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -324,6 +328,149 @@ public class UserDAOImpl implements UserDAO {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		return pwd;
+	}
+
+	@Override
+	public int userCount() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int userCount = 0;
+		
+		String sql = "SELECT COUNT(USER_ID)-1 FROM T_USER";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);			
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				userCount = rs.getInt(1);
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return userCount;
+	}
+
+	@Override
+	public int monthSalse(int year, int month) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int monthSalse = 0;
+		
+		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/?/%'";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, year);
+			ps.setInt(2, month);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				monthSalse = rs.getInt(1);
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return monthSalse;
+	}
+
+	@Override
+	public int yearSalse(int year) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int yearSalse = 0;
+		
+		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/%'";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, year);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				yearSalse = rs.getInt(1);
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return yearSalse;
+	}
+
+	@Override
+	public int allSalse() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int allSalse = 0;
+		
+		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				allSalse = rs.getInt(1);
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return allSalse;
+	}
+
+	@Override
+	public List<OrderDTO> readyProduct() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<OrderDTO> list = new ArrayList<OrderDTO>();
+		OrderDTO order = null;
+		
+		String sql = "SELECT * FROM T_ORDER WHERE ORDER_COMPLETE = 0";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				order = new  OrderDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				list.add(order);
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return list;
+	}
+
+	@Override
+	public int updateReady(int orderCode) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+	
+		String sql = "UPDATE T_ORDRE SET ORDRE_COMPLETE=1 WHERE ORDER_CODE=?";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			
+			ps.setInt(1, orderCode);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		
+		return result;
 	}
 
 }
