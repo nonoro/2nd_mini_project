@@ -6,6 +6,7 @@ import java.util.List;
 import kosta.dao.UserDAO;
 import kosta.dao.UserDAOImpl;
 import kosta.dto.OrderDTO;
+import kosta.dto.PointDTO;
 import kosta.dto.UserDTO;
 import kosta.exception.AuthenticationException;
 
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
 			if(dbDTO == null) {
 				throw new AuthenticationException("정보를 다시 확인해주세요.");
 			}
+			
 			
 			return dbDTO;
 	}
@@ -156,6 +158,34 @@ public class UserServiceImpl implements UserService {
 		int result = userDAO.updateReady(orderCode);
 		if(result == 0) throw new SQLException("포인트를 확인할 수 없습니다.");
 				
+	}
+
+	@Override
+	public String birthdayPoint(UserDTO userDTO) throws SQLException {
+		int result = userDAO.birthdayPoint(userDTO);
+		String message = "강아지 생일을 축하드립니다. 5,000포인트 지급해 드렸습니다.";
+		if(result == 1) {
+			return message;
+		}else {
+			return null;
+		}
+			
+		
+	}
+
+	@Override
+	public PointDTO birthdayCheck(String userId) throws SQLException {
+		PointDTO birthdayPoint = userDAO.birthdayCheck(userId);
+		if(birthdayPoint!=null) throw new SQLException("생일 포인트 이미 지급 되었습니다.");
+		
+		return birthdayPoint;
+	}
+
+	@Override
+	public void insertBirthday(PointDTO pointDTO) throws SQLException {
+		int result = userDAO.insertBirthday(pointDTO);
+		if(result == 0) throw new SQLException("포인트 테이블 인서트 오류");
+		
 	}
 	
 	

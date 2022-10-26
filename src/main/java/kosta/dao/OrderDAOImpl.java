@@ -374,7 +374,7 @@ public class OrderDAOImpl implements OrderDAO {
 		ResultSet rs=null;
 		OrderDTO order = null;
 		
-		String sql = "SELECT ORDER_COMPLETE FROM T_ORDER WHERE ORDER_CODE=?";
+		String sql = "SELECT ORDER_COMPLETE FROM ORDERS WHERE ORDER_CODE=?";
 		
 		try {
 			con = DbUtil.getConnection();
@@ -400,7 +400,7 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps=null;
 		int result = 0;
 		
-		String sql = "UPDATE ORDER SET ORDER_STATE=2 WHERE ORDER_CODE=?";
+		String sql = "UPDATE ORDERS SET ORDER_STATE=2 WHERE ORDER_CODE=?";
 		
 		try {
 			con = DbUtil.getConnection();
@@ -425,7 +425,7 @@ public class OrderDAOImpl implements OrderDAO {
 	      OrderDTO order = null;
 	      List<OrderDTO> list = new ArrayList<OrderDTO>();
 	      
-	      String sql = "SELECT * FROM T_ORDER WHERE USER_ID=?";
+	      String sql = "SELECT * FROM ORDERS WHERE USER_ID=?";
 	      
 	      try {
 	         con = DbUtil.getConnection();
@@ -454,7 +454,7 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps=null;
 		int result = 0;
 		
-		String sql = "insert into t_point values(?, ?, ?,?,?)";
+		String sql = "insert into point values(?, ?, ?,?,?)";
 		
 		try {
 			con = DbUtil.getConnection();
@@ -465,9 +465,6 @@ public class OrderDAOImpl implements OrderDAO {
 			ps.setInt(3,(int)Math.ceil(orderPay*0.03));
 			ps.setString(4,pointDTO.getPointSavedate());
 			ps.setString(5,pointDTO.getPointUseddate());
-			
-			
-			ps.setInt(1,(int)Math.ceil(orderPay*0.03) );
 		    
 		    result=ps.executeUpdate();
 		      
@@ -484,7 +481,7 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps=null;
 		int result = 0;
 		
-		String sql = "UPDATE t_user SET user_point=user_point+? WHERE user_id=?";
+		String sql = "UPDATE USERS SET user_point=user_point+? WHERE user_id=?";
 		
 		try {
 			con = DbUtil.getConnection();

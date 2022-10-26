@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kosta.dto.OrderDTO;
+import kosta.dto.PointDTO;
 import kosta.dto.UserDTO;
 import kosta.exception.AuthenticationException;
 
@@ -108,5 +109,24 @@ public interface UserService {
 	* UPDATE T_ORDRE SET ORDRE_COMPLETE=1 WHERE ORDER_CODE=?
 	*/
 	void updateReady(int orderCode) throws SQLException;
+	
+	/**
+	 * 생일 포인트 지급
+	 * UPDATE T_USER SET USER_POINT = USER_POINT+5000 WHERE TO_CHAR(SYSDATE,'MM-DD') =
+		TO_CHAR((SELECT DOG_BIRTHDAY FROM T_USER WHERE USER_ID = ?),'MM-DD')	
+	 */
+	String birthdayPoint(UserDTO userDTO) throws SQLException;
+	
+	/**
+	 * 생일 포인트적립 중복체크 
+	 */
+	PointDTO birthdayCheck(String userId) throws SQLException;
+	
+	
+	/**
+	 * 생일포인트 지급 시 포인트 테이블 insert
+	 * INSERT INTO T_POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)
+	 */
+	void insertBirthday(PointDTO pointDTO)throws SQLException;
 
 }
