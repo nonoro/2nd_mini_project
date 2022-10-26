@@ -10,10 +10,6 @@
 }
 
 
-.myPageMain {
-    /* background-color: gray; */
-}
-
 .myPageMain-container {
     /* width: 100%; */
     height: 100%;
@@ -36,17 +32,13 @@
 
 .state-container img {
     width: 100%;
-    height: 100%;
+    height: 50px;
 }
 
 .stateImage {
     width: 60px;
     height: 60px;
     margin: 0 20px;
-}
-
-.userDetail {
-    padding-top: 5px;
 }
 
 .menuMain {
@@ -57,12 +49,13 @@
 
 .menu-container {
     width: 250px;
-    height: 300px;
+    height: 400px;
     /* background-color: blue; */
+    padding-top: 20px;
 }
 
 .menu-container-a {
-    width: 221px;
+    width: 250px;
     padding: 12px 10px;
     /* background-color: cyan; */
 }
@@ -75,6 +68,7 @@
     width: 100%;
     /* background-color: pink; */
     margin-left: 40px;
+    font-family: LeferiPoint-WhiteObliqueA;
 }
 
 .menu-result-container h2 {
@@ -84,8 +78,8 @@
 .menu-result-container-list {
     width: 70%;
     /* border: 1px solid burlywood; */
-    background-color: burlywood;
-    margin-left: 12.35%;
+    /* background-color: burlywood; */
+    /*margin-left: 12.35%;*/
     text-align: center;
 }
 
@@ -93,4 +87,39 @@
     display: inline-block;
     margin-top: 14px;
     margin-bottom: 14px;
+}
+
+.okMenuList {
+    display: flex;
+    align-items: center;
+}
+
+.menu-result-content {
+    width: 600px;   
+    margin-left: 30px;
+    font-size: 20px;
+}
+
+.menu-result-review {
+    width: 100px;
+}
+
+#writeReview {
+    text-decoration: none;
+}
+
+.menu-result-list-hr {
+    width: 73%;
+}
+
+
+/* 회원정보 */
+
+.myInformation {
+    margin: 8px 0;
+}
+
+.updateElement {
+    display: inline-block;
+    margin: 10px;
 }
