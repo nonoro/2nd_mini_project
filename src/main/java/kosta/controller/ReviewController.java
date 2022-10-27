@@ -77,7 +77,7 @@ public class ReviewController implements Controller{
 		request.setAttribute("list", list);
 		request.setAttribute("pageNo", pageNo);
 		
-		return new ModelAndView("jongmintest.jsp");
+		return new ModelAndView("product_detail_test.jsp");
 	}
 	
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response)
