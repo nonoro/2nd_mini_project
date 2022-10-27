@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -42,6 +43,12 @@ public class CartController implements Controller {
 		if(userId == null) {
 			return new ModelAndView("error", true);
 		} else {
+			
+			String key = request.getParameter("productCode");
+			String productName = request.getParameter("productName");
+			String productPrice = request.getParameter("productPrice");
+			//String qty = request.getParameter("qty");
+
 			int productCode = (int)session.getAttribute("productCode");
 			ProductDTO product = productService.selectByProductCode(productCode);
 			
@@ -51,7 +58,7 @@ public class CartController implements Controller {
 				return new ModelAndView("error", true);
 			}
 				
-			Map<ProductDTO, Integer> cart = (Map<ProductDTO, Integer>)session.getAttribute("cart");
+			Map< ProductDTO, Integer> cart = (Map<  ProductDTO, Integer>)session.getAttribute("cart");
 				
 			if(cart == null) {
 				cart = new HashMap<>();
@@ -65,7 +72,7 @@ public class CartController implements Controller {
 				
 			cart.put(product, qty);
 			
-			return new ModelAndView("cart"); 
+			return new ModelAndView("cartList.jsp"); 
 		}
 		
 		//2)
@@ -93,22 +100,34 @@ public class CartController implements Controller {
 	 * 장바구니에 저장된 상품 조회   (String userId)
 	 * */
 	public ModelAndView viewCart(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws Exception {
 	
 		//1)
 		HttpSession session = request.getSession();
 		String userId = (String)session.getAttribute("userId");
-		Map<ProductDTO, Integer> cart = (Map<ProductDTO, Integer>)session.getAttribute("cart");
 		
-		if(userId == null) {
-			return new ModelAndView("error", true);
-		} else {
-			if(cart == null) {
-				return new ModelAndView("error", true);
-			} else {
-				return new ModelAndView("cart");
-			}
-		} 
+		
+		//Map<Integer, ProductDTO> cart = (Map<Integer, ProductDTO>)session.getAttribute("cart");
+		
+		
+//		if(userId == null) {
+//			return new ModelAndView("error", true);
+//		} else {
+				System.out.println("!!!!!!!!!!!!!");
+				String productCode = request.getParameter("productCode");
+				System.out.println(productCode);
+				ProductDTO product = productService.selectByProductCode(Integer.parseInt(productCode));
+				System.out.println("????????????????");
+				
+				
+				List<ProductDTO> list = new ArrayList<ProductDTO>();
+				list.add(product);
+				
+				session.setAttribute("selectList", list);
+				
+				return new ModelAndView("cartList.html");
+			
+//		} 
 		
 		//2)
 		/* response.setContentType("text/html; charset='UTF-8'");

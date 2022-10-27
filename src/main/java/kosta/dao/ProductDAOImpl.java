@@ -51,6 +51,7 @@ public class ProductDAOImpl implements ProductDAO {
 		String sql= "select *\r\n"
 				+ "from product p join product_file pf on p.product_code= pf.product_code\r\n"
 				+ "where p.product_code=?;";
+        
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
