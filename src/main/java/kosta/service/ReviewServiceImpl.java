@@ -35,12 +35,20 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void delete(int reviewCode, String saveDir) throws SQLException {
-		int result = reviewDAO.delete(reviewCode);
-//		if(dbElec.getFname()!=null) {
-//			String fileName = saveDir+"/"+dbElec.getFname();
-//			new File(fileName).delete();
-//		}
-		if(result == 0) throw new SQLException("리뷰를 삭제하지 못했습니다.");
+		ReviewDTO reviewDTO = reviewDAO.selectByCode(reviewCode);
+		
+		if(reviewDTO == null) {
+			throw new SQLException("코드번호 오류로 삭제 불가!");
+		}
+		if(reviewDAO.delete(reviewCode) == 0 ) {
+			throw new SQLException("삭제되지 않았습니다.");		
+		}
+		
+		if(reviewDTO.getReviewFile()!=null) {
+			String fileName = saveDir+"/"+reviewDTO.getReviewFile();
+			new File(fileName).delete();
+		}
+		
 		
 	}
 

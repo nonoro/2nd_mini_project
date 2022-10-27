@@ -6,8 +6,8 @@
 <link  rel="stylesheet" type="text/css" href="css/basic.css"  />
 <style type="text/css">
 .poster {
-	width : 150px;
-	height : 150px;
+   width : 150px;
+   height : 150px;
 }
 
 a{text-decoration: none}
@@ -18,17 +18,17 @@ td {text-align: center;}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <script type="text/javascript">
-	$(function() {
-		function refreshPage() {
-			let str = ""; 
-			let toalprice = 0;
-			
-			for(let i=0; i < localStorage.length; i++) {
-				let key = localStorage.key(i); //1001 
-				let value = localStorage.getItem(key); //쿵푸팬더,img/movie_image2.jpg,3000
+   $(function() {
+      function refreshPage() {
+         let str = ""; 
+         let toalprice = 0;
+         
+         for(let i=0; i < localStorage.length; i++) {
+            let key = localStorage.key(i); //1001 
+            let value = localStorage.getItem(key); //쿵푸팬더,img/movie_image2.jpg,3000
 
-				//value의 값을 , 기준으로 분리
-				let arr = value.split(",");
+            //value의 값을 , 기준으로 분리
+            let arr = value.split(",");
 
 				str += `<tr>`;
 				str += `<td><img src="${arr[1]}" class="poster"></td>`;
@@ -55,10 +55,10 @@ td {text-align: center;}
 				//가격 누적
 				toalprice += parseInt(arr[1]*arr[2]); //그냥 arr[2]만 가져오면 문자열로 인식함
 
-			} //for문 끝
+         } //for문 끝
 
-			//테이블에 추가
-			$("#content").html(str);
+         //테이블에 추가
+         $("#content").html(str);
 
 			//가격 추가
 			$("#price").html("<b>주문 가격: " + toalprice + "원</b>");

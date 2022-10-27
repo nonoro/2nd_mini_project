@@ -1,9 +1,12 @@
 package kosta.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import kosta.dao.UserDAO;
 import kosta.dao.UserDAOImpl;
+import kosta.dto.OrderDTO;
+import kosta.dto.PointDTO;
 import kosta.dto.UserDTO;
 import kosta.exception.AuthenticationException;
 
@@ -25,6 +28,7 @@ public class UserServiceImpl implements UserService {
 			if(dbDTO == null) {
 				throw new AuthenticationException("정보를 다시 확인해주세요.");
 			}
+			
 			
 			return dbDTO;
 	}
@@ -109,6 +113,79 @@ public class UserServiceImpl implements UserService {
 		if(userPwd == null) throw new SQLException("아이디를 찾을 수 없습니다.");
 		
 		return userPwd;
+	}
+
+	@Override
+	public int userCount() throws SQLException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int monthSalse(int year, int month) throws SQLException {
+		int monthSalse = userDAO.monthSalse(year,month);
+		if(monthSalse == 0) throw new SQLException(year+"년 "+month+"월 매출액이 없습니다.");
+		
+		return monthSalse;
+	}
+
+	@Override
+	public int yearSalse(int year) throws SQLException {
+		int yearSalse = userDAO.yearSalse(year);
+		if(yearSalse == 0) throw new SQLException(year+"년 매출액이 없습니다.");
+		
+		return yearSalse;
+	}
+
+	@Override
+	public int allSalse() throws SQLException {
+		int allSalse = userDAO.allSalse();
+		if(allSalse == 0) throw new SQLException("매출이 없습니다.");
+		
+		return allSalse;
+	}
+
+	@Override
+	public List<OrderDTO> readyProduct() throws SQLException {
+		List<OrderDTO> list = userDAO.readyProduct();
+		if(list.size() == 0 || list.isEmpty()) throw new SQLException("준비중인 주문이 없습니다.");
+		
+		return list;
+	}
+
+	@Override
+	public void updateReady(int orderCode) throws SQLException {
+		int result = userDAO.updateReady(orderCode);
+		if(result == 0) throw new SQLException("포인트를 확인할 수 없습니다.");
+				
+	}
+
+	@Override
+	public String birthdayPoint(UserDTO userDTO) throws SQLException {
+		int result = userDAO.birthdayPoint(userDTO);
+		String message = "강아지 생일을 축하드립니다. 5,000포인트 지급해 드렸습니다.";
+		if(result == 1) {
+			return message;
+		}else {
+			return null;
+		}
+			
+		
+	}
+
+	@Override
+	public PointDTO birthdayCheck(String userId) throws SQLException {
+		PointDTO birthdayPoint = userDAO.birthdayCheck(userId);
+		if(birthdayPoint!=null) throw new SQLException("생일 포인트 이미 지급 되었습니다.");
+		
+		return birthdayPoint;
+	}
+
+	@Override
+	public void insertBirthday(PointDTO pointDTO) throws SQLException {
+		int result = userDAO.insertBirthday(pointDTO);
+		if(result == 0) throw new SQLException("포인트 테이블 인서트 오류");
+		
 	}
 	
 	

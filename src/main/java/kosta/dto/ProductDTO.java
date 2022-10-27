@@ -14,9 +14,13 @@ public class ProductDTO {
 	
 	private int productCategoryCode;
 	private String productMgr;
-	
+
+	private String pFileName;	
+
 	
 	public ProductDTO() { }
+
+	
 
 	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
 			String productExplain) {
@@ -62,7 +66,25 @@ public class ProductDTO {
 		this.productExplain = productExplain;
 	}
 	
+	//파일불러오기 
 	
+	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
+			String productExplain, String fname, String orderDate, int orderTotalPrice, String pFileName) {
+		super();
+		this.productCode = productCode;
+		this.productCategory = productCategory;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productQty = productQty;
+		this.productExplain = productExplain;
+		this.fname = fname;
+		this.orderDate = orderDate;
+		this.orderTotalPrice = orderTotalPrice;
+		this.pFileName = pFileName;
+	}
+
+
+
 	public int getProductCode() {
 		return productCode;
 	}
@@ -80,7 +102,7 @@ public class ProductDTO {
 		this.productCategory = productCategory;
 	}
 
-	public String getProductName() {
+	public String getProductName() {//productDTO.getproductname productDTO.getproductCode
 		return productName;
 	}
 
@@ -135,7 +157,21 @@ public class ProductDTO {
 	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
-	
+
+	public int getProductCategoryCode() {
+		return productCategoryCode;
+	}
+
+	public void setProductCategoryCode(int productCategoryCode) {
+		this.productCategoryCode = productCategoryCode;
+	}
+	public String getpFileName() {
+		return pFileName;
+	}
+
+	public void setpFileName(String pFileName) {
+		this.pFileName = pFileName;
+	}
 	
 	
 }

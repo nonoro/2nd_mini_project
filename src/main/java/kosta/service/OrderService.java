@@ -5,6 +5,7 @@ import java.util.List;
 
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
+import kosta.dto.PointDTO;
 
 public interface OrderService {
 	/**
@@ -32,5 +33,12 @@ public interface OrderService {
 	 * 주문상품 배송상태 조회
 	 */
 	OrderDTO selectState(int orderCode)throws SQLException;
+	
+	/**
+	 * 포인트테이블
+	 * */
+	void savePoint (PointDTO pointDTO,int orderPay) throws SQLException;
+	/**유저테이블*/
+	void saveUserPoint(String userId,int orderPay) throws SQLException;
 
 }
