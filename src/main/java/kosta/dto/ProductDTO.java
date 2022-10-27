@@ -78,12 +78,25 @@ public class ProductDTO {
 		this.orderTotalPrice = orderTotalPrice;
 		this.pFileName = pFileName;
 	}
+	//selectByarrange
+	
+	public ProductDTO(int productCode, String productName, int productPrice, String productExplain, String pFileName) {
+		super();
+		this.productCode = productCode;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.productExplain = productExplain;
+		this.pFileName = pFileName;
+	}
+
 
 
 
 	public int getProductCode() {
 		return productCode;
 	}
+
+
 
 
 	public void setProductCode(int productCode) {

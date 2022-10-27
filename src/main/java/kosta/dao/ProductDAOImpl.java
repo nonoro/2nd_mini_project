@@ -289,16 +289,16 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
-		String sql="select  p.product_code, p.product_name, p.product_price, p.product_explain, count(distinct ol.order_code) as ordercount, count(distinct r.review_code) as reviewcount, NVL(AVG(R.review_GRADE),0) AS STAR_AVG\r\n"
+		String sql="select  p.product_code, p.product_name, p.product_price, p.product_explain,p.product_file_name, count(distinct ol.order_code) as ordercount, count(distinct r.review_code) as reviewcount, NVL(AVG(R.review_GRADE),0) AS STAR_AVG\r\n"
 				+ "from product p join orderline ol on p.product_code=ol.product_code\r\n"
 				+ "LEFT OUTER JOIN review r ON p.product_code= r.product_code \r\n"
-				+ "group by p.product_code, p.product_name, p.product_price, p.product_explain " +arrange;
+				+ "group by p.product_code, p.product_name, p.product_price, p.product_explain,p.product_file_name " +arrange;
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			rs= ps.executeQuery();
 			while(rs.next()) {
-				ProductDTO product= new ProductDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
+				ProductDTO product= new ProductDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5));
 			list.add(product);
 			}
 		} finally {
@@ -306,7 +306,9 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return list;
 	}
-	
+	/**
+	 * 상품디테일 리스트 
+	 * */
 	
 	
 }
