@@ -19,17 +19,16 @@ public class ReviewDAOImpl implements ReviewDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO REVIEW VALUES(?,?,?,?,?,sysdate,?)";
+		String sql = "INSERT INTO REVIEW VALUES(review_code_seq.NEXTVAL,?,?,?,?,sysdate,?)";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setInt(1, reivewDTO.getReviewCode());
-			ps.setString(2, reivewDTO.getUserId());
-			ps.setInt(3, reivewDTO.getProductCode());
-			ps.setInt(4, reivewDTO.getReviewGrade());
-			ps.setString(5, reivewDTO.getReviewDetail());;
-			ps.setString(6, reivewDTO.getReviewFile());
+			ps.setString(1, reivewDTO.getUserId());
+			ps.setInt(2, reivewDTO.getProductCode());
+			ps.setInt(3, reivewDTO.getReviewGrade());
+			ps.setString(4, reivewDTO.getReviewDetail());;
+			ps.setString(5, reivewDTO.getReviewFile());
 			
 			result = ps.executeUpdate();
 			
@@ -46,12 +45,11 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ResultSet rs= null;
 		ReviewDTO review = null;
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		
-		String sql = "SELECT PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM REVIEW WHERE  PRODUCT_CODE=?";
+	
+		String sql = "SELECT PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM REVIEW WHERE PRODUCT_CODE=?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
-			
 			ps.setInt(1, reviewDTO.getProductCode());
 			
 			rs = ps.executeQuery();

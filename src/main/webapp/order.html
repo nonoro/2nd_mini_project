@@ -25,11 +25,19 @@
 				str += `<td>${key}</td>`;
 				str += `<td>${arr[0]}</td>`;
 				str += `<td>${arr[2]}</td>`;
-				str += `<td><button type='button' id='${key}' name='delItem'>삭제</button></td>`; 
+				str += `<td>${arr[1]}`;
+				
+				
+				//전송할 항목 만들기
+				str+=`<input type="hidden" name="productCode" value='${key}'>`;
+				str+=`<input type="hidden" name="productQty" value='${arr[1]}'>`;
+				str += `</td>`;
 				str += `</tr>`;
 
 				//가격 누적
 				toalprice += parseInt(arr[2]); //그냥 arr[2]만 가져오면 문자열로 인식함
+				
+				
 
 			} //for문 끝
 
@@ -62,7 +70,9 @@
 		
 		<br><br><br>	
 		<h3>배송 정보</h3>   
-		<form method="post" action="orderList.jsp">
+		<form method="post" action="front">
+		  <input type="hidden" name="key" value="order">
+		  <input type="hidden" name="methodName" value="orderInsert">
   			<div class="mb-3">
     			<label for="orderAddr" class="form-label">배송 주소</label>
     			<input type="text" class="form-control" id="orderAddr" name="orderAddr">
@@ -73,7 +83,7 @@
 		<section>
 			<table width="80%"  align="center" id="ta" >
 			<thead>
-				<tr><th>이미지</th><th>상품번호</th><th>상품이름</th><th>가격</th><th>삭제</th></tr>
+				<tr><th>이미지</th><th>상품번호</th><th>상품이름</th><th>가격</th><th>수량</th></tr>
 			</thead>
 			<tbody id="content">
 				<!-- 찜 목록 출력 --> 

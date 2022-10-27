@@ -55,6 +55,7 @@ public class ProductController implements Controller {
 		ProductDTO selectByCode =prodService.selectByProductCode(Integer.parseInt(productCode));
 		
 		request.setAttribute("selectByCode", selectByCode);
+
 		return new ModelAndView("product_detail.jsp");
 	}
 	
@@ -89,9 +90,10 @@ public class ProductController implements Controller {
 	      request.setAttribute("list", list);
 	      request.setAttribute("pageNo", pageNo);
 
-		
-		
+		request.setAttribute("selectByName", selectByName);
+
 		return new ModelAndView("product_detail.jsp");
+
 	}
 	
 	/**
