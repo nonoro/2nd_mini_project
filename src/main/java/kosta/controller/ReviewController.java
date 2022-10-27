@@ -73,7 +73,9 @@ public class ReviewController implements Controller{
 		review.setProductCode(Integer.parseInt(productCode));
 		
 		List<ReviewDTO> list = reviewService.selectAll(review);//pageNo넣어야함?
-		
+		for(ReviewDTO i : list) {
+			System.out.println("d1111asd"+i.getReviewFile()) ;
+		}
 		request.setAttribute("list", list);
 		request.setAttribute("pageNo", pageNo);
 		

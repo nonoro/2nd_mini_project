@@ -1,9 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html >
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,7 +104,7 @@
         <tr>
             <td rowspan="4" colspan="4">
                 <div class="product-detail-photo">
-                    <img src="/food/dryfood/42782_originalView_01579592.jpeg">
+                    <img src="img/${selectByName.pFileName}.jpeg">
                 </div>
             </td>
             <td>
@@ -138,13 +138,20 @@
                 </div>
             </td>
         </tr>
-        <tr>
+        <tr> 
+        
             <div class="product-detail-group">
+            <!-- 포문d -->
             <td>
+            
                 <div class="product-detail-photo2">
-                    <img src="/food/dryfood/42782_originalView_01579592.jpeg">
+                    <img src="img/${selectByName.pFileName}.jpeg">
                 </div>
+              
             </td>
+            <!-- 포문끝 -->
+              
+              
             <td>
                 <div class="product-detail-photo2">
                     <img src="/food/dryfood/42782_originalView_02741465.jpeg">
@@ -208,36 +215,16 @@
             <td class="product-detail-review-td" colspan="6"><h4>⭐️ ⭐️ ⭐️ ⭐️ ⭐️(총 평균 별)</h4></td>
         </tr>
         <tr class="product-detail-review-photo-group">
+        <!-- 포문 -->
+        <c:forEach items="${list}" var="review">
             <td>
                 <div class="product-detail-review-photo">
-                    <img src="/review/42782_detail_18431663642184_funnc_S3.jpeg">
+                    <img src="img/${review.reviewFile}.jpeg">
                 </div>
             </td>
-            <td>
-                <div class="product-detail-review-photo">
-                    <img src="/review/42782_detail_36241491033224.jpeg">
-                </div>
-            </td>
-            <td>
-                <div class="product-detail-review-photo">
-                    <img src="/review/42782_detail_3851601179635.jpeg">
-                </div>
-            </td>
-            <td>
-                <div class="product-detail-review-photo">
-                    <img src="/review/42782_detail_40941647049391_funnc_S3.jpeg">
-                </div>
-            </td>
-            <td>
-                <div class="product-detail-review-photo">
-                    <img src="/review/42782_detail_93161489396904.jpeg">
-                </div>
-            </td>
-            <td>
-                <div class="product-detail-review-photo">
-                    <img src="/review/42782_detail_88841647049391_funnc_S3.jpeg">
-                </div>
-            </td>
+            </c:forEach>
+            <!--끝 -->
+          
         </tr>
        <!-- 반복문 시작 -->
        <c:forEach items="${list}" var="review">
@@ -255,7 +242,7 @@
                 </div>
                 (
                 <div class="product-detail-review-dogname" style="display: inline-block;">
-                    강아지이름  : 
+                    강아지이름  :  하꽁
                 </div>
                 )
             </td>
@@ -264,6 +251,7 @@
             <td class="product-detail-review-td" colspan="6">
                 <div class="product-detail-review-text" style="display: inline-block;">
                     내용 : ${review.reviewDetail }
+                    <!--  -->
                 </div>
             </td>
         </tr>

@@ -21,6 +21,16 @@ public class ReviewDTO {
 		this.reviewPostdate = reviewPostdate;
 		this.reviewFile = reviewFile;
 	}
+	
+	
+	public ReviewDTO(int productCode, int reviewGrade, String reviewDetail, String reviewPostdate, String reviewFile) {
+		super();
+		this.productCode = productCode;
+		this.reviewGrade = reviewGrade;
+		this.reviewDetail = reviewDetail;
+		this.reviewPostdate = reviewPostdate;
+		this.reviewFile = reviewFile;
+	}
 	public int getReviewCode() {
 		return reviewCode;
 	}

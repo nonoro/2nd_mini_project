@@ -70,7 +70,7 @@
     </style>
    <script type="text/javascript">
    function check(th){
-	  // alert(th.value)
+	   //alert(th.value)
 	   location.href="${path}/front?key=product&methodName=selectByarrange&arrange="+th.value;
    }
    </script>
@@ -96,28 +96,28 @@
 </div>
     
 <div class="product_list row">
-<c:forEach items="${list}" var="p">
+<c:forEach items="${selectByarrange}" var="byarrange">
     <!--상품 -->
      <div class="product_box cell">
      
         <div class="img_box">
-        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}&productCode=${p.productCode}">
+        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${byarrange.productName}&productCode=${byarrange.productCode}">
 
-            <img id="food_01_img" src="img/${p.pFileName}.jpeg"> 
+            <img id="food_01_img" src="img/${byarrange.pFileName}.jpeg"> 
 
         </a>    
         </div><!--img_box-->
 
         <div class="text_box">
-        	<a id="food_01_title" href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}&productCode=${p.productCode}"><!--상품 이름-->
+        	<a id="food_01_title" href="${path}/front?key=product&methodName=selectByProductName&productName=${byarrange.productName}&productCode=${byarrange.productCode}"><!--상품 이름-->
         	
-            ${p.productName}<br>
+            ${byarrange.productName}<br>
             </a>
             <div class="food_01_text"><!--상품 설명-->
-            ${p.productExplain}
+            ${byarrange.productExplain}
             </div>
             <div class="food_01_price"><!--상품 가격-->
-            ${p.productPrice}
+            ${byarrange.productPrice}
             </div>
         </div><!--text_box-->
     </div><!--product_box-->

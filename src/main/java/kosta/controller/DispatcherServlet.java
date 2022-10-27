@@ -33,7 +33,7 @@ public class DispatcherServlet extends HttpServlet {
 		String methodName = request.getParameter("methodName");
 		
 		if(key==null || key.equals("")) {
-			key="review";
+			key="product";
 		}
 		
 		if(methodName==null || methodName.equals("")) {
