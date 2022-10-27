@@ -30,8 +30,25 @@ public class OrderController implements Controller {
 	 * 주문하기
 	 */
 	public ModelAndView orderInsert(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("오니...?");
+		String pcodeArr [] = request.getParameterValues("productCode");
+		String pqty [] = request.getParameterValues("productQty");
+		
+		OrderDTO orderDTO = new OrderDTO();
+		for(int i=0; i < pcodeArr.length; i++) {
+			String code = pcodeArr[i];
+			String qty = pqty[i];
+			System.out.println(code +" | " + qty);
+			
+			//orderDTO.getOrderLineList().add(/new OrderLineDTO());
+			
+		}
+		
+		
+		
+		
 		//전송된 데이터 받기	
-		HttpSession session = request.getSession();
+		/*HttpSession session = request.getSession();
 		String userId = (String)session.getAttribute("userId");
 		
 		//String userId = request.getParameter("userId");
@@ -48,7 +65,9 @@ public class OrderController implements Controller {
 			return new ModelAndView("orderList.jsp", true);
 		} else {
 			return new ModelAndView("error", true);
-		}		
+		}	*/
+		
+		return null;
 	}
 	
 	

@@ -36,20 +36,35 @@ public class ProductController implements Controller {
 		List<ProductDTO> selectAll = prodService.selectAll();
 		request.setAttribute("list", selectAll);//뷰에서 ${list}
 		
-		return new ModelAndView("testForKyu.jsp");  //forward방식으로 이동
+		return new ModelAndView("product.jsp");  //forward방식으로 이동
 	}
 	
 	
 	/**
-	 * 상품이름에 해당하는 레코드 검색
+	 * 상품코드에 해당하는 레코드 검색
+	 * 
 	 * */
 	public ModelAndView selectByProductCode(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+			throws Exception {                              
 		String productCode=request.getParameter("productCode") ;
-		
+		System.out.println(productCode);
 		ProductDTO selectByCode =prodService.selectByProductCode(Integer.parseInt(productCode));
-		request.setAttribute("productCode", selectByCode);//뷰ㅠ에서 ${producName
-		return new ModelAndView("testForKyu.jsp");
+		
+		request.setAttribute("selectByCode", selectByCode);
+		return new ModelAndView("product_detail2.jsp");
+	}
+	
+	/**
+	 * 상품이름에 해당하는 레코드 검색
+	 * */
+	public ModelAndView selectByProductName(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {                              
+		String productName=request.getParameter("productName") ;
+		System.out.println(productName);
+		ProductDTO selectByName =prodService.selectByProductName(productName);
+		
+		request.setAttribute("selectByName", selectByName);
+		return new ModelAndView("product_detail2.jsp");
 	}
 	
 	/**

@@ -30,6 +30,17 @@ public class ProductServiceImpl implements ProductService {
 		}		
 		return product;
 	}
+	/**
+	 * 상품이름
+	 * */
+	@Override
+	public ProductDTO selectByProductName(String productName) throws SQLException {
+		ProductDTO productbyname=prodDAO.selectByProductName(productName) ;
+		if(productName==null) {
+			throw new SQLException(productName+"에 해당하는 상품이 없습니다");
+		}		
+		return productbyname;
+	}
 
 	@Override
 	public void insert(ProductDTO product) throws SQLException {
