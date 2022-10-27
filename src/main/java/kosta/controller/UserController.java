@@ -14,6 +14,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kosta.dto.OrderDTO;
+import kosta.dto.PointDTO;
 import kosta.dto.ReviewDTO;
 import kosta.dto.UserDTO;
 import kosta.controller.ModelAndView;
@@ -56,9 +57,14 @@ public class UserController implements Controller {
 		//두개의 전송되는 값을 받는다.
 		String id = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
-	
+		String message = null;
 		//서비스 호출
 		UserDTO user = userService.login(new UserDTO(id, pwd));
+		PointDTO pointCheck = userService.birthdayCheck(user.getUserId());
+		if(pointCheck == null) {
+			message = userService.birthdayPoint(user);
+			userService.insertBirthday(pointCheck);
+		}
 		
 		//로그인 성공하면 세션에 정보를 저장  - ${loginUser} / ${loginName}
 		HttpSession session = request.getSession();
@@ -66,10 +72,15 @@ public class UserController implements Controller {
 		session.setAttribute("loginDogName", user.getDogName());
 		session.setAttribute("loginPwd", user.getUserPwd());
 		session.setAttribute("loginPoint", user.getUserPoint());
+		session.setAttribute("loginDogBirthday", user.getDogBirthday());
 		
+		ModelAndView mv = new ModelAndView("jongmintest2.jsp" , true);
 		
-		//index.jsp 이동 - redirect방식
-		ModelAndView mv = new ModelAndView("jongmintest.jsp", true);
+		if(message!=null) {
+			request.setAttribute("message", message);
+			mv.setRedirect(false);
+		}
+
 		
 		return mv;
 	}

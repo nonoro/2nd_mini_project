@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kosta.dto.OrderDTO;
+import kosta.dto.PointDTO;
 import kosta.dto.UserDTO;
 import kosta.util.DbUtil;
 
@@ -20,7 +21,7 @@ public class UserDAOImpl implements UserDAO {
 		UserDTO user = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO T_USER (USER_ID, USER_PWD, USER_EMAIL, USER_ADDR, USER_PHONE, USER_PROFILE, DOG_NAME, DOG_BIRTHDAY, USER_POINT) \r\n"
+		String sql = "INSERT INTO USERS (USER_ID, USER_PWD, USER_EMAIL, USER_ADDR, USER_PHONE, USER_PROFILE, DOG_NAME, DOG_BIRTHDAY, USER_POINT) \r\n"
 				+ "VALUES (?, ?, ?, ?, ?, NULL, ?, ?, 0)";
 		try {
 			con=DbUtil.getConnection();
@@ -49,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		UserDTO user = null;
 		
-		String sql = "SELECT * FROM T_USER WHERE USER_ID=? AND USER_PWD=?";
+		String sql = "SELECT * FROM USERS WHERE USER_ID=? AND USER_PWD=?";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -75,7 +76,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_USER SET USER_PWD =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE USERS SET USER_PWD =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -101,7 +102,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_USER SET USER_ADDR =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE USERS SET USER_ADDR =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -127,7 +128,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_USER SET USER_EMAIL =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE USERS SET USER_EMAIL =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -153,7 +154,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_USER SET USER_PHONE =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE USERS SET USER_PHONE =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -179,7 +180,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_USER SET USER_PROFILE =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE USERS SET USER_PROFILE =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -205,7 +206,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_USER SET USER_DOGNAME =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE USERS SET USER_DOGNAME =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -231,7 +232,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_USER SET USER_DOGBIRTHDAY =? WHERE USER_ID =? AND USER_PWD=?";
+		String sql = "UPDATE USERS SET USER_DOGBIRTHDAY =? WHERE USER_ID =? AND USER_PWD=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -258,7 +259,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		UserDTO user = null;
 		
-		String sql = "SELECT USER_POINT FROM T_USER WHERE USER_ID=?";
+		String sql = "SELECT USER_POINT FROM USERS WHERE USER_ID=?";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -284,7 +285,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		String id = null;
 		
-		String sql = "SELECT USER_ID FROM T_USER WHERE USER_PHONE=? AND USER_EMAIL=?";
+		String sql = "SELECT USER_ID FROM USERS WHERE USER_PHONE=? AND USER_EMAIL=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -310,7 +311,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		String pwd = null;
 		
-		String sql = "SELECT USER_PWD FROM T_USER WHERE USER_ID=? AND USER_PHONE=? AND USER_EMAIL=?";
+		String sql = "SELECT USER_PWD FROM USERS WHERE USER_ID=? AND USER_PHONE=? AND USER_EMAIL=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -337,7 +338,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		int userCount = 0;
 		
-		String sql = "SELECT COUNT(USER_ID)-1 FROM T_USER";
+		String sql = "SELECT COUNT(USER_ID)-1 FROM USERS";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -360,7 +361,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		int monthSalse = 0;
 		
-		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/?/%'";
+		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS WHERE ORDER_DATE LIKE '?/?/%'";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -385,7 +386,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		int yearSalse = 0;
 		
-		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/%'";
+		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS WHERE ORDER_DATE LIKE '?/%'";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -409,7 +410,7 @@ public class UserDAOImpl implements UserDAO {
 		ResultSet rs = null;
 		int allSalse = 0;
 		
-		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER";
+		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -433,13 +434,13 @@ public class UserDAOImpl implements UserDAO {
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 		OrderDTO order = null;
 		
-		String sql = "SELECT * FROM T_ORDER WHERE ORDER_COMPLETE = 0";
+		String sql = "SELECT * FROM ORDERS WHERE ORDER_COMPLETE = 0";
 		
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			rs=ps.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
 				order = new  OrderDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
 				list.add(order);
 			}
@@ -456,13 +457,85 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE T_ORDRE SET ORDRE_COMPLETE=1 WHERE ORDER_CODE=?";
+		String sql = "UPDATE ORDERS SET ORDER_COMPLETE=1 WHERE ORDER_CODE=?";
 		
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
 			ps.setInt(1, orderCode);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		
+		return result;
+	}
+
+	@Override
+	public int birthdayPoint(UserDTO userDTO) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+	
+		String sql = "UPDATE USERS SET USER_POINT = USER_POINT+5000 \r\n"
+				+ "WHERE TO_CHAR(DOG_BIRTHDAY,'MM-DD')=\r\n"
+				+ "TO_CHAR(SYSDATE,'MM-DD') AND USER_ID = ?";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, userDTO.getUserId());
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		
+		return result;
+	}
+
+	@Override
+	public PointDTO birthdayCheck(String userId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		PointDTO point = null;
+		
+		String sql = "SELECT * FROM POINT WHERE USER_ID = ? AND POINT_SAVE = 5000 AND POINT_SAVEDATE = TO_CHAR(SYSDATE,'YY-MM-DD')";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				point = new  PointDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5));
+				
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return point;
+	}
+
+	@Override
+	public int insertBirthday(PointDTO pointDTO) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+	
+		String sql = "INSERT INTO POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, pointDTO.getUserId());
 			
 			result = ps.executeUpdate();
 		} finally {

@@ -250,6 +250,7 @@ state = <p>
 		</form>
 	</c:when>
 	<c:otherwise>
+	
 			<legend>Login</legend>
 			<blockquote>
 				<p>My Shopping Mall!</p>
@@ -264,6 +265,8 @@ state = <p>
 			</blockquote>
 	</c:otherwise>
 </c:choose>
+
+
 ${sessionScope.loginUser}//${sessionScope.loginPwd}//${sessionScope.loginDogName}
 
 <a href="${path}/front?key=user&methodName=logout">user.logout</a><br>

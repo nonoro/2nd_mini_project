@@ -2,6 +2,7 @@ package kosta.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -42,13 +43,23 @@ public class OrderController implements Controller {
 		//String orderTotalPrice = request.getParameter("orderTotalPrice");		
 		//String orderPay = request.getParameter("orderPay");		
 		
-		OrderDTO order = new OrderDTO(5, userId, null, orderAddr, 0, Integer.parseInt(orderType), Integer.parseInt(orderUsedPoint), 500, 480);
-		PointDTO pointDTO= new PointDTO();
+		OrderDTO order = new OrderDTO(7, userId, null, orderAddr, 0, Integer.parseInt(orderType), Integer.parseInt(orderUsedPoint), 500, 480);
+		String savedate = null;
+		String useddate = null;
+		
+		if(orderUsedPoint != null) {
+			useddate = new Date().toString();
+		}
+		if(orderPay != null	) {
+			savedate = new Date().toString();
+		}
+		PointDTO pointDTO= new PointDTO(order.getOrderCode(), userId, 0, savedate, useddate);
+		
 		
 		
 		if(userId != null) { 			
 			
-			orderService.orderInsert(order);
+			orderService.orderInsert(order);			
 			orderService.savePoint(pointDTO, 480);
 			orderService.saveUserPoint(userId, 480);
 			return new ModelAndView("testForKyu.jsp", true);

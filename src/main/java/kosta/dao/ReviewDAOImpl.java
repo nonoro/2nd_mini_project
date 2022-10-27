@@ -19,7 +19,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO T_REVIEW VALUES(?,?,?,?,?,sysdate,?)";
+		String sql = "INSERT INTO REVIEW VALUES(?,?,?,?,?,sysdate,?)";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ReviewDTO review = null;
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
 		
-		String sql = "SELECT P_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM T_REVIEW WHERE USER_ID =? AND P_CODE=?";
+		String sql = "SELECT PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM REVIEW WHERE USER_ID =? AND PRODUCT_CODE=?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -73,7 +73,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "UPDATE T_REVIEW SET REVIEW_GRADE=?, REVIEW_DETAIL=? WHERE REVIEW_CODE=? AND USER_ID=?";
+		String sql = "UPDATE REVIEW SET REVIEW_GRADE=?, REVIEW_DETAIL=? WHERE REVIEW_CODE=? AND USER_ID=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -99,7 +99,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "DELETE FROM T_REVIEW WHERE REVIEW_CODE=?";
+		String sql = "DELETE FROM REVIEW WHERE REVIEW_CODE=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -123,7 +123,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ResultSet rs= null;
 		ReviewDTO review = null;
 		
-		String sql = "select * from t_review where review_code = ?";
+		String sql = "select * from review where review_code = ?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);

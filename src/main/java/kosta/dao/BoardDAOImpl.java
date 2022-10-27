@@ -20,7 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 		BoardDTO board = null;
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		
-		String sql = "SELECT * FROM T_BOARD WHERE CATEGORY_CODE=?";
+		String sql = "SELECT * FROM BOARD WHERE CATEGORY_CODE=?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -45,7 +45,7 @@ public class BoardDAOImpl implements BoardDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO T_BOARD VALUES(?,?,?,?,?,?,SYSDATE,?);";
+		String sql = "INSERT INTO BOARD VALUES(?,?,?,?,?,?,SYSDATE,?);";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -72,7 +72,7 @@ public class BoardDAOImpl implements BoardDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "UPDATE T_BOARD SET BOARD_TITLE=?, BOARD_CONTENT=?, BOARD_FILE=? WHERE BOARD_CODE=? AND USER_ID=?";
+		String sql = "UPDATE BOARD SET BOARD_TITLE=?, BOARD_CONTENT=?, BOARD_FILE=? WHERE BOARD_CODE=? AND USER_ID=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -99,7 +99,7 @@ public class BoardDAOImpl implements BoardDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "DELETE FROM T_BOARD WHERE BOARD_CODE=? AND USER_ID=?;";
+		String sql = "DELETE FROM BOARD WHERE BOARD_CODE=? AND USER_ID=?;";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -124,7 +124,7 @@ public class BoardDAOImpl implements BoardDAO {
 		ResultSet rs= null;
 		BoardDTO board = null;
 		
-		String sql = "select * from t_board where board_code = ?";
+		String sql = "select * from board where board_code = ?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
