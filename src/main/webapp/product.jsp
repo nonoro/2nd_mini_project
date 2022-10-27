@@ -99,15 +99,11 @@
         }
         
     </style>
-    <script type="text/javascript">
-    	$(function() {
-		function C() {
-			
-		}
-	
-		})	
-		
-    </script>
+   <script type="text/javascript">
+   function check(th){
+	   return th.value
+   }
+   </script>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
    
@@ -116,7 +112,16 @@
 <body>
 
 <div class="header-wrap">헤더자리</div>
+
 <div class="clear">
+    <!--체인지 버튼-->
+    <form name="arrange" action="${path}/front?key=product&methodName=selectByarrange&arrange=${th.value}">
+        <select id="subMenu" name="subMenu" onchange="check(this)">
+            <option value="1">BEST순</option>
+            <option value="2">별점 높은 순</option>
+            <option value="3">후기 많은 순</option>
+        </select>
+    </form>
 </div>
     
 <div class="product_list row">
@@ -126,7 +131,7 @@
      
         <div class="img_box">
         <a href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}">
-            <img id="food_01_img" src="food/53346_originalView_01991543.jpeg"> 
+            <img id="food_01_img" src="img/${p.pFileName}.jpeg"> 
         </a>    
         </div><!--img_box-->
 

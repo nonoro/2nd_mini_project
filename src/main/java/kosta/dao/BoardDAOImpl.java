@@ -118,7 +118,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 	@Override
-	public BoardDTO selectByCode(int reviewCode) throws SQLException {
+	public BoardDTO selectByCode(int boardCode) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps =null;
 		ResultSet rs= null;
@@ -128,7 +128,7 @@ public class BoardDAOImpl implements BoardDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
-			ps.setInt(1, reviewCode);
+			ps.setInt(1, boardCode);
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {

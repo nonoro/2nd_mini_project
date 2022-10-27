@@ -200,7 +200,7 @@ public class ProductController implements Controller {
 	}
 	
 	/**
-	 * 주문많은순으로 정렬 
+	 *  정렬 
 	 * */
 	public ModelAndView selectByarrange(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -218,7 +218,7 @@ public class ProductController implements Controller {
 	
 		request.setAttribute("selectByarrange", selectByarrange);
 		
-		return new ModelAndView("testForKyu.jsp");
+		return new ModelAndView("product1.jsp");
 		
 	}
 	
