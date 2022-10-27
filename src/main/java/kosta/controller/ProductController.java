@@ -11,13 +11,17 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kosta.dto.ProductDTO;
+import kosta.dto.ReviewDTO;
 import kosta.service.ProductService;
 import kosta.service.ProductServiceImpl;
+import kosta.service.ReviewService;
+import kosta.service.ReviewServiceImpl;
 
 
 public class ProductController implements Controller {
 	
 	private ProductService prodService = new ProductServiceImpl();
+	private ReviewService reviewService = new ReviewServiceImpl();
 	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -59,11 +63,33 @@ public class ProductController implements Controller {
 	 * 상품이름에 해당하는 레코드 검색
 	 * */
 	public ModelAndView selectByProductName(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {                              
-		String productName=request.getParameter("productName") ;
-		System.out.println(productName);
-		ProductDTO selectByName =prodService.selectByProductName(productName);
-		
+			throws Exception { 
+		String pageNo = request.getParameter("pageNo");
+	      if(pageNo==null || pageNo.equals("")) {
+	         pageNo="1";
+	      }
+	      
+	      String productName=request.getParameter("productName") ;
+			ProductDTO selectByName =prodService.selectByProductName(productName);
+			
+
+			request.setAttribute("selectByName", selectByName);
+			
+	      String userId = request.getParameter("userId");
+	      String productCode = request.getParameter("productCode");
+	      
+	      ReviewDTO review = new ReviewDTO();
+	      review.setUserId(userId);
+	      review.setProductCode(Integer.parseInt(productCode));
+	      
+	     
+			
+			
+	      List<ReviewDTO> list = reviewService.selectAll(review);//pageNo넣어야함?
+	      
+	      request.setAttribute("list", list);
+	      request.setAttribute("pageNo", pageNo);
+
 		request.setAttribute("selectByName", selectByName);
 
 		return new ModelAndView("product_detail.jsp");

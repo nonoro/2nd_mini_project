@@ -23,7 +23,7 @@ public class ProductDTO {
 	
 
 	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
-			String productExplain) {
+			String productExplain,String pFileName) {
 		super();
 		this.productCode = productCode;
 		this.productCategory = productCategory;
@@ -31,13 +31,9 @@ public class ProductDTO {
 		this.productPrice = productPrice;
 		this.productQty = productQty;
 		this.productExplain = productExplain;
+		this.pFileName = pFileName;
 	}
-	//파일저장을 위한
-	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
-			String productExplain,String fname) {
-		this(productCode,productCategory, productName,productPrice,productQty,productExplain);
-		this.fname=fname;
-	}
+	
 	
 	//수정하기- 이름, 가격, 수량, 설명 
 	public ProductDTO( int productCode,String productName, int productPrice, int productQty, String productExplain) {

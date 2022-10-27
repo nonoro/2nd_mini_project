@@ -45,7 +45,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ResultSet rs= null;
 		ReviewDTO review = null;
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
-		
+	
 		String sql = "SELECT PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM REVIEW WHERE PRODUCT_CODE=?";
 		try {
 			con = DbUtil.getConnection();
