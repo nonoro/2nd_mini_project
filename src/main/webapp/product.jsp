@@ -101,7 +101,7 @@
     </style>
    <script type="text/javascript">
    function check(th){
-	   return th.value
+	   alert(1)
    }
    </script>
     
@@ -130,13 +130,13 @@
      <div class="product_box cell">
      
         <div class="img_box">
-        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}">
+        <a href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}&productCode=${p.productCode}">
             <img id="food_01_img" src="img/${p.pFileName}.jpeg"> 
         </a>    
         </div><!--img_box-->
 
         <div class="text_box">
-        	<a id="food_01_title" href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}"><!--상품 이름-->
+        	<a id="food_01_title" href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}&productCode=${p.productCode}"><!--상품 이름-->
         	
             ${p.productName}<br>
             </a>

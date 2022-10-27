@@ -47,12 +47,12 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ReviewDTO review = null;
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
 		
-		String sql = "SELECT PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM REVIEW WHERE USER_ID =? AND PRODUCT_CODE=?";
+		String sql = "SELECT PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM REVIEW WHERE  PRODUCT_CODE=?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
-			ps.setString(1, reviewDTO.getUserId());
-			ps.setInt(2, reviewDTO.getProductCode());
+			
+			ps.setInt(1, reviewDTO.getProductCode());
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {

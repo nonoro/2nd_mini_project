@@ -25,14 +25,15 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs= null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
 		
-		String sql="select* from product p join produc_file pf on p.product_code= pf.product_code";
+		String sql="select *\r\n"
+				+ "from product";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			rs= ps.executeQuery();
 			while(rs.next()) {
-				ProductDTO product= new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6));
+				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
+						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7));
 			list.add(product);
 			}
 		} finally {
@@ -49,7 +50,7 @@ public class ProductDAOImpl implements ProductDAO {
 		ProductDTO product = null;
 		
 		String sql= "select *\r\n"
-				+ "from product p join product_file pf on p.product_code= pf.product_code\r\n"
+				+ "from product\r\n"
 				+ "where p.product_code=?;";
 		try {
 			con = DbUtil.getConnection();
@@ -58,9 +59,9 @@ public class ProductDAOImpl implements ProductDAO {
 			
 			rs = ps.executeQuery();
 			if(rs.next()) {
+				//수정할겨
 				product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7),rs.getString(8),
-						rs.getInt(9),rs.getString(10));
+						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7));
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -84,7 +85,7 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				productbyname = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6));
+						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7));
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
