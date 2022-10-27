@@ -1,6 +1,8 @@
 package kosta.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -11,8 +13,11 @@ import javax.websocket.Session;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import kosta.dto.OrderDTO;
+import kosta.dto.PointDTO;
 import kosta.dto.ReviewDTO;
 import kosta.dto.UserDTO;
+import kosta.controller.ModelAndView;
 import kosta.service.UserService;
 import kosta.service.UserServiceImpl;
 
@@ -29,34 +34,22 @@ public class UserController implements Controller {
 	
 	public ModelAndView join(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		String saveDir=request.getServletContext().getRealPath("/save"); //C:/Edu
-		int maxSize=1024*1024*100;//100Mb
-		String encoding="UTF-8";
-
-		MultipartRequest m = 
-				new MultipartRequest(request,saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
 		
 		//전송된 데이터 받기
-		String userId = m.getParameter("userId");
-		String userPwd = m.getParameter("userPwd");
-		String userEmail = m.getParameter("userEmail");
-		String userAddr = m.getParameter("userAddr");
-		String userPhone = m.getParameter("userPhone");
-		String userProfile = m.getParameter("userProfile");
-		String dogName = m.getParameter("dogName");
-		String dogBirthday = m.getParameter("dogBirthday");
+		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
+		String userEmail = request.getParameter("userEmail");
+		String userAddr = request.getParameter("userAddr");
+		String userPhone = request.getParameter("userPhone");
+		String dogName = request.getParameter("dogName");
+		String dogBirthday = request.getParameter("dogBirthday");
 		
-		UserDTO user = new UserDTO(userId, userPwd, userEmail, userAddr, userPhone, userProfile, dogName, dogBirthday, 0);
+		UserDTO user = new UserDTO(userId, userPwd, userEmail, userAddr, userPhone, null, dogName, dogBirthday, 0);
 		
-		//만약, 파일첨부가 되었다면....
-		if(m.getFilesystemName("file") != null) {
-			//파일이름저장
-			user.setUserProfile(m.getFilesystemName("file"));
-		}
 		userService.join(user);
 		
 		
-		return new ModelAndView("front",true);
+		return new ModelAndView("jongmintest.jsp",true);
 	}
 	
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response)
@@ -64,18 +57,30 @@ public class UserController implements Controller {
 		//두개의 전송되는 값을 받는다.
 		String id = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
-	
+		String message = null;
 		//서비스 호출
 		UserDTO user = userService.login(new UserDTO(id, pwd));
+		PointDTO pointCheck = userService.birthdayCheck(user.getUserId());
+		if(pointCheck == null) {
+			message = userService.birthdayPoint(user);
+			userService.insertBirthday(pointCheck);
+		}
 		
 		//로그인 성공하면 세션에 정보를 저장  - ${loginUser} / ${loginName}
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", user.getUserId());
 		session.setAttribute("loginDogName", user.getDogName());
+		session.setAttribute("loginPwd", user.getUserPwd());
+		session.setAttribute("loginPoint", user.getUserPoint());
+		session.setAttribute("loginDogBirthday", user.getDogBirthday());
 		
+		ModelAndView mv = new ModelAndView("jongmintest2.jsp" , true);
 		
-		//index.jsp 이동 - redirect방식
-		ModelAndView mv = new ModelAndView("index.jsp", true);
+		if(message!=null) {
+			request.setAttribute("message", message);
+			mv.setRedirect(false);
+		}
+
 		
 		return mv;
 	}
@@ -91,7 +96,7 @@ public class UserController implements Controller {
 		userService.updatePwd(newPwd, user);
 		
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 	
 	public ModelAndView updateAddr(HttpServletRequest request, HttpServletResponse response)
@@ -105,7 +110,7 @@ public class UserController implements Controller {
 		userService.updatePwd(newAddr, user);
 		
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 	
 	public ModelAndView updateEmail(HttpServletRequest request, HttpServletResponse response)
@@ -119,7 +124,7 @@ public class UserController implements Controller {
 		userService.updatePwd(newEmail, user);
 		
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 	
 	public ModelAndView updatePhone(HttpServletRequest request, HttpServletResponse response)
@@ -133,7 +138,7 @@ public class UserController implements Controller {
 		userService.updatePwd(newPhone, user);
 		
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 	
 	public ModelAndView updateDogName(HttpServletRequest request, HttpServletResponse response)
@@ -147,7 +152,7 @@ public class UserController implements Controller {
 		userService.updatePwd(newDogName, user);
 		
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 	
 	public ModelAndView updateDogBirthday(HttpServletRequest request, HttpServletResponse response)
@@ -161,7 +166,7 @@ public class UserController implements Controller {
 		userService.updatePwd(newDogBirthday, user);
 		
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 	
 	public ModelAndView selectPoint(HttpServletRequest request, HttpServletResponse response)
@@ -173,7 +178,7 @@ public class UserController implements Controller {
 		
 		request.setAttribute("userPonint", user.getUserPoint());
 		
-		return new ModelAndView("front");
+		return new ModelAndView("jongmintest.jsp");
 	}
 	
 	public ModelAndView searchId(HttpServletRequest request, HttpServletResponse response)
@@ -189,7 +194,7 @@ public class UserController implements Controller {
 		request.setAttribute("searchId", searchId);
 		
 		
-		return new ModelAndView("front");
+		return new ModelAndView("jongmintest.jsp");
 	}
 	
 	public ModelAndView searchPwd(HttpServletRequest request, HttpServletResponse response)
@@ -207,9 +212,118 @@ public class UserController implements Controller {
 		request.setAttribute("searchPwd", searchPwd);
 		
 		
-		return new ModelAndView("front");
+		return new ModelAndView("jongmintest.jsp");
+	}
+	
+	/**
+	 * 로그아웃
+	 */
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		
+		//모든세션의 정보를 삭제
+		request.getSession().invalidate();
+		
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 
+
+	/////////////////////////////////////////////////////////////////////////////////////
+	/*
+	 * MANAGEMENT
+	 */
+	/**
+	 * 가입 회원수조회(-1은 관리자 아이디 제외)
+	 * SELECT COUNT(USER_ID)-1 FROM T_USER;
+	 */
+	public ModelAndView userCount(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		int userCount = userService.userCount();
+		
+		request.setAttribute("userCount", userCount);
+		
+		
+		return new ModelAndView("jongmintest.jsp");
+	}
+	
+	/**
+	 * 매출액조회(당월 매출)
+	 * SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/?/%';
+	 */
+	public ModelAndView monthSalse(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String year = request.getParameter("year");
+		String month = request.getParameter("month");
+		
+		int monthSalse = userService.monthSalse(Integer.parseInt(year), Integer.parseInt(month));
+		
+		request.setAttribute("monthSalse", monthSalse);
+		
+		
+		return new ModelAndView("jongmintest.jsp");
+	}
+	
+	
+	/**
+	 * 매출액조회(당해 매출)
+	 * SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/%';
+	 */
+	public ModelAndView yearSalse(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String year = request.getParameter("year");
+		
+		int yearSalse = userService.yearSalse(Integer.parseInt(year));
+		
+		request.setAttribute("yearSalse", yearSalse);
+		
+		
+		return new ModelAndView("jongmintest.jsp");
+	}
+	
+	
+	/**
+	 * 매출액조회(전체 매출)
+	 *	SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER;	
+	 */
+	public ModelAndView allSalse(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		
+		int allSalse = userService.allSalse();
+		
+		request.setAttribute("allSalse", allSalse);
+		
+		
+		return new ModelAndView("jongmintest.jsp");
+	}
+	
+	
+	/**
+	 * 상태가 준비중인 상품 리스트업
+	 * SELECT * FROM T_ORDER WHERE ORDER_COMPLETE = 0;
+	 */
+	public ModelAndView readyProduct(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		List<OrderDTO> list = userService.readyProduct();
+		
+		request.setAttribute("readyProductList", list);
+		
+		return new ModelAndView("jongmintest.jsp");
+	}
+	
+	
+	/**
+	 * 상태가 준비중인 상품의 ORDER_COMPLETE를 배송중으로 변경
+	 * UPDATE T_ORDRE SET ORDRE_COMPLETE=1 WHERE ORDER_CODE=?
+	 */
+	public ModelAndView updateReady(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String orderCode = request.getParameter("orderCode");
+		
+		userService.updateReady(Integer.parseInt(orderCode));
+		
+		return new ModelAndView("jongmintest.jsp",true);
+	}
+	
 	
 	
 

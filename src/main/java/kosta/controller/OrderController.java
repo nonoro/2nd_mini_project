@@ -2,6 +2,7 @@ package kosta.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
+import kosta.dto.PointDTO;
 import kosta.service.OrderService;
 import kosta.service.OrderServiceImpl;
 
@@ -51,18 +53,33 @@ public class OrderController implements Controller {
 		/*HttpSession session = request.getSession();
 		String userId = (String)session.getAttribute("userId");
 		
-		//String userId = request.getParameter("userId");
+		String userId = request.getParameter("userId");
 		String orderAddr = request.getParameter("orderAddr");
-		int orderType = Integer.parseInt(request.getParameter("orderType"));
-		int orderUsedPoint = Integer.parseInt(request.getParameter("orderUsedPoint"));
-		int orderTotalPrice = Integer.parseInt(request.getParameter("orderTotalPrice"));		
-		int orderPay = Integer.parseInt(request.getParameter("orderPay"));		
+		String orderType = request.getParameter("orderType");
+		String orderUsedPoint = request.getParameter("orderUsedPoint");
+		//String orderTotalPrice = request.getParameter("orderTotalPrice");		
+		//String orderPay = request.getParameter("orderPay");		
 		
-		OrderDTO order = new OrderDTO(0, userId, null, orderAddr, 0, orderType, orderUsedPoint, orderTotalPrice, orderPay);
+		OrderDTO order = new OrderDTO(7, userId, null, orderAddr, 0, Integer.parseInt(orderType), Integer.parseInt(orderUsedPoint), 500, 480);
+		String savedate = null;
+		String useddate = null;
 		
-		if(userId != null) { 
-			orderService.orderInsert(order);
-			return new ModelAndView("orderList.jsp", true);
+		if(orderUsedPoint != null) {
+			useddate = new Date().toString();
+		}
+		if(orderPay != null	) {
+			savedate = new Date().toString();
+		}
+		PointDTO pointDTO= new PointDTO(order.getOrderCode(), userId, 0, savedate, useddate);
+		
+		
+		
+		if(userId != null) { 			
+			
+			orderService.orderInsert(order);			
+			orderService.savePoint(pointDTO, 480);
+			orderService.saveUserPoint(userId, 480);
+			return new ModelAndView("testForKyu.jsp", true);
 		} else {
 			return new ModelAndView("error", true);
 		}	*/
@@ -132,6 +149,7 @@ public class OrderController implements Controller {
 		OrderDTO order = orderService.selectState(Integer.parseInt(orderCode));
 		
 		int state = order.getOrderComplete();
+		System.out.println("controller = " + state);
 		
 		if(state==0) {
 			request.setAttribute("orderState", "준비중");
@@ -146,6 +164,7 @@ public class OrderController implements Controller {
 		}
 
 		
-		return new ModelAndView("orderList");
+		return new ModelAndView("jongmintest.jsp");
 	}
+
 }

@@ -1,6 +1,7 @@
 package kosta.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -45,7 +46,7 @@ public class ReviewController implements Controller{
 		String reviewFile = m.getParameter("reviewFile");
 		
 		ReviewDTO review = new ReviewDTO
-				(Integer.parseInt(reviewCode), userId, Integer.parseInt(productCode), Integer.parseInt(reviewGrade), reviewDetail, reviewPostdate,null);
+				(Integer.parseInt(reviewCode), userId, Integer.parseInt(productCode), Integer.parseInt(reviewGrade), reviewDetail, new Date().toString(),null);
 		
 		//만약, 파일첨부가 되었다면....
 		if(m.getFilesystemName("file") != null) {
@@ -55,7 +56,7 @@ public class ReviewController implements Controller{
 		reviewService.insert(review);
 		
 		
-		return new ModelAndView("front",true);
+		return new ModelAndView("jongmintest.jsp",true);
 	}
 	
 	public ModelAndView selectAll(HttpServletRequest request, HttpServletResponse response)
@@ -76,33 +77,33 @@ public class ReviewController implements Controller{
 		request.setAttribute("list", list);
 		request.setAttribute("pageNo", pageNo);
 		
-		return new ModelAndView("front");
+		return new ModelAndView("product_detail_test.jsp");
 	}
 	
 	public ModelAndView update(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		String reviewCode = request.getParameter("reviewCode");
 		String userId = request.getParameter("userId");
-		String productCode = request.getParameter("productCode");
 		String reviewGrade = request.getParameter("reviewGrade");
 		String reviewDetail = request.getParameter("reviewDetail");
 		
-		ReviewDTO review = new ReviewDTO(0, userId, Integer.parseInt(productCode), Integer.parseInt(reviewGrade), reviewDetail, null, null);
+		ReviewDTO review = new ReviewDTO(Integer.parseInt(reviewCode), userId, 0, Integer.parseInt(reviewGrade), reviewDetail, null, null);
 		
 		reviewService.update(review);
 		
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jongmintest.jsp", true);
 	}
 	
 	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		String productCode = request.getParameter("productCode");
+		String reviewCode = request.getParameter("reviewCode");
 		String saveDir = request.getServletContext().getRealPath("/save");
 		
-		reviewService.delete(Integer.parseInt(productCode), saveDir);
+		reviewService.delete(Integer.parseInt(reviewCode), saveDir);
 		
 		
-		return new ModelAndView("front",true);
+		return new ModelAndView("jongmintest.jsp",true);
 	}
 
 }

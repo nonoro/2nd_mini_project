@@ -5,6 +5,7 @@ import java.util.List;
 
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
+import kosta.dto.PointDTO;
 
 
 public interface OrderDAO {
@@ -44,5 +45,10 @@ public interface OrderDAO {
 	 * */
 	List<OrderLineDTO> selectOrderLineByOrderCode(int orderCode) throws SQLException; 
 
-
+	/**
+	 * 포인트테이블
+	 * */
+	int savePoint (PointDTO pointDTO,int orderPay) throws SQLException;
+	/**유저테이블*/
+	int saveUserPoint(String userId,int orderPay) throws SQLException;
 }

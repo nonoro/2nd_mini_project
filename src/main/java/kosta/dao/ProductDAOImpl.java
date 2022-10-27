@@ -25,7 +25,7 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs= null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
 		
-		String sql="select* from product";
+		String sql="select* from product p join produc_file pf on p.product_code= pf.product_code";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -48,7 +48,10 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs=null;
 		ProductDTO product = null;
 		
-		String sql= "select * from Product where product_code=?";
+		String sql= "select *\r\n"
+				+ "from product p join product_file pf on p.product_code= pf.product_code\r\n"
+				+ "where p.product_code=?;";
+        
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -57,7 +60,8 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6));
+						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7),rs.getString(8),
+						rs.getInt(9),rs.getString(10));
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -120,8 +124,8 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps=null;
 		int result=0;
 		String sql= "update product \r\n"
-				+ "set p_name=?,p_price=?,p_qty=?,p_explain=?\r\n"
-				+ "where p_code=?";
+				+ "set product_name=?,product_price=?,product_qty=?,product_explain=?\r\n"
+				+ "where product_code=?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -147,7 +151,7 @@ public class ProductDAOImpl implements ProductDAO {
 		  int result=0;
 		  try {
 		   con = DbUtil.getConnection();
-		   ps = con.prepareStatement("delete from product where p_code=?");
+		   ps = con.prepareStatement("delete from product where product_code=?");
 		   ps.setInt(1, productCode);
 		   result = ps.executeUpdate();
 		   
@@ -167,8 +171,8 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs= null;
 		int result=0;
 		
-		String sql="SELECT SUM(ORDERLINE_TOTAL_PRICE) FROM ORDERLINE ol , T_ORDER o\r\n"
-				+ "WHERE ol.order_code = o.order_code and to_char(o.order_date) like ? and ol.p_code=?";
+		String sql="SELECT SUM(ORDERLINE_TOTAL_PRICE) FROM ORDERLINE ol , orders o\r\n"
+				+ "WHERE ol.order_code = o.order_code and to_char(o.order_date) like ? and ol.product_code=?";
 		try {
 			con=DbUtil.getConnection(); 
 			ps=con.prepareStatement(sql);
@@ -195,8 +199,8 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs= null;
 		int result=0;
 		
-		String sql="SELECT SUM(ORDERLINE_TOTAL_PRICE) FROM ORDERLINE ol , T_ORDER o\r\n"
-				+ "WHERE ol.order_code = o.order_code and to_char(o.order_date) Like ? and ol.p_code=?;";
+		String sql="SELECT SUM(ORDERLINE_TOTAL_PRICE) FROM ORDERLINE ol , orders o\r\n"
+				+ "WHERE ol.order_code = o.order_code and to_char(o.order_date) Like ? and ol.product_code=?;";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -224,9 +228,9 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps =null;
 		ResultSet rs= null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
-		String sql="select distinct(p.p_code), p.p_name, p.p_price, p.p_explain\r\n"
+		String sql="select distinct(p.product_code), p.product_name, p.product_price, p.product_explain\r\n"
 				+ "from product p, product_category pc\r\n"
-				+ "where p.p_category = pc.p_category and p.p_category=?";
+				+ "where p.product_category = pc.product_category and p.product_category=?";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -280,10 +284,10 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
-		String sql="select  p.p_code, p.p_name, p.p_price, p.p_explain, count(distinct ol.order_code) as ordercount, count(distinct r.review_code) as reviewcount, NVL(AVG(R.review_GRADE),0) AS STAR_AVG\r\n"
-				+ "from product p join orderline ol on p.p_code=ol.p_code\r\n"
-				+ "LEFT OUTER JOIN t_review r ON p.p_code= r.p_code \r\n"
-				+ "group by p.p_code, p.p_name, p.p_price, p.p_explain " +arrange;
+		String sql="select  p.product_code, p.product_name, p.product_price, p.product_explain, count(distinct ol.order_code) as ordercount, count(distinct r.review_code) as reviewcount, NVL(AVG(R.review_GRADE),0) AS STAR_AVG\r\n"
+				+ "from product p join orderline ol on p.product_code=ol.product_code\r\n"
+				+ "LEFT OUTER JOIN review r ON p.product_code= r.product_code \r\n"
+				+ "group by p.product_code, p.product_name, p.product_price, p.product_explain " +arrange;
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
