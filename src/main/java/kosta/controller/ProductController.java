@@ -53,7 +53,6 @@ public class ProductController implements Controller {
 		request.setAttribute("selectByCode", selectByCode);
 
 		return new ModelAndView("product_detail.jsp");
-    
 	}
 	
 	/**

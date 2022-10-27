@@ -23,28 +23,61 @@
         /* background-color: lightcoral; */
         margin: 0 auto;
     }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+>>>>>>> minjeong
     table, th, td {
         border: 1px solid black;
         border-collapse: collapse;
         width: 40%;
     }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+>>>>>>> minjeong
     table{
         width: 100%;
         height: 800px;
     }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+>>>>>>> minjeong
     /*메인상품사진*/
     #food_01_img{
         width: 100%;
         height: 100%;
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    .d-grid gap-2{
+        padding: 20px;
+    }
+=======
+>>>>>>> minjeong
 
     .d-grid gap-2{
         padding: 20px;
     }
 
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> minjeong
     /*상품 디테일 사진*/
     .detail_img_1 > img{
         display: inline;
@@ -58,7 +91,14 @@
         display: inline;
         width: 30%;
     }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+>>>>>>> minjeong
     /*상품디테일 사진*/
     .detail_img_1{
         display: inline;
@@ -73,7 +113,14 @@
     .detail_img_zip{
         margin: 20px 0 20px 40px;
     }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+>>>>>>> minjeong
     /*상품 가격*/
     .detail_price_1{
         display: inline-block;
@@ -82,12 +129,30 @@
     .detail_price_2{
         display: inline-block;
     }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+    
+=======
+
+
+    
+
+>>>>>>> main
+>>>>>>> minjeong
     .detail_box{
         margin-left: 40px;
         margin-top: -50px;
     } 
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
+>>>>>>> minjeong
 </style>
 </head>
 <body>

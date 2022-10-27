@@ -68,11 +68,29 @@
         }
         
     </style>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <script type="text/javascript">
+    	$(function() {
+		function C() {
+			
+		}
+	
+		})	
+		
+    </script>
+=======
+>>>>>>> minjeong
    <script type="text/javascript">
    function check(th){
 	   return th.value
    }
    </script>
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> minjeong
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
    
@@ -84,11 +102,26 @@
 
 <div class="clear">
     <!--체인지 버튼-->
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <form name="f">
+        <select id="subMenu" name="subMenu" onchange="subMenu(this)">
+            <option value="0">최근 등록순</option>
+            <option value="kfc">BEST순</option>
+            <option value="lotte">별점 높은 순</option>
+            <option value="king">후기 많은 순</option>
+=======
+>>>>>>> minjeong
     <form name="arrange" action="${path}/front?key=product&methodName=selectByarrange&arrange=${th.value}">
         <select id="subMenu" name="subMenu" onchange="check(this)">
             <option value="1">BEST순</option>
             <option value="2">별점 높은 순</option>
             <option value="3">후기 많은 순</option>
+<<<<<<< HEAD
+=======
+>>>>>>> main
+>>>>>>> minjeong
         </select>
     </form>
 </div>
@@ -100,7 +133,15 @@
      
         <div class="img_box">
         <a href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}">
+<<<<<<< HEAD
             <img id="food_01_img" src="img/${p.pFileName}.jpeg"> 
+=======
+<<<<<<< HEAD
+            <img id="food_01_img" src="food/53346_originalView_01991543.jpeg"> 
+=======
+            <img id="food_01_img" src="img/${p.pFileName}.jpeg"> 
+>>>>>>> main
+>>>>>>> minjeong
         </a>    
         </div><!--img_box-->
 
