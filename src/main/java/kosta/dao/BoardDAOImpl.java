@@ -20,7 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 		BoardDTO board = null;
 		List<BoardDTO> list = new ArrayList<BoardDTO>();
 		
-		String sql = "SELECT * FROM BOARD WHERE CATEGORY_CODE=?";
+		String sql = "SELECT * FROM BOARD WHERE board_CATEGORY=?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -45,18 +45,18 @@ public class BoardDAOImpl implements BoardDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO BOARD VALUES(?,?,?,?,?,?,SYSDATE,?);";
+		String sql = "INSERT INTO BOARD VALUES(board_code_seq.NEXTVAL,?,?,?,?,?,SYSDATE,?)";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setInt(1, board.getBoardCode());
-			ps.setInt(2, board.getCategoryCode());
-			ps.setString(3, board.getUserId());
-			ps.setString(4, board.getBoardTitle());
-			ps.setString(5, board.getBoardContent());
-			ps.setString(6, board.getBoardNick());
-			ps.setString(7, board.getBoardFile());
+			
+			ps.setInt(1, board.getCategoryCode());
+			ps.setString(2, board.getUserId());
+			ps.setString(3, board.getBoardTitle());
+			ps.setString(4, board.getBoardContent());
+			ps.setString(5, board.getBoardNick());
+			ps.setString(6, board.getBoardFile());
 			
 			result = ps.executeUpdate();
 			
@@ -99,7 +99,7 @@ public class BoardDAOImpl implements BoardDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
-		String sql = "DELETE FROM BOARD WHERE BOARD_CODE=? AND USER_ID=?;";
+		String sql = "DELETE FROM BOARD WHERE BOARD_CODE=? AND USER_ID=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);

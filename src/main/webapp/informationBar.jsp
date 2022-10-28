@@ -27,6 +27,7 @@
     <div class="state-container">
         <div class="stateImage" style="margin-left: 0px;">
             <a href="${pageContext.request.contextPath}/mypagepart/myInformation.jsp"><img src="${pageContext.request.contextPath}/img/${loginProfile}" alt=""></a>
+
         </div>
         <div class="userDetail">
             <span id="name">${loginUser}</span><br>

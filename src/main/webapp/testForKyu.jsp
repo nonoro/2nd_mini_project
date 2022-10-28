@@ -19,7 +19,7 @@ ${d.productCode}
 	<a href="${path}/front?key=product&methodName=selectByProductName&productName=${selectByName.productName}">
 		상품이름 값</a> ${selectByName.productName} ${selectByName.productPrice}
 
-	/////////////////////////////////////////////////////////////////////////////////////첨부파일있으면 멀티파트써 지으느으은
+	/////////////////////////////////////////////////////////////////////////////////////첨부파일있으면 멀티파트써 
 	<form name="writeForm" method="post"
 		action="${path}/front?key=product&methodName=insert"
 		enctype="multipart/form-data">
@@ -265,7 +265,120 @@ ${cateList2}<br>
 		</table>
 	</form>
 	
-	<br><br><br><br><br><br>
+	<br><br><br>
+	게시판 글 목록 연결
+	<a href="${path }/front?key=board&methodName=categoryList&categoryCode=2"> ${categoryList.categoryCode}게시판 코드별 글목록 </a>
+
+	<c:forEach items="${categoryList}" var="b">
+${b.boardCode}, ${b.boardContent} 
+</c:forEach>
+	<br><br>
+		
+		<form name="writeForm" method="post"
+		action="${path}/front?key=board&methodName=insertBoard"
+		enctype="multipart/form-data">
+		<table align="center" cellpadding="5" cellspacing="2" width="600"
+			border="1">
+			<tr>
+				<td width="1220" height="20" colspan="2" bgcolor="#00cc00">
+					<p align="center">
+						<font color="white" size="3"><b> 게시글 등록 </b></font>
+					</p>
+				</td>
+			</tr>
+		<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;"> 게시판 코드</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <input type=text
+							name="boardCode" size="30"></span></b></td>
+			</tr>
+			<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;">카테고리코드</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <input type=text
+							name="categoryCode" size="30"></span></b></td>
+			</tr>
+			<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;">아이디</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <input type=text
+							name="userId" size="30"></span></b></td>
+			</tr>
+			<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;">제목</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <input type=text
+							name="boardTitle" size="30"></span></b></td>
+			</tr>
+			
+			<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;">내용</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <input type=text
+							name="boardContent" size="50"></span></b></td>
+			</tr>
+			<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;">닉네임</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <input type=text name="boardNick"
+							size="50"></span></b></td>
+			</tr>
+		<!-- 	<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;">등록일</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <textarea name="productExplain"
+								cols="50" rows="10"></textarea></span></b></td>
+			</tr> -->
+
+			<tr>
+				<td width="150" height="20">
+					<p align="right">
+						<b><span style="font-size: 9pt;">*파일첨부</span></b>
+					</p>
+				</td>
+				<td width="450" height="20"><b><span
+						style="font-size: 9pt;"> <input type="file" name="boardFile"
+							maxlength="60" size="40">
+					</span></b></td>
+			</tr>
+
+			<tr>
+				<td width="450" height="20" colspan="2" align="center"><b><span
+						style="font-size: 9pt;"><input type=submit value=글쓰기>
+							<input type=reset value=다시쓰기></span></b></td>
+			</tr>
+		</table>
+	</form>
+	
+	<br><br><br><br><br>
 	
 
 </body>

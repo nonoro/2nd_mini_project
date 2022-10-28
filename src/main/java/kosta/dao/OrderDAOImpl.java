@@ -93,7 +93,7 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		int result[] = null;
 		try {
-			ps = con.prepareStatement("insert into orderline values(orderline_code_seq.nextval, order_code_seq.currval, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into orderline values(orderline_seq.nextval, order_seq.currval, ?, ?, ?, ?, ?)");
 			for(OrderLineDTO orderLine: order.getOrderLineList()) { 
 				ProductDTO product = productDao.selectByProductCode(orderLine.getProductCode());
 				ps.setString(1, order.getUserId()); 

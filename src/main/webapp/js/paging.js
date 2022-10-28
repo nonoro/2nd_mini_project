@@ -1,6 +1,7 @@
 const contents = document.querySelector(".contents");
 const buttons = document.querySelector(".buttons");
 
+const maxContent = 30;
 const numOfContent = 178;
 const showContent = 10;
 const showButton = 5;

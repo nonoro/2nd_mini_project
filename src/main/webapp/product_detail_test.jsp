@@ -116,7 +116,7 @@
             </td>
             <td>
                 <div class="product-detail-name jump">
-                    <h4><strong>견수무강 닥터 소프트 치킨&장건강 노령견용 1.2kg</strong></h4>
+                    <h4><strong>${selectByName.productName }</strong></h4>
                 </div>
             </td>
         </tr>
@@ -139,7 +139,7 @@
         <tr>
             <td>
                 <div class="product-detail-price jump">
-                    <h2><strong>2,000</strong></h2>
+                    <h2><strong>${selectByName.productPrice}</strong></h2>
                 </div>
                 <div class="product-detail-price">
                     <h4>원</h4><!--고정-->

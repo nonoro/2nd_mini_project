@@ -25,6 +25,20 @@ public class BoardDTO {
 		this.boardFile = boardFile;
 	}
 
+	
+	
+	public BoardDTO(int categoryCode, String userId, String boardTitle, String boardContent, String boardNick,
+			String boardPostdate, String boardFile) {
+		super();
+		this.categoryCode = categoryCode;
+		this.userId = userId;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardNick = boardNick;
+		this.boardPostdate = boardPostdate;
+		this.boardFile = boardFile;
+	}
+
 	public int getBoardCode() {
 		return boardCode;
 	}

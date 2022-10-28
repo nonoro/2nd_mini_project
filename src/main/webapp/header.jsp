@@ -108,7 +108,7 @@
                     <li id="nop"><a href="#">심장</a></li>
                 </ul>
             </li>
-            <li style="margin-left: 12px"><span>커뮤니티</span>
+            <li style="width: 150px"><span>커뮤니티</span>
                 <ul class="dept01">
                     <li id="nop"><a href="#">광고</a></li>
                     <li id="nop"><a href="#">질병</a></li>
