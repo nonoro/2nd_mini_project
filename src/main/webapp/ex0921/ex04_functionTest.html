@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script type="text/javascript">
+/*
+	1. 이름을 입력받아(prompt()로 받는다.) 이름을 alert("") - 인수/리턴없음
+	
+	2. 색깔을 입력받아 바탕색 바꾸기 (prompt이용 - 색상을 받는다.)	- 색상인수있음
+		//바탕색 변경 ??? --> documet.boby.style.backgroundColo="red"l=;
+		
+	3. 이름과 태어난 년도를 입력받아 alert()에 이름과 나이 출력하는 함수
+		- 이름과 년도 인수 받음
+		
+	4. confirn 을 이용해서 성별구별하는 함수 , ex) confirm(여자니);
+		-성별 리턴
+		
+	5. onClick="함수이름()" 이용하여 바탕색 바꾸기
+		- 두번째 함수를 이용함
+*/
+
+
+	//1. 이름을 입력받아(prompt()로 받는다.) 이름을 alert("") - 인수/리턴없음
+	function printName(){
+		let name = prompt("이름은?");
+		alert(`당신의 이름은 ${name}입니다.`);
+	}
+		
+//	2. 색깔을 입력받아 바탕색 바꾸기 (prompt이용 - 색상을 받는다.)	- 색상인수있음
+//	바탕색 변경 ??? --> documet.boby.style.backgroundColor ="red";
+	function changeColor(color){
+		document.body.style.backgroundColor = color;
+		
+	}
+	
+//	3. 이름과 태어난 년도를 입력받아 alert()에 이름과 나이 출력하는 함수
+//		- 이름과 년도 인수 받음
+/*	function nameAge(){
+		let name = prompt("이름은?");
+		let date = prompt("태어난 년도는?");
+		alert(`이름 : ${name}  나이 : ${2022-date+1}`);
+		
+	}
+*/
+	function nameAge(name, year){
+		//현재년도 구하기
+		let today = new Date();
+		alert(`today = ${today}\n today.getFullYear() = ${today.getFullYear()}`);
+		
+		let age = today.getFullYear() - year;
+		alert(`이름 : ${name}  나이 : ${age}`);
+	
+	}
+//	4. confirm 을 이용해서 성별구별하는 함수 , ex) confirm(여자니?);
+//		-성별 리턴
+/*	function checkGender(gender){
+		let a = confirm(gender);
+		if(a==true)
+			return "남자";
+		else
+			return "여자"	
+	}
+*/
+	let genderCheck = function(){
+	/*let re = confirm("남자니?");
+	alert("re : " + re);*/
+	
+	let re = confirm("남자니?") ? "남자" : "여자";
+	return re;
+}
+	
+	
+</script>
+</head>
+<body>
+<h1>함수를 호출해보자.</h1>
+	<input type = "button" onclick="changeColor(prompt('색상을 입력하세요.'))" value="바탕색변경">
+	<input type = "button" onclick="let a = prompt('원하는 색?'); changeColor(a)" value="바탕색변경">
+
+<script type="text/javascript">
+	//작성된 함수를 호출해본다.
+	//printName();
+	
+//	let backColor = prompt("색상을 입력하세요.");
+//	changeColor(backColor);
+	//nameAge();
+	
+//	var gender = checkGender("남자입니까?");
+//	document.write("<br>"+ gender );
+	let result = genderCheck();
+	alert("결과 :" + result);
+	
+	nameAge(prompt("이름은?", "나영") , prompt("몇년생?", 1990));
+	
+</script>
+
+
+</body>
+</html>

@@ -36,5 +36,11 @@ public interface ReviewDAO {
 	 */
 	ReviewDTO selectByCode(int reviewCode) throws SQLException;
 	
+	/**
+	 * 상세페이지(코드별) 상품 평균 별점 구하기
+	 * SELECT trunc(AVG(REVIEW_GRADE), 0.1) FROM REVIEW WHERE PRODUCT_CODE=?
+	 */
+	int selectAvrGrade(int productCode) throws SQLException;
+	
 	
 }

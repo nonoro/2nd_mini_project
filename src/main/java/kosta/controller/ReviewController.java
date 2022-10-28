@@ -44,13 +44,20 @@ public class ReviewController implements Controller{
 		String userId = m.getParameter("userId");
 		String productName = m.getParameter("productName");
 		int productCode = productService.selectByProductName(productName).getProductCode();
-		String reviewGrade = m.getParameter("reviewGrade");
+		String reviewGrade = m.getParameter("reviewStar");
 		String reviewDetail = m.getParameter("reviewDetail");
 		String reviewPostdate = m.getParameter("reviewPostdate");
 		String reviewFile = m.getParameter("file");
+		String dogName=m.getParameter("dogName");
+		System.out.println("userId = "+userId);
+		System.out.println("productCode = "+productCode);
+		System.out.println("productName = "+productName);
+		System.out.println("reviewGrade = "+reviewGrade);
+		System.out.println("reviewDetail = "+reviewDetail);
+		System.out.println("reviewFile = "+reviewFile);
 		
 		ReviewDTO review = new ReviewDTO
-				(0, userId, productCode, Integer.parseInt(reviewGrade), reviewDetail, new Date().toString(),reviewFile);
+				(0, userId, productCode, Integer.parseInt(reviewGrade), reviewDetail, new Date().toString(),reviewFile,dogName);
 		
 		//만약, 파일첨부가 되었다면....
 		if(m.getFilesystemName("file") != null) {
@@ -60,7 +67,7 @@ public class ReviewController implements Controller{
 		reviewService.insert(review);
 		
 		
-		return new ModelAndView("review_write_test.jsp",true);
+		return new ModelAndView("jongmintest.jsp",true);
 	}
 	
 	public ModelAndView selectAll(HttpServletRequest request, HttpServletResponse response)
@@ -80,7 +87,10 @@ public class ReviewController implements Controller{
 		for(ReviewDTO i : list) {
 			System.out.println("d1111asd"+i.getReviewFile()) ;
 		}
+		int avrGrade = reviewService.selectAvrGrade(Integer.parseInt(productCode));
+		
 		request.setAttribute("list", list);
+		request.setAttribute("avrGrade", avrGrade);
 		request.setAttribute("pageNo", pageNo);
 		
 		return new ModelAndView("product_detail_test.jsp");
@@ -93,7 +103,7 @@ public class ReviewController implements Controller{
 		String reviewGrade = request.getParameter("reviewGrade");
 		String reviewDetail = request.getParameter("reviewDetail");
 		
-		ReviewDTO review = new ReviewDTO(Integer.parseInt(reviewCode), userId, 0, Integer.parseInt(reviewGrade), reviewDetail, null, null);
+		ReviewDTO review = new ReviewDTO(Integer.parseInt(reviewCode), userId, 0, Integer.parseInt(reviewGrade), reviewDetail, null, null, null);
 		
 		reviewService.update(review);
 		

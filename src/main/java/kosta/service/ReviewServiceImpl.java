@@ -52,4 +52,11 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 
+	@Override
+	public int selectAvrGrade(int productCode) throws SQLException {
+		int avrGrade = reviewDAO.selectAvrGrade(productCode);
+		
+		return avrGrade;
+	}
+
 }

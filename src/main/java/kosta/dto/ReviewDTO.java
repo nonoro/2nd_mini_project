@@ -8,10 +8,11 @@ public class ReviewDTO {
 	private String reviewDetail;
 	private String reviewPostdate;
 	private String reviewFile;
+	private String dogName;
 	
 	public ReviewDTO() { }
 	public ReviewDTO(int reviewCode, String userId, int productCode, int reviewGrade, String reviewDetail,
-			String reviewPostdate, String reviewFile) {
+			String reviewPostdate, String reviewFile, String dogName) {
 		super();
 		this.reviewCode = reviewCode;
 		this.userId = userId;
@@ -20,6 +21,7 @@ public class ReviewDTO {
 		this.reviewDetail = reviewDetail;
 		this.reviewPostdate = reviewPostdate;
 		this.reviewFile = reviewFile;
+		this.dogName = dogName;
 	}
 	
 	
@@ -72,6 +74,12 @@ public class ReviewDTO {
 	}
 	public void setReviewFile(String reviewFile) {
 		this.reviewFile = reviewFile;
+	}
+	public String getDogName() {
+		return dogName;
+	}
+	public void setDogName(String dogName) {
+		this.dogName = dogName;
 	}
 	
 	

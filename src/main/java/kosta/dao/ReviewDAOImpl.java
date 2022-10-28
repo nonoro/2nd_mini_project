@@ -19,7 +19,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO REVIEW VALUES(review_code_seq.NEXTVAL,?,?,?,?,sysdate,?)";
+		String sql = "INSERT INTO REVIEW VALUES(review_code_seq.NEXTVAL,?,?,?,?,sysdate,?,?)";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -29,6 +29,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			ps.setInt(3, reivewDTO.getReviewGrade());
 			ps.setString(4, reivewDTO.getReviewDetail());;
 			ps.setString(5, reivewDTO.getReviewFile());
+			ps.setString(6, reivewDTO.getDogName());
 			
 			result = ps.executeUpdate();
 			
@@ -46,7 +47,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ReviewDTO review = null;
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
 	
-		String sql = "SELECT PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE FROM REVIEW WHERE PRODUCT_CODE=?";
+		String sql = "SELECT USER_ID, PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE, DOGNAME FROM REVIEW WHERE PRODUCT_CODE=?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -54,7 +55,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				review = new ReviewDTO(0,null,rs.getInt(1),rs.getInt(2),rs.getString(3),rs.getString(4),rs.getString(5));
+				review = new ReviewDTO(0,rs.getString(1),rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
 				list.add(review);
 			}
 			
@@ -128,8 +129,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 			ps.setInt(1, reviewCode);
 			
 			rs = ps.executeQuery();
-			while(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7));
+			if(rs.next()) {
+				review = new ReviewDTO(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
 			
 			}
 			
@@ -138,6 +139,32 @@ public class ReviewDAOImpl implements ReviewDAO {
 		}		
 		
 		return review;
+	}
+
+	@Override
+	public int selectAvrGrade(int productCode) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		int avrGrade = 0;
+		
+		String sql = "SELECT trunc(AVG(REVIEW_GRADE), 0.1) FROM REVIEW WHERE PRODUCT_CODE=?";
+		try {
+			con = DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, productCode);
+			
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				avrGrade = rs.getInt(1);
+			
+			}
+			
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}		
+		
+		return avrGrade;
 	}
 
 }

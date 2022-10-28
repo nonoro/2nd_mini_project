@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+	table{border: 3px red solid; border-collapse: collapse;}
+	th, td{border: 1px black solid; text-align: center; padding: 5px;}
+	table tr:first-child { background-color: pink; color: white; }
+</style>
+<script type="text/javascript">
+function gugudan() {
+
+	document.write("<table>");
+	//머리 출력
+	document.write("<tr>");
+	for(let dan=2; dan<=9; dan++){
+		document.write(`<th>${dan}단</th>`);
+	}
+	document.write("</tr>")
+	
+	for(let i=1; i<=9; i++){
+		document.write("<tr>");
+		for(let j=2; j<=9; j++){
+			document.write(`<td>${j} * ${i} = ${j*i}</td>`);
+		}
+		document.write("</tr>")
+	}
+	document.write("</table>");	
+}
+	</script>
+</head>
+<body>
+<h1>구구단</h1>
+
+<script type="text/javascript">
+/*	
+ // 내가 한거
+ 	for(let i =2; i<=9; i++){
+		document.write(i + "단<br>");
+		for (let j =1; j<=9; j++) {
+			document.write(`${i} * ${j} = ${i*j}<br>`);
+		}
+	}
+	
+	document.write(`<table>`);
+	  document.write(`<tr>`);
+	    for(var i =2; i<=9; i++){
+	    	document.write(`<th>${i}단</th>`);
+	    }
+	  
+	  document.write(`</tr>`);
+
+	    for(let j=1; j<=9; j++){
+	  	  document.write(`<tr>`);
+	  	  for(let i=2; i<=9; i++){
+	  		  document.write(`<td>${i} * ${j} = ${i*j}</td>`);
+	  	  }
+  	    }
+      document.write(`</tr>`);
+
+	document.write(`</table>`);
+*/
+//////////////////////////////////////////////
+//강사님이 하신거
+	
+	
+
+</script>
+
+</body>
+</html>

@@ -95,6 +95,13 @@
     }
     
     </style>
+    
+    <script type="text/javascript">
+    
+    
+    </script>
+    
+    
 </head>
 <body>
     <!--부트스트랩-->
@@ -116,7 +123,15 @@
         <tr>
             <td>
                 <div class="product-detail-star jump">
-                    <h4>⭐️ ⭐️ ⭐️ ⭐️</h4>
+                    <h4>
+				    	<c:set var="star" value="${avrGrade}"/>
+				    	<c:if test="${star eq '1'}">⭐</c:if>
+				    	<c:if test="${star eq '2'}">⭐⭐</c:if>
+				    	<c:if test="${star eq '3'}">⭐⭐⭐</c:if>
+				    	<c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
+				    	<c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
+				    	${avrGrade}점
+				    </h4>
                 </div>
                 <a href="#" >후기보러가기</a><!--고정-->
             </td>
@@ -212,14 +227,24 @@
     </div>
     <table class="review-box">
         <tr>
-            <td class="product-detail-review-td" colspan="6"><h4>⭐️ ⭐️ ⭐️ ⭐️ ⭐️(총 평균 별)</h4></td>
+            <td class="product-detail-review-td" colspan="6">
+	            <h4>
+	            	<c:set var="star" value="${avrGrade}"/>
+			    	<c:if test="${star eq '1'}">⭐</c:if>
+			    	<c:if test="${star eq '2'}">⭐⭐</c:if>
+			    	<c:if test="${star eq '3'}">⭐⭐⭐</c:if>
+			    	<c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
+			    	<c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
+			    	${avrGrade}점
+		    	</h4>
+	    	</td>
         </tr>
         <tr class="product-detail-review-photo-group">
         <!-- 포문 -->
         <c:forEach items="${list}" var="review">
             <td>
                 <div class="product-detail-review-photo">
-                    <img src="img/${review.reviewFile}.jpeg">
+                    <img src="img/${review.reviewFile}">
                 </div>
             </td>
             </c:forEach>
@@ -231,18 +256,26 @@
        <tr>
             <td class="product-detail-review-td" colspan="6"> 
                 <div class="product-detail-review-star" style="display: inline-block;">
-                   별점 : ${review.reviewGrade}//등록일 : ${review.reviewPostdate}
+                   <h4>
+	            	<c:set var="star" value="${review.reviewGrade}"/>
+			    	<c:if test="${star eq '1'}">⭐</c:if>
+			    	<c:if test="${star eq '2'}">⭐⭐</c:if>
+			    	<c:if test="${star eq '3'}">⭐⭐⭐</c:if>
+			    	<c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
+			    	<c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
+			    	${review.reviewPostdate}
+		    	</h4>
                 </div>
             </td>
         </tr>
         <tr>
             <td class="product-detail-review-td" colspan="6">
                 <div class="product-detail-review-id" style="display: inline-block;">
-                    아이디 : ${review.userId}
+                   ${review.dogName}
                 </div>
                 (
                 <div class="product-detail-review-dogname" style="display: inline-block;">
-                    강아지이름  :  하꽁
+                    ${review.userId}
                 </div>
                 )
             </td>
@@ -250,13 +283,8 @@
         <tr>
             <td class="product-detail-review-td" colspan="6">
                 <div class="product-detail-review-text" style="display: inline-block;">
-<<<<<<< HEAD
-                    내용 : ${review.reviewDetail }
-                    <!--  -->
-=======
                     내용 : ${review.reviewDetail } // 
-                    <img id="20417.jpeg" src="img/${review.reviewFile }.jpeg">
->>>>>>> tests
+                    <img id="20417.jpeg" src="img/${review.reviewFile}">
                 </div>
             </td>
         </tr>
