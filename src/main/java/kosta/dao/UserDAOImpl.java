@@ -480,9 +480,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "UPDATE USERS SET USER_POINT = USER_POINT+5000 \r\n"
-				+ "WHERE TO_CHAR(DOG_BIRTHDAY,'MM-DD')=\r\n"
-				+ "TO_CHAR(SYSDATE,'MM-DD') AND USER_ID = ?";
+		String sql = "UPDATE USERS SET USER_POINT = USER_POINT+5000 WHERE TO_CHAR(DOG_BIRTHDAY,'MM-DD')= TO_CHAR(SYSDATE,'MM-DD') AND USER_ID = ?";
 		
 		try {
 			con=DbUtil.getConnection();
@@ -511,6 +509,8 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
+			ps.setString(1, userId);
+
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				point = new  PointDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5));
@@ -529,7 +529,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "INSERT INTO POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)";
+		String sql = "INSERT INTO POINT VALUES(POINT_CODE_SEQ.NEXTVAL, 0,?, 5000, SYSDATE, NULL)";
 		
 		try {
 			con=DbUtil.getConnection();

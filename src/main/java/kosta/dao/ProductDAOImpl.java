@@ -25,12 +25,8 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs= null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
 		
-<<<<<<< HEAD
-		String sql="select* from product p join produc_file pf on p.product_code= pf.product_code";
-=======
 		String sql="select *\r\n"
 				+ "from product";
->>>>>>> 560807c91d5f56712f8faa7ef7c225d51807479a
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
