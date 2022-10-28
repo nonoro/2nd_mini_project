@@ -7,17 +7,21 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kosta.dto.ReviewDTO;
 import kosta.controller.ModelAndView;
+import kosta.service.ProductService;
+import kosta.service.ProductServiceImpl;
 import kosta.service.ReviewService;
 import kosta.service.ReviewServiceImpl;
 
 public class ReviewController implements Controller{
 	private ReviewService reviewService = new ReviewServiceImpl();
+	private ProductService productService = new ProductServiceImpl();
 		
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -37,16 +41,16 @@ public class ReviewController implements Controller{
 				new MultipartRequest(request,saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
 		
 		//전송된 데이터 받기
-		String reviewCode = m.getParameter("reviewCode");
 		String userId = m.getParameter("userId");
-		String productCode = m.getParameter("productCode");
+		String productName = m.getParameter("productName");
+		int productCode = productService.selectByProductName(productName).getProductCode();
 		String reviewGrade = m.getParameter("reviewGrade");
 		String reviewDetail = m.getParameter("reviewDetail");
 		String reviewPostdate = m.getParameter("reviewPostdate");
-		String reviewFile = m.getParameter("reviewFile");
+		String reviewFile = m.getParameter("file");
 		
 		ReviewDTO review = new ReviewDTO
-				(Integer.parseInt(reviewCode), userId, Integer.parseInt(productCode), Integer.parseInt(reviewGrade), reviewDetail, new Date().toString(),null);
+				(0, userId, productCode, Integer.parseInt(reviewGrade), reviewDetail, new Date().toString(),reviewFile);
 		
 		//만약, 파일첨부가 되었다면....
 		if(m.getFilesystemName("file") != null) {
@@ -56,7 +60,7 @@ public class ReviewController implements Controller{
 		reviewService.insert(review);
 		
 		
-		return new ModelAndView("jongmintest.jsp",true);
+		return new ModelAndView("review_write_test.jsp",true);
 	}
 	
 	public ModelAndView selectAll(HttpServletRequest request, HttpServletResponse response)

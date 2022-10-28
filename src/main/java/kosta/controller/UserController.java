@@ -174,7 +174,7 @@ public class UserController implements Controller {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("loginUser");
 		
-		UserDTO user = userService.selectPoint(userId);
+		UserDTO user = userService.selectPoint(userId); 
 		
 		request.setAttribute("userPonint", user.getUserPoint());
 		

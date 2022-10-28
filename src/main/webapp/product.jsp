@@ -71,8 +71,12 @@
 
    <script type="text/javascript">
    function check(th){
+<<<<<<< HEAD
 	  // alert(th.value)
 	   location.href="${path}/front?key=product&methodName=selectByarrange&arrange="+th.value;
+=======
+	   alert(th)
+>>>>>>> tests
    }
    </script>
 
@@ -89,7 +93,7 @@
     <!--체인지 버튼-->
 
 
-    <form name="arrange" action="${path}/front?key=product&methodName=selectByarrange&arrange=${th.value}">
+    <form name="arrange" action="${path}/front?key=product&methodName=selectByarrange&arrange=${#[name=subMenu].val()}">
         <select id="subMenu" name="subMenu" onchange="check(this)">
             <option value="1">BEST순</option>
             <option value="2">별점 높은 순</option>
