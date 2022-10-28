@@ -14,6 +14,8 @@
 		function refreshPage() {			
 			let str = ""; 
 			let toalprice = 0;
+			let userId = sessionStorage.getItem("userId");
+			
 			for(let i=0; i < localStorage.length; i++) {
 				let key = localStorage.key(i); 
 				let value = localStorage.getItem(key); 
@@ -28,8 +30,13 @@
 				str += `<td>${"${arr[1]*arr[2]}"}`;
 				
 				//전송할 항목 만들기
-				str+=`<input type="hidden" name="productCode" value='${key}'>`;
-				str+=`<input type="hidden" name="productQty" value='${arr[1]}'>`;
+				str+=`<input type="hidden" name="productCode" value='${"${key}"}'>`;
+				str+=`<input type="hidden" name="productQty" value='${"${arr[1]}"}'>`;
+				str+=`<input type="hidden" name="orderlinePrice" value='${"${arr[2]}"}'>`;
+				str+=`<input type="hidden" name="orderTotalPrice" value='${"${arr[1]*arr[2]}"}'>`;
+				
+				str+=`<input type="hidden" name="userId" value='${"${userId}"}'>`;
+				//str+=`<input type="hidden" name="productQty" value='${"${arr[1]}"}'>`;
 				str += `</td>`;
 				str += `</tr>`;
 
@@ -46,13 +53,17 @@
 
 		} //함수 끝
 		
-		$("[name=pay]").click(function() { 
-			/* if(confirm("결제 완료되었습니다.")) {
-				location.href = "orderList.jsp";
-			} */
+		$("[name=doPay]").click(function() { 
 			alert("결제 완료되었습니다.");
+			location.href = "testLogin.jsp";
+			
+			for(let i=0; i <= localStorage.length; i++) {
+				 let key = localStorage.key(i); 
+				 let value = localStorage.getItem(key); 
+				 localStorage.clear();
+			}
 		});
-		
+
 		refreshPage();
 
 	}); //readyEnd
@@ -67,7 +78,10 @@
 		
 	<br><br><br>	
 	<h3>배송 정보</h3>   
-	<form method="post" action="orderList.jsp">
+	<!-- <form method="post" action="orderList.jsp"> -->
+	<form method="post" action="${path}/front?key=order&methodName=orderInsert">
+	<%-- <form name="writeForm" method="post" action="${path}/front?key=review&methodName=insert" onSubmit='return checkValid()'> --%>
+	
 		<input type="hidden" name="key" value="order">
 		<input type="hidden" name="methodName" value="orderInsert">
   		<div class="mb-3">
@@ -92,7 +106,7 @@
 	<h3>포인트</h3>  		
   		<div class="mb-3">
     		<label for="usedPoint" class="form-label">사용 포인트</label>
-    		<input type="text" class="form-control" id="usedPoint" name="orderUsedPoint">
+    		<input type="text" class="form-control" id="orderUsedPoint" name="orderUsedPoint">
   		</div>
 	
 	<br><br><br>
@@ -106,7 +120,6 @@
 				<!-- 총 결제 금액 -->			
 			</section>
 			
-	
 	<br><br><br>
 	<h3>결제 방법</h3>  		
   		<div class="form-check">
@@ -123,10 +136,8 @@
 		</div>
 	
 	<br><br><br>
-	<input type="submit" value="결제하기">
+	<input type="submit" value="결제하기" name="doPay">
 	</form>
-	
-	
 
 	</div>
 	<br><br><br>

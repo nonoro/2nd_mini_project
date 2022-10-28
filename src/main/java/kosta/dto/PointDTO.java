@@ -1,6 +1,7 @@
 package kosta.dto;
 
 public class PointDTO {
+	private int pointCode;
 	private int orderCode;
 	private String userId;
 	private int pointSave;
@@ -9,13 +10,23 @@ public class PointDTO {
 	
 	public PointDTO() { }
 
-	public PointDTO(int orderCode, String userId, int pointSave, String pointSavedate, String pointUseddate) {
+	public PointDTO(int pointCode, int orderCode, String userId, int pointSave, String pointSavedate,
+			String pointUseddate) {
 		super();
+		this.pointCode = pointCode;
 		this.orderCode = orderCode;
 		this.userId = userId;
 		this.pointSave = pointSave;
 		this.pointSavedate = pointSavedate;
 		this.pointUseddate = pointUseddate;
+	}
+
+	public int getPointCode() {
+		return pointCode;
+	}
+
+	public void setPointCode(int pointCode) {
+		this.pointCode = pointCode;
 	}
 
 	public int getOrderCode() {
