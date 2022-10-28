@@ -154,7 +154,7 @@
 		  }
 	  }); //삭제 끝
 
-	 ////////////////////////////////////////
+	 ////////////////////////////////////////	 
 
 		refreshPage();
 		
@@ -183,7 +183,7 @@
 		<section class="link">
 			<table   align="center">
 			<tr><td align="center">
-				<button type="button" class="btn btn-success" name="order"><h3><a href="order.jsp">주문하러 가기</a></h3></button>
+				<a href="order.jsp"><button type="button" class="btn btn-success" name="order"><h3>주문하러 가기</h3></button></a>
 			</td></tr>
 			</table>
 		</section>

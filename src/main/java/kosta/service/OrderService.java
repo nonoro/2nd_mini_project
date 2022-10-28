@@ -11,7 +11,7 @@ public interface OrderService {
 	/**
 	 * 주문하기
 	 */
-	int orderInsert(OrderDTO order) throws SQLException;
+	public void orderInsert(OrderDTO order) throws SQLException;
 
 	/**
 	 * 주문 취소
@@ -33,12 +33,4 @@ public interface OrderService {
 	 * 주문상품 배송상태 조회
 	 */
 	OrderDTO selectState(int orderCode)throws SQLException;
-	
-	/**
-	 * 포인트테이블
-	 * */
-	void savePoint (PointDTO pointDTO,int orderPay) throws SQLException;
-	/**유저테이블*/
-	void saveUserPoint(String userId,int orderPay) throws SQLException;
-
 }

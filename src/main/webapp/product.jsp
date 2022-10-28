@@ -31,8 +31,7 @@
 	}
 </script>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 <body>
@@ -52,7 +51,6 @@
 	<!-- 상품리스트 시작 -->
 
 	<div class="product_list row">
-
 		<c:forEach items="${list}" var="p">
 			<!--상품 -->
 			<div class="product_box cell">
