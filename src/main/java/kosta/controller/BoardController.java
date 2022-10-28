@@ -35,7 +35,7 @@ public class BoardController implements Controller{
 		
 		request.setAttribute("categoryList", list);
 		
-		return new ModelAndView("jongmintest.jsp");
+		return new ModelAndView("testForKyu.jsp");
 	}
 	
 	public ModelAndView insertBoard(HttpServletRequest request, HttpServletResponse response)
@@ -55,10 +55,10 @@ public class BoardController implements Controller{
 				String boardTitle = m.getParameter("boardTitle");
 				String boardContent = m.getParameter("boardContent");
 				String boardNick = m.getParameter("boardNick");
-				String reviewFile = m.getParameter("reviewFile");
+				String boardFile = m.getParameter("boardFile");
 				
 				BoardDTO board = new BoardDTO
-						(Integer.parseInt(boardCode), Integer.parseInt(categoryCode), userId, boardTitle, boardContent, boardNick, null, null);
+						(0, Integer.parseInt(categoryCode), userId, boardTitle, boardContent, boardNick, null , null);
 				
 				//만약, 파일첨부가 되었다면....
 				if(m.getFilesystemName("file") != null) {
@@ -68,7 +68,7 @@ public class BoardController implements Controller{
 				boardService.insertBoard(board);
 				
 				
-				return new ModelAndView("jongmintest.jsp",true);
+				return new ModelAndView("testForKyu.jsp",true);
 	}
 	
 	public ModelAndView updateBoard(HttpServletRequest request, HttpServletResponse response)

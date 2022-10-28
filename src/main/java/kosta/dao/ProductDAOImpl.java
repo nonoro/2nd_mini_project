@@ -51,7 +51,7 @@ public class ProductDAOImpl implements ProductDAO {
 		
 		String sql= "select *\r\n"
 				+ "from product\r\n"
-				+ "where p.product_code=?;";
+				+ "where product_code=?";
 
 		try {
 			con = DbUtil.getConnection();
@@ -69,6 +69,7 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return product;
 	}
+	
 	/**상품이름별*/
 	@Override
 	public ProductDTO selectByProductName(String productName) throws SQLException {
@@ -201,7 +202,7 @@ public class ProductDAOImpl implements ProductDAO {
 		int result=0;
 		
 		String sql="SELECT SUM(ORDERLINE_TOTAL_PRICE) FROM ORDERLINE ol , orders o\r\n"
-				+ "WHERE ol.order_code = o.order_code and to_char(o.order_date) Like ? and ol.product_code=?;";
+				+ "WHERE ol.order_code = o.order_code and to_char(o.order_date) Like ? and ol.product_code=?";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -305,6 +306,28 @@ public class ProductDAOImpl implements ProductDAO {
 	/**
 	 * 상품디테일 리스트 
 	 * */
+	@Override
+	public List<ProductDTO> DetailPhotoByProductName(String Details) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<ProductDTO> detailList = new ArrayList<ProductDTO>();
+		String sql="";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			rs= ps.executeQuery();
+			while(rs.next()) {
+				ProductDTO product= new ProductDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5));
+				detailList.add(product);
+			}
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return detailList;
+	
+	}
 	
 	
 }

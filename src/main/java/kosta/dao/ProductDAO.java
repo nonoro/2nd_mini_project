@@ -63,8 +63,14 @@ public interface ProductDAO {
 	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;
 	
 	/**
-	 *  정렬하는기능 - 일단 주문많은순만 
+	 *  정렬하는기능 - 주문많은순, 후기 많은순
 	 * */
 	List<ProductDTO> selectByarrange(String arrange) throws SQLException;
+	
+	/**
+	 * 상세정보에 사진띄우기
+	 * */
+	List<ProductDTO> DetailPhotoByProductName(String Details) throws SQLException;
+	
 
 }

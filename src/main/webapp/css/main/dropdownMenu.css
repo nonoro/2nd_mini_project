@@ -65,10 +65,14 @@ li {
     position: absolute;
     top: 35px;
     display: none;
-    width: 100px;
+    width: 120px;
     height: 300px;
     padding: 0;
     background: white;
+}
+
+.dept01 a {
+    text-decoration: none;
 }
 
 #nop {
