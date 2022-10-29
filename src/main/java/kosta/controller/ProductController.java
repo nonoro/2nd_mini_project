@@ -75,7 +75,7 @@ public class ProductController implements Controller {
 			ProductDTO selectByName =prodService.selectByProductName(productName);
 			
 
-			request.setAttribute("selectByName", selectByName);
+		request.setAttribute("selectByName", selectByName);
 			
 	      String userId = request.getParameter("userId");
 	      String productCode = request.getParameter("productCode");
@@ -214,7 +214,7 @@ public class ProductController implements Controller {
 	public ModelAndView productSelectByCategorytop(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
-		
+
 		List<ProductDTO> cateList=prodService.productSelectByCategory(Integer.parseInt(productCategory));
 		request.setAttribute("cateList", cateList);
 		

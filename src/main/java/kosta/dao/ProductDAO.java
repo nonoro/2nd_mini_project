@@ -24,7 +24,7 @@ public interface ProductDAO {
 	ProductDTO selectByProductName(String productName) throws SQLException;
 	
 	/**
-	 * 상품등록
+	 * 상품등록 -대표사진 
 	 */
 	int insert(ProductDTO product) throws SQLException;
 		

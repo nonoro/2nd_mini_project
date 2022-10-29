@@ -78,7 +78,9 @@ public class ProductDAOImpl implements ProductDAO {
 		ResultSet rs = null;
 		List<ProductFileDTO> productFileList = new ArrayList<ProductFileDTO>();
 		ProductFileDTO productFileDTO = new ProductFileDTO();
+
 		String sql = "select product_file_name from product_file where product_code=? AND PRODUCT_FILE_STATE=2";
+
 
 		try {
 			con = DbUtil.getConnection();
@@ -282,11 +284,10 @@ public class ProductDAOImpl implements ProductDAO {
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
 		String sql = "select distinct(p.product_code), p.product_name, p.product_price, p.product_explain\r\n"
 				+ "from product p, product_category pc\r\n"
-				+ "where p.product_category = pc.product_category_code and p.product_category=?";
+				+ "where p.product_category = pc.product_category_code and p.product_category "+productCategory;
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, productCategory);// 1,2,3,4
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4));
