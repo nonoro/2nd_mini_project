@@ -11,6 +11,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kosta.dto.ProductDTO;
+import kosta.dto.ProductFileDTO;
 import kosta.dto.ReviewDTO;
 import kosta.service.ProductService;
 import kosta.service.ProductServiceImpl;
@@ -22,6 +23,7 @@ public class ProductController implements Controller {
 	
 	private ProductService prodService = new ProductServiceImpl();
 	private ReviewService reviewService = new ReviewServiceImpl();
+	
 	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -84,7 +86,7 @@ public class ProductController implements Controller {
 	      
 	     
 			
-			
+	      
 	      List<ReviewDTO> list = reviewService.selectAll(review);//pageNo넣어야함?
 	      
 	      request.setAttribute("list", list);
@@ -92,7 +94,7 @@ public class ProductController implements Controller {
 
 		request.setAttribute("selectByName", selectByName);
 
-		return new ModelAndView("product_detail_test.jsp");
+		return new ModelAndView("product_detail_best.jsp");
 
 	}
 	
@@ -203,20 +205,19 @@ public class ProductController implements Controller {
 	/**
 	 * 상위카테고리별 
 	 * */
-	public ModelAndView productSelectByCategorytop(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView productSelectByCategory(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
-		
-		List<ProductDTO> cateList=prodService.productSelectByCategorytop(Integer.parseInt(productCategory));
+		//
+		List<ProductDTO> cateList=prodService.productSelectByCategory(Integer.parseInt(productCategory));
 		request.setAttribute("cateList", cateList);
 		
-		return new ModelAndView("testForKyu.jsp");
-		
+		return new ModelAndView("productByCategory.jsp");
 	}
 	
 	/**
 	 * 하위카테고리별 
-	 * */
+	 * 
 	public ModelAndView productSelectByCategorybottom(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
@@ -227,7 +228,7 @@ public class ProductController implements Controller {
 		return new ModelAndView("testForKyu.jsp");
 		
 	}
-	
+	*/
 	/**
 	 *  정렬 
 	 * */
@@ -250,6 +251,8 @@ public class ProductController implements Controller {
 		return new ModelAndView("product_arrange.jsp");
 		
 	}
+	
+	
 	
 	
 }

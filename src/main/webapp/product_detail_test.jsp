@@ -139,7 +139,7 @@
         <tr>
             <td>
                 <div class="product-detail-price jump">
-                    <h2><strong>${selectByName.productPrice}</strong></h2>
+                    <h2><strong>${selectByName.productPrice}원</strong></h2>
                 </div>
                 <div class="product-detail-price">
                     <h4>원</h4><!--고정-->

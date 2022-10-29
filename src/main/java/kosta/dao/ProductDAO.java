@@ -55,12 +55,12 @@ public interface ProductDAO {
 	/**
 	 * 상위카테고리에 따라 검색하는 기능 
 	 * */
-	List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException;
+	List<ProductDTO> productSelectByCategory(int productCategory) throws SQLException;
 	
 	/**
 	 * 하위카테고리에 따라 검색하는 기능 
-	 * */
-	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;
+	 * 
+	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;*/
 	
 	/**
 	 *  정렬하는기능 - 주문많은순, 후기 많은순
