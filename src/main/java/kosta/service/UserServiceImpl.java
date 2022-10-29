@@ -165,12 +165,8 @@ public class UserServiceImpl implements UserService {
 	public String birthdayPoint(UserDTO userDTO) throws SQLException {
 		int result = userDAO.birthdayPoint(userDTO);
 		String message = "강아지 생일을 축하드립니다. 5,000포인트 지급해 드렸습니다.";
-		if(result == 1) {
-			return message;
-		}else {
-			return null;
-		}
-			
+		
+		return message;
 		
 	}
 

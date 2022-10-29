@@ -57,14 +57,11 @@ public class UserController implements Controller {
 		//두개의 전송되는 값을 받는다.
 		String id = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
-		String message = null;
-		System.out.println("로그인컨틀로다");
+		String message = "ㅅㅊ";
 		//서비스 호출
 		UserDTO user = userService.login(new UserDTO(id, pwd));
 		String loginId = user.getUserId();
 		PointDTO pointCheck = userService.birthdayCheck(loginId);
-		
-		System.out.println("user.getUserId() = " +loginId);
 	
 		if(pointCheck == null) {
 			message = userService.birthdayPoint(user);
@@ -81,10 +78,11 @@ public class UserController implements Controller {
 		
 		ModelAndView mv = new ModelAndView("jongmintest2.jsp" , true);
 		
-		if(message!=null) {
-			request.setAttribute("message", message);
-			mv.setRedirect(false);
-		}
+		System.out.println("message ="+ message);
+		request.setAttribute("message", message);
+			
+		mv.setRedirect(false);
+		
 
 		
 		return mv;
