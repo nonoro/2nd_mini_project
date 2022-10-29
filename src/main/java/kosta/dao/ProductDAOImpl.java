@@ -7,11 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.jni.OS;
-
-import kosta.dto.ProductCategoryDTO;
 import kosta.dto.ProductDTO;
-import kosta.dto.ReviewDTO;
+import kosta.dto.ProductFileDTO;
 import kosta.util.DbUtil;
 
 public class ProductDAOImpl implements ProductDAO {
@@ -33,7 +30,7 @@ public class ProductDAOImpl implements ProductDAO {
 			rs= ps.executeQuery();
 			while(rs.next()) {
 				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7));
+						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7),null);
 			list.add(product);
 			}
 		} finally {
@@ -48,6 +45,7 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps=null;
 		ResultSet rs=null;
 		ProductDTO product = null;
+		ProductFileDTO productFile =null;
 		
 		String sql= "select *\r\n"
 				+ "from product\r\n"
@@ -59,16 +57,51 @@ public class ProductDAOImpl implements ProductDAO {
 			ps.setInt(1, productCode);
 			
 			rs = ps.executeQuery();
+			
 			if(rs.next()) {
-				//수정할겨
+				List<ProductFileDTO> productFileList = DetailPhotoByProductName(productCode);
 				product = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7));
+						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7),productFileList);
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		return product;
+	
 	}
+	
+	/**
+	 * 상품디테일 페이지에 대표 사진 및 , 
+	 * */
+	List<ProductFileDTO> DetailPhotoByProductName(int productCode) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<ProductFileDTO> productFileList = new ArrayList<ProductFileDTO>();
+		ProductFileDTO productFileDTO = new ProductFileDTO();
+		String sql="select product_file_name\r\n"
+				+ "from product_file\r\n"
+				+ "where product_code=?";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setInt(1, productCode);
+
+			rs= ps.executeQuery();
+			while(rs.next()) {
+				productFileDTO= new ProductFileDTO(0,productCode,rs.getString(1));
+				
+				productFileList.add(productFileDTO);
+			}
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return productFileList;
+	
+	}
+
+	
 	
 	/**상품이름별*/
 	@Override
@@ -87,7 +120,7 @@ public class ProductDAOImpl implements ProductDAO {
 			rs = ps.executeQuery();
 			if(rs.next()) {
 				productbyname = new ProductDTO(rs.getInt(1), rs.getInt(2), rs.getString(3),
-						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7));
+						rs.getInt(4), rs.getInt(5), rs.getString(6),rs.getString(7),null);
 			}
 		}finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -303,31 +336,7 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return list;
 	}
-	/**
-	 * 상품디테일 리스트 
-	 * */
-	@Override
-	public List<ProductDTO> DetailPhotoByProductName(String Details) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		List<ProductDTO> detailList = new ArrayList<ProductDTO>();
-		String sql="";
-		
-		try {
-			con=DbUtil.getConnection();
-			ps=con.prepareStatement(sql);
-			rs= ps.executeQuery();
-			while(rs.next()) {
-				ProductDTO product= new ProductDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5));
-				detailList.add(product);
-			}
-		} finally {
-			DbUtil.dbClose(con, ps, rs);
-		}
-		return detailList;
 	
-	}
 	
 	
 }

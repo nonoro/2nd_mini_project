@@ -116,7 +116,7 @@ public class ProductController implements Controller {
 		String ProductExplain=m.getParameter("productExplain");
 		String fname=m.getParameter("fname");
 		//받은값넣깅
-		ProductDTO product= new ProductDTO(Integer.parseInt(ProductCode), Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,null);
+		ProductDTO product= new ProductDTO(Integer.parseInt(ProductCode), Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,fname, null);
 				
 		if(m.getFilesystemName("file") != null) {
 			//파일이름저장

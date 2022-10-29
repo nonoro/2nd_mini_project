@@ -1,5 +1,7 @@
 package kosta.dto;
 
+import java.util.List;
+
 public class ProductDTO {
 	private int productCode;
 	private int productCategory;
@@ -16,14 +18,20 @@ public class ProductDTO {
 	private String productMgr;
 
 	private String pFileName;	
+	
+	private List<ProductFileDTO> productFileList;
 
 	
+	
+
+
+
 	public ProductDTO() { }
 
 	
 
 	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
-			String productExplain,String pFileName) {
+			String productExplain,String pFileName, List<ProductFileDTO> productFileList) {
 		super();
 		this.productCode = productCode;
 		this.productCategory = productCategory;
@@ -32,6 +40,7 @@ public class ProductDTO {
 		this.productQty = productQty;
 		this.productExplain = productExplain;
 		this.pFileName = pFileName;
+		this.productFileList=productFileList;
 	}
 	
 	
@@ -88,8 +97,6 @@ public class ProductDTO {
 		this.productExplain = productExplain;
 		this.pFileName = pFileName;
 	}
-
-
 
 
 	public int getProductCode() {
@@ -181,6 +188,14 @@ public class ProductDTO {
 	public void setpFileName(String pFileName) {
 		this.pFileName = pFileName;
 	}
-	
+	public List<ProductFileDTO> getProductFileList() {
+		return productFileList;
+	}
+
+
+
+	public void setProductFileList(List<ProductFileDTO> productFileList) {
+		this.productFileList = productFileList;
+	}
 	
 }

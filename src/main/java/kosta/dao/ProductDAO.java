@@ -67,10 +67,6 @@ public interface ProductDAO {
 	 * */
 	List<ProductDTO> selectByarrange(String arrange) throws SQLException;
 	
-	/**
-	 * 상세정보에 사진띄우기
-	 * */
-	List<ProductDTO> DetailPhotoByProductName(String Details) throws SQLException;
-	
+
 
 }
