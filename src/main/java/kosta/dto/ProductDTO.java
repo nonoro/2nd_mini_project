@@ -21,8 +21,8 @@ public class ProductDTO {
 	
 	private List<ProductFileDTO> productFileList;
 
-	
-	
+	private String detailPhoto;
+
 
 
 
@@ -31,7 +31,7 @@ public class ProductDTO {
 	
 
 	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
-			String productExplain,String pFileName, List<ProductFileDTO> productFileList) {
+			String productExplain,String pFileName, List<ProductFileDTO> productFileList, String detailPhoto) {
 		super();
 		this.productCode = productCode;
 		this.productCategory = productCategory;
@@ -41,6 +41,7 @@ public class ProductDTO {
 		this.productExplain = productExplain;
 		this.pFileName = pFileName;
 		this.productFileList=productFileList;
+		this.detailPhoto = detailPhoto;
 	}
 	
 	
@@ -197,5 +198,14 @@ public class ProductDTO {
 	public void setProductFileList(List<ProductFileDTO> productFileList) {
 		this.productFileList = productFileList;
 	}
-	
+
+	public String getDetailPhoto() {
+		return detailPhoto;
+	}
+
+
+
+	public void setDetailPhoto(String detailPhoto) {
+		this.detailPhoto = detailPhoto;
+	}
 }

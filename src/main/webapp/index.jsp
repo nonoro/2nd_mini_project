@@ -2,6 +2,8 @@
 
 <html>
 
+
+
 <head>
 
     <meta charset="utf-8">
@@ -13,7 +15,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="${pageContext.request.contextPath}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- banner.css -->
@@ -36,8 +38,16 @@
     <!-- 페이징처리 -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/paging.css">
 
-    <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-
+	<script type="text/javascript" src="js/jquery-3.6.0.min.js">
+		$(function(){
+			alert("message ="+ "${message}");	
+			
+			if("${message}" != "ㅅㅊ"){		
+				alert("${message}");
+			}
+				
+		});
+	</script>
 
 </head>
 

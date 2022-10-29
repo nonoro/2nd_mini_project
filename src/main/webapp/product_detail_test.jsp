@@ -284,7 +284,7 @@
             <td class="product-detail-review-td" colspan="6">
                 <div class="product-detail-review-text" style="display: inline-block;">
                     내용 : ${review.reviewDetail } 
-                    <img id="20417.jpeg" src="img/${review.reviewFile}">
+                    <img id="reviewPhoto" src="img/${review.reviewFile}">
                 </div>
             </td>
         </tr>

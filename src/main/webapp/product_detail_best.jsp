@@ -326,7 +326,7 @@
 				<!-- 상품 상세 메인사진 big -->
 				<div id="big" class="product-detail-photo">
 					<img id="bigimg"
-						src="${pageContext.request.contextPath}img/${selectByName.pFileName}.jpeg">
+						src="img/${selectByName.pFileName}.jpeg">
 				</div>
 			</td>
 			<td>
@@ -385,35 +385,17 @@
 		<tr>
 			<!-- 상품 디테일사진 4장 -->
 			<div class="product-detail-group">
+			<c:forEach items="${productFile}" var="pf">
 				<td>
 					<!-- 클릭하면 상품 디테일 메인 사진이 보여진다. -->
 					<div class="product-detail-photo2">
 						<img class="small" id="img1"
-							src="${pageContext.request.contextPath}/img/food/42782_originalView_01579592.jpeg">
+							src="img/${pf.productFile}.jpeg">
 					</div>
 				</td>
-				<td>
-					<!-- 클릭하면 상품 디테일 메인 사진이 보여진다. -->
-					<div class="product-detail-photo2">
-						<img class="small1" id="img1"
-							src="${pageContext.request.contextPath}/img/food/42782_originalView_02741465.jpeg">
-					</div>
-				</td>
-				<td>
-					<!-- 클릭하면 상품 디테일 메인 사진이 보여진다. -->
-					<div class="product-detail-photo2">
-						<img class="small2" id="img1"
-							src="img/20417.jpeg"> <!-- 임시 사진  -->
-					</div>
-				</td>
-				<td>
-					<!-- 클릭하면 상품 디테일 메인 사진이 보여진다. -->
-					<div class="product-detail-photo2">
-						<img class="small3" id="img1"
-							src="img/20417.jpeg">
-						<!-- <img class="small3" id="img1" src="https://img.dogpre.com/mobile/dogpre/product/88/87803_originalView_01158295.jpg"> -->
-					</div>
-				</td>
+				</c:forEach>
+ 		 		
+				 	
 			</div>
 			<td>
 				<div class="d-grid gap-2">
@@ -514,7 +496,7 @@
 	<div class="product-detail-main-box">
 		<div class="product-detail-main-description">
 			<img
-				src="${pageContext.request.contextPath}/img/main_product_photo/42782_desc_788269.jpeg">
+				src="img/${detailPhoto}.jpg">
 		</div>
 	</div>
 	<!-- 운영방침 -->
@@ -552,7 +534,7 @@
 			<td>
 				<div class="product-detail-review-photo">
 					<img
-						src="${pageContext.request.contextPath}img/${review.reviewFile}">
+						src="img/${review.reviewFile}">
 				</div>
 			</td>
 			<td>
@@ -586,7 +568,7 @@
 		<tr>
 			<td class="product-detail-review-td" colspan="6">
 				<div class="product-detail-review-id" style="display: inline-block;">
-					아이디</div> (
+					${review.userId}</div> (
 				<div class="product-detail-review-dogname"
 					style="display: inline-block;"> ${review.dogName}</div> )
 			</td>
@@ -595,6 +577,7 @@
 			<td class="product-detail-review-td" colspan="6">
 				<div class="product-detail-review-text"
 					style="display: inline-block;">내용 : ${review.reviewDetail } </div>
+					 <img id="reviewPhoto" src="img/${review.reviewFile}">
 			</td>
 		</tr>
 		       </c:forEach>

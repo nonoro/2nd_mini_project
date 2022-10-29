@@ -76,14 +76,12 @@ public class UserController implements Controller {
 		session.setAttribute("loginPoint", user.getUserPoint());
 		session.setAttribute("loginDogBirthday", user.getDogBirthday());
 		
-		ModelAndView mv = new ModelAndView("jongmintest2.jsp" , true);
+		ModelAndView mv = new ModelAndView("index.jsp" , true);
 		
 		System.out.println("message ="+ message);
 		request.setAttribute("message", message);
 			
 		mv.setRedirect(false);
-		
-
 		
 		return mv;
 	}
@@ -227,7 +225,7 @@ public class UserController implements Controller {
 		//모든세션의 정보를 삭제
 		request.getSession().invalidate();
 		
-		return new ModelAndView("jongmintest.jsp", true);
+		return new ModelAndView("index.jsp", true);
 	}
 
 

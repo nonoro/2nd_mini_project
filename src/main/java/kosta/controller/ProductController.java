@@ -11,7 +11,6 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kosta.dto.ProductDTO;
-import kosta.dto.ProductFileDTO;
 import kosta.dto.ReviewDTO;
 import kosta.service.ProductService;
 import kosta.service.ProductServiceImpl;
@@ -23,7 +22,6 @@ public class ProductController implements Controller {
 	
 	private ProductService prodService = new ProductServiceImpl();
 	private ReviewService reviewService = new ReviewServiceImpl();
-	
 	
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -57,8 +55,10 @@ public class ProductController implements Controller {
 		ProductDTO selectByCode =prodService.selectByProductCode(Integer.parseInt(productCode));
 		
 		request.setAttribute("selectByCode", selectByCode);
-
-		return new ModelAndView("product_detail2.jsp");
+		request.setAttribute("productFile", selectByCode.getProductFileList());
+		request.setAttribute("detailPhoto", selectByCode.getDetailPhoto());
+		
+		return new ModelAndView("product_detail_best.jsp");
 	}
 	
 	/**
@@ -86,13 +86,19 @@ public class ProductController implements Controller {
 	      
 	     
 			
-	      
+			
 	      List<ReviewDTO> list = reviewService.selectAll(review);//pageNo넣어야함?
 	      
 	      request.setAttribute("list", list);
 	      request.setAttribute("pageNo", pageNo);
 
 		request.setAttribute("selectByName", selectByName);
+		
+		ProductDTO selectByCode =prodService.selectByProductCode(Integer.parseInt(productCode));
+		
+		request.setAttribute("selectByCode", selectByCode);
+		request.setAttribute("productFile", selectByCode.getProductFileList());
+		request.setAttribute("detailPhoto", selectByCode.getDetailPhoto());
 
 		return new ModelAndView("product_detail_best.jsp");
 
@@ -118,7 +124,7 @@ public class ProductController implements Controller {
 		String ProductExplain=m.getParameter("productExplain");
 		String fname=m.getParameter("fname");
 		//받은값넣깅
-		ProductDTO product= new ProductDTO(Integer.parseInt(ProductCode), Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,fname, null);
+		ProductDTO product= new ProductDTO(Integer.parseInt(ProductCode), Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,fname, null,null);
 				
 		if(m.getFilesystemName("file") != null) {
 			//파일이름저장
@@ -205,30 +211,31 @@ public class ProductController implements Controller {
 	/**
 	 * 상위카테고리별 
 	 * */
-	public ModelAndView productSelectByCategory(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView productSelectByCategorytop(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
-		//
+		
 		List<ProductDTO> cateList=prodService.productSelectByCategory(Integer.parseInt(productCategory));
 		request.setAttribute("cateList", cateList);
 		
-		return new ModelAndView("productByCategory.jsp");
+		return new ModelAndView("testForKyu.jsp");
+		
 	}
 	
 	/**
 	 * 하위카테고리별 
-	 * 
+	 * */
 	public ModelAndView productSelectByCategorybottom(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
 		
-		List<ProductDTO> cateBottomList=prodService.productSelectByCategorytop(Integer.parseInt(productCategory));
+		List<ProductDTO> cateBottomList=prodService.productSelectByCategory(Integer.parseInt(productCategory));
 		request.setAttribute("cateList2", cateBottomList);
 		
 		return new ModelAndView("testForKyu.jsp");
 		
 	}
-	*/
+	
 	/**
 	 *  정렬 
 	 * */
@@ -251,8 +258,6 @@ public class ProductController implements Controller {
 		return new ModelAndView("product_arrange.jsp");
 		
 	}
-	
-	
 	
 	
 }
