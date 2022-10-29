@@ -13,12 +13,10 @@ public class OrderDTO {
 	private int usedPoint;
 	private int orderTotalPrice;
 	private int orderPay;
-	
+
 	private List<OrderLineDTO> orderLineList = new ArrayList<OrderLineDTO>();
 
-
 	public OrderDTO() { }
-
 
 	public OrderDTO(int orderCode, String userId, String orderDate, String orderAddr, int orderComplete, int orderType,
 			int usedPoint, int orderTotalPrice, int orderPay) {
@@ -113,5 +111,4 @@ public class OrderDTO {
 	public void setOrderLineList(List<OrderLineDTO> orderLineList) {
 		this.orderLineList = orderLineList;
 	}
-	
 }

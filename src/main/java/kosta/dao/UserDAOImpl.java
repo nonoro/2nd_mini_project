@@ -514,7 +514,6 @@ public class UserDAOImpl implements UserDAO {
 			rs=ps.executeQuery();
 			if(rs.next()) {
 				point = new  PointDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6));
-				
 			}
 			
 		} finally {

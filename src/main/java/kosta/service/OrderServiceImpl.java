@@ -16,10 +16,9 @@ public class OrderServiceImpl implements OrderService {
 	 * 주문하기
 	 */
 	@Override
-	public int orderInsert(OrderDTO order) throws SQLException {
+	public void orderInsert(OrderDTO order) throws SQLException {
 		int result = orderDao.orderInsert(order);
 		if(result == 0) throw new SQLException("주문에 실패했습니다.");
-		return result;
 	}
 	
 	/**
@@ -27,6 +26,10 @@ public class OrderServiceImpl implements OrderService {
 	 * */
 	@Override
 	public int orderCancel(OrderDTO order) throws SQLException {
+		 //취소하려는 상품에 대한 정보 가져오기
+		List<OrderLineDTO> orderLineList= orderDao.selectOrderLineByOrderCode(order.getOrderCode());
+		order.setOrderLineList(orderLineList);
+		
 		int result = orderDao.orderCancel(order);
 		if(result == 0) throw new SQLException("주문이 취소되지 않았습니다.");
 		return result;
@@ -38,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<OrderDTO> selectOrderByUserId(String userId) throws SQLException {
 		List<OrderDTO> list = orderDao.selectOrderByUserId(userId);
-		if(list == null || list.size() == 0) throw new SQLException(userId + "님의 주문 내역이 없습니다.");
+		if(list.isEmpty() || list.size() == 0) throw new SQLException(userId + "님의 주문 내역이 없습니다.");
 		return list;
 	}
 
@@ -54,19 +57,5 @@ public class OrderServiceImpl implements OrderService {
 		if(order == null) throw new SQLException("배송상태를 조회할 수 없습니다.");
 		
 		return order;
-	}
-
-	@Override
-	public void savePoint(PointDTO pointDTO, int orderPay) throws SQLException {
-		int result = orderDao.savePoint(pointDTO, orderPay);
-		if(result == 0) throw new SQLException("포인트 적립에 실패했습니다.");
-		
-	}
-
-	@Override
-	public void saveUserPoint(String userId, int orderPay) throws SQLException {
-		int result = orderDao.saveUserPoint(userId, orderPay);
-		if(result == 0) throw new SQLException("포인트 적립에  실패했습니다.");
-
 	}
 }

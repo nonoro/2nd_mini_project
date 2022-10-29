@@ -7,6 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		let userId = sessionStorage.getItem("userId");
+
+		$("[name=delete]").on("click", function() { 
+			if(confirm("주문 취소하시겠습니까?")) {
+
+				location.href ="${path}/front?key=order&methodName=orderCancel&userId="+userId+"&orderCode="+$(this).attr("id")
+
+			}
+		})
+	})
+</script>
+
 </head>
 <body>
 <table align="center" border="0" cellpadding="5" cellspacing="2" width="100%" bordercolordark="white" bordercolorlight="black">
@@ -27,29 +44,22 @@
             <font color="white"><b><span style="font-size:9pt;">주문 코드</span></b></font></p>
         </td>
         <td bgcolor="#00cc00">
-            <p align="center"><font color="white"><b><span style="font-size:9pt;">회원 아이디</span></b></font></p>
-        </td>
-        <td bgcolor="#00cc00">
             <p align="center"><font color="white"><b><span style="font-size:9pt;">주문 날짜</span></b></font></p>
         </td>
         <td bgcolor="#00cc00">
             <p align="center"><font color="white"><b><span style="font-size:9pt;">배송지</span></b></font></p>
         </td>
-        
         <td bgcolor="#00cc00">
             <p align="center"><font color="white"><b><span style="font-size:9pt;">주문 상태</span></b></font></p>
-        </td>
-        <td bgcolor="#00cc00">
-            <p align="center"><font color="white"><b><span style="font-size:9pt;">결제 방법</span></b></font></p>
-        </td>
-        <td bgcolor="#00cc00">
-            <p align="center"><font color="white"><b><span style="font-size:9pt;">사용 포인트</span></b></font></p>
         </td>
         <td bgcolor="#00cc00">
             <p align="center"><font color="white"><b><span style="font-size:9pt;">주문 금액</span></b></font></p>
         </td>
         <td bgcolor="#00cc00">
             <p align="center"><font color="white"><b><span style="font-size:9pt;">총 결제 금액</span></b></font></p>
+        </td>
+        <td bgcolor="#00cc00">
+            <p align="center"><font color="white"><b><span style="font-size:9pt;">주문 취소</span></b></font></p>
         </td>
     </tr>
     
@@ -61,7 +71,7 @@
 		            <p align="center"><span style="font-size:9pt;">
 		            ${order.orderCode}</span></p>
 		        </td> --%>
-		        
+		        <input type="hidden" name="userId" value='${"${userId}"}'>
 		        <td bgcolor="">
 					<p align="center"><span style="font-size:9pt;">
 					<a href="${path}/front?key=order&methodName=selectOrderLineByOrderCode&orderCode=${order.orderCode}">
@@ -69,12 +79,6 @@
 					</a>
 					</span></p>
 		        </td>
-		        
-		        <td bgcolor="">
-		            <p align="center"><span style="font-size:9pt;">
-		             ${order.userId}</span></p>
-		        </td>
-		        
 		        <td bgcolor="">
 		            <p align="center"><span style="font-size:9pt;">
 		            ${order.orderDate}</span></p>
@@ -87,15 +91,6 @@
 		            <p align="center"><span style="font-size:9pt;">
 		            ${order.orderComplete}</span></p>
 		        </td>
-		         <td bgcolor="">
-		            <p align="center"><span style="font-size:9pt;">
-		            ${order.orderType}</span></p>
-		        </td>
-		        <td bgcolor="">
-		            <p align="center"><span style="font-size:9pt;">
-		            ${order.usedPoint}</span></p>
-		        </td>
-       
 		        <td bgcolor="">
 		            <p align="center"><span style="font-size:9pt;">
 		            <fmt:formatNumber value="${order.orderTotalPrice}"/></span></p>
@@ -103,6 +98,11 @@
 		         <td bgcolor="">
 		            <p align="center"><span style="font-size:9pt;">
 		            <fmt:formatNumber value="${order.orderPay}"/></span></p>
+		        </td>
+				<td bgcolor="">
+					<button tabindex="0" type="button" name="delete" id="${order.orderCode}">
+		           	<span>주문 취소</span>
+                    </button>
 		        </td>
 		        
 		    </tr>

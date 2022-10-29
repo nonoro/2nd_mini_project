@@ -164,15 +164,12 @@
         		 <td>
                    <div class="order_name">
                    		수량
-                        <input id="coins" type="number" min="0" max="10">  <br><br><br>
-                        
-                        
-                        
+						<br><br><br>
                         <button class="minus" tabindex="0" type="button" name="minus">
                         	<span class="minus">&nbsp;-&nbsp;</span>
                         </button>
                         
-                        <input type="text" inputmode="decimal" class="MuiInputBase-input MuiInput-input jss1390" id="qty" value="1">
+                        <input type="text" inputmode="decimal" id="qty" value="1">
                         
                         <button class="plus" tabindex="0" type="button" name="plus">
                         	<span class="plus">&nbsp;+&nbsp;</span>
