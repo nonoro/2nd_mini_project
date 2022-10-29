@@ -9,7 +9,9 @@
 <script type="text/javascript">
 
 	$(function(){
-		if("${message}" != null){
+		console.log("message ="+ "${message}");	
+		
+		if("${message}" != "ㅅㅊ"){		
 			alert("${message}");
 		}
 			

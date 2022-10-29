@@ -45,7 +45,6 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserDTO login(UserDTO userDTO) throws SQLException {
-		System.out.println("로그인다오 = " + userDTO.getUserId());
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -68,7 +67,6 @@ public class UserDAOImpl implements UserDAO {
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
-		System.out.println("로그인다오 = " + user.getUserEmail());
 		
 		return user;
 	}
