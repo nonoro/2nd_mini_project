@@ -45,6 +45,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public UserDTO login(UserDTO userDTO) throws SQLException {
+		System.out.println("로그인다오 = " + userDTO.getUserId());
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -67,6 +68,8 @@ public class UserDAOImpl implements UserDAO {
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
+		System.out.println("로그인다오 = " + user.getUserEmail());
+		
 		return user;
 	}
 
@@ -523,18 +526,18 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public int insertBirthday(PointDTO pointDTO) throws SQLException {
+	public int insertBirthday(String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
 	
-		String sql = "INSERT INTO POINT VALUES(POINT_CODE_SEQ.NEXTVAL, 0,?, 5000, SYSDATE, NULL)";
+		String sql = "INSERT INTO POINT VALUES(POINT_SEQ.NEXTVAL, 9999998,?, 5000, TO_CHAR(SYSDATE,'YY-MM-DD'), NULL)";
 		
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
 			
-			ps.setString(1, pointDTO.getUserId());
+			ps.setString(1, userId);
 			
 			result = ps.executeUpdate();
 		} finally {

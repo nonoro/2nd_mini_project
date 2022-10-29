@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO login(UserDTO userDTO) throws SQLException, AuthenticationException {
 		//dao 호출
+			
 			UserDTO dbDTO = userDAO.login(userDTO);
 			if(dbDTO == null) {
 				throw new AuthenticationException("정보를 다시 확인해주세요.");
@@ -176,14 +177,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public PointDTO birthdayCheck(String userId) throws SQLException {
 		PointDTO birthdayPoint = userDAO.birthdayCheck(userId);
-		if(birthdayPoint!=null) throw new SQLException("생일 포인트 이미 지급 되었습니다.");
+		if(birthdayPoint!=null) {
+			return birthdayPoint;
+		}else {
+			return null;
+		}
 		
-		return birthdayPoint;
+		
 	}
 
 	@Override
-	public void insertBirthday(PointDTO pointDTO) throws SQLException {
-		int result = userDAO.insertBirthday(pointDTO);
+	public void insertBirthday(String userId) throws SQLException {
+		int result = userDAO.insertBirthday(userId);
 		if(result == 0) throw new SQLException("포인트 테이블 인서트 오류");
 		
 	}

@@ -58,12 +58,17 @@ public class UserController implements Controller {
 		String id = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
 		String message = null;
+		System.out.println("로그인컨틀로다");
 		//서비스 호출
 		UserDTO user = userService.login(new UserDTO(id, pwd));
-		PointDTO pointCheck = userService.birthdayCheck(user.getUserId());
+		String loginId = user.getUserId();
+		PointDTO pointCheck = userService.birthdayCheck(loginId);
+		
+		System.out.println("user.getUserId() = " +loginId);
+	
 		if(pointCheck == null) {
 			message = userService.birthdayPoint(user);
-			userService.insertBirthday(pointCheck);
+			userService.insertBirthday(loginId);
 		}
 		
 		//로그인 성공하면 세션에 정보를 저장  - ${loginUser} / ${loginName}

@@ -127,6 +127,6 @@ public interface UserService {
 	 * 생일포인트 지급 시 포인트 테이블 insert
 	 * INSERT INTO T_POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)
 	 */
-	void insertBirthday(PointDTO pointDTO)throws SQLException;
+	void insertBirthday(String userId)throws SQLException;
 
 }
