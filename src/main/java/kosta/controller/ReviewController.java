@@ -102,6 +102,10 @@ public class ReviewController implements Controller{
 		String userId = request.getParameter("userId");
 		String reviewGrade = request.getParameter("reviewGrade");
 		String reviewDetail = request.getParameter("reviewDetail");
+		System.out.println("reviewCode = "+reviewCode);
+		System.out.println("userId = "+userId);
+		System.out.println("reviewGrade = "+ reviewGrade);
+		System.out.println("reviewDetail = "+ reviewDetail);
 		
 		ReviewDTO review = new ReviewDTO(Integer.parseInt(reviewCode), userId, 0, Integer.parseInt(reviewGrade), reviewDetail, null, null, null);
 		
@@ -120,6 +124,17 @@ public class ReviewController implements Controller{
 		
 		
 		return new ModelAndView("jongmintest.jsp",true);
+	}
+	
+	public ModelAndView selectByCode(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String reviewCode = request.getParameter("reviewCode");
+		
+		ReviewDTO review = reviewService.selectByCode(Integer.parseInt(reviewCode));
+		
+		request.setAttribute("reviewByCode", review);
+		
+		return new ModelAndView("UpdateForm");
 	}
 
 }
