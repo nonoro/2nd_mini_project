@@ -32,4 +32,9 @@ public interface ReviewService {
 	 */
 	int selectAvrGrade(int productCode) throws SQLException;
 	
+	/**
+	 * 리뷰코드별 리뷰의정보
+	 */
+	ReviewDTO selectByCode(int productCode) throws SQLException;
+	
 }

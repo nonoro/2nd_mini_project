@@ -29,6 +29,7 @@ userPoint = ${sessionScope.loginPoint}<br>
 <a href="${path}/front?key=user&methodName=logout">user.logout</a><br>
 
 <a href="review_write_test.jsp"> 리뷰등록</a>
+<a href="review_update_test.jsp"> 리뷰수정</a>
 
 
 </body>
