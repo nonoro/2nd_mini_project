@@ -35,23 +35,20 @@
                 }
             });
 
-            $(document).on("click", "#cancelOrder", function () {
+           /*  $(document).on("click", "#cancelOrder", function () {
                 if (false) {
                     $("#cancelOrder").attr("href", "../mypagepart/myPageCancelOrder.jsp");
                 } else {
                     $("#cancelOrder").attr("href", "../mypagepart/myPageCancelOrderEmpty.jsp");
                 }
-            });
+            }); */
 
             $(document).on("click", "#pointDetail", function () {
                 if (false) {
                     $("#pointDetail").attr("href", "../mypagepart/pointOk.jsp");
                 } else {
-<<<<<<< HEAD
                     $("#pointDetail").attr("href", "../mypagepart/pointEmpty.jsp");
-=======
-                    $("#pointDetail").attr("href", "./mypagepart/pointEmpty.jsp");
->>>>>>> minjeong
+
                 }
             });
 
@@ -59,13 +56,19 @@
                 if (false) {
                     $("#notice").attr("href", "../mypagepart/noticeDetail.jsp");
                 } else {
-<<<<<<< HEAD
                     $("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
-=======
-                    $("#notice").attr("href", "mypagepart/noticeEmpty.jsp");
->>>>>>> minjeong
+
                 }
             });
+            
+            /* $(document).on("click", ".btn-outline-danger", function () {
+                if (false) {
+                    //$("#notice").attr("href", "../mypagepart/noticeDetail.jsp");
+                } else {
+                    //$("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
+                	alert("주문을 취소하시겠습니까?");
+                }
+            }); */
         });
     </script>
 
@@ -116,11 +119,16 @@
                          </div>                      
                         <div>총액: <fmt:formatNumber value="${order.orderTotalPrice}"/>원 &nbsp;&nbsp;&nbsp;&nbsp;
                         	결제일: ${order.orderDate}
-                        	<%-- <fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd" /> --%>
                         </div>
                     </div>
                     <div class="menu-result-review">
                         <div><a href="${path}/front?key=order&methodName=selectOrderLineByOrderCode&orderCode=${order.orderCode}" class="btn btn-outline-secondary" id="checkOrderList">주문 내역</a></div>
+                    </div>
+                    <div class="menu-result-review">
+                        <div>
+                        	<!-- <a href="#" class="btn btn-outline-danger" id="orderCancel">주문 취소</a> -->
+                        	<button type="button" class="btn btn-outline-danger" id="orderCancel">주문 취소</button>
+                        </div>
                     </div>
                 </div>
             </div>

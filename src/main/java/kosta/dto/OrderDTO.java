@@ -15,7 +15,7 @@ public class OrderDTO {
 	private int orderTotalPrice;
 	private int orderPay;
 
-	private List<OrderLineDTO> orderLineList;
+	private List<OrderLineDTO> orderLineList = new ArrayList<>();
 
 	public OrderDTO() { }
 	

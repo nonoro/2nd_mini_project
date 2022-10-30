@@ -68,7 +68,7 @@ public class OrderDAOImpl implements OrderDAO {
 		int result[] = null;
 		try {
 
-			ps = con.prepareStatement("insert into orderline values(orderline_code_seq.nextval, order_seq.currval, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into orderline values(orderline_code_seq.nextval, order_seq.currval, ?, ?, ?, ?, ?, ?)");
 
 			for(OrderLineDTO orderLine: order.getOrderLineList()) { 
 				ProductDTO product = productDao.selectByProductCode(orderLine.getProductCode());
@@ -77,6 +77,11 @@ public class OrderDAOImpl implements OrderDAO {
 				ps.setInt(3, orderLine.getOrderlinePrice()); 
 				ps.setInt(4, orderLine.getOrderlineQty()); 
 				ps.setInt(5, product.getProductPrice() * orderLine.getOrderlineQty()); 
+				ps.setString(6, product.getProductName()); 
+				
+				System.out.println("orderLine.getOrderlinePrice(): " + orderLine.getOrderlinePrice());
+				System.out.println("product.getProductPrice(): " + product.getProductPrice());
+				
 				ps.addBatch(); 
 				ps.clearParameters(); 
 			}

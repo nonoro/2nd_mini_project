@@ -80,7 +80,7 @@ public class ProductController implements Controller {
 		request.setAttribute("productFile", selectByCode.getProductFileList());
 		request.setAttribute("detailPhoto", selectByCode.getDetailPhoto());
 		
-		return new ModelAndView("product_detail_best.jsp");
+		return new ModelAndView("product_detail2.jsp");
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class ProductController implements Controller {
 		request.setAttribute("productFile", selectByCode.getProductFileList());
 		request.setAttribute("detailPhoto", selectByCode.getDetailPhoto());
 
-		return new ModelAndView("product_detail_best.jsp");
+		return new ModelAndView("product_detail2.jsp");
 
 	}
 	

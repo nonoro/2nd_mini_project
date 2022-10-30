@@ -47,6 +47,8 @@
 				str += `</td>`;
 				str += `</tr>`;
 
+				//alert(arr[0]);
+				
 				//가격 누적
 				totalprice += parseInt(arr[1] * arr[2]); 
 			} //for문 끝
@@ -67,9 +69,9 @@
 		$("[name=doPay]").click(function() { 
 			alert("결제 완료되었습니다.");
 			//location.href = "testLogin.jsp";
-			location.href = "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId;
-			
 			localStorage.clear();
+			
+			location.href = "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId;
 		});
 		
 		$("#orderUsedPoint").on("keyup", function() {

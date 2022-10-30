@@ -10,6 +10,9 @@ public class OrderLineDTO {
 	private int orderlineTotalPrice;
 	private String productName;
 	
+
+
+	
 	public OrderLineDTO() { }
 	public OrderLineDTO(int orderlineCode, int orderCode, String userId, int productCode, int orderlinePrice,
 			int orderlineQty, int orderlineTotalPrice) {
