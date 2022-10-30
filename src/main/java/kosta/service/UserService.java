@@ -83,14 +83,14 @@ public interface UserService {
 	/**
 	* 매출액조회(당월 매출)
 	* SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '%?/%';
-	*/
-	int monthSalse(int year, int month) throws SQLException;
 	
+	int monthSalse(int year, int month) throws SQLException;
+	*/
 	/**
 	* 매출액조회(당해 매출)
 	* SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/%';
 	*/
-	int yearSalse(int year) throws SQLException;
+	List<OrderDTO> yearSalse(int year) throws SQLException;
 	
 	/**
 	* 매출액조회(전체 매출)
@@ -128,5 +128,8 @@ public interface UserService {
 	 * INSERT INTO T_POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)
 	 */
 	void insertBirthday(String userId)throws SQLException;
-
+	
+	List<UserDTO> selectAll() throws SQLException;
+	
+	
 }

@@ -62,7 +62,7 @@ public class ProductController implements Controller {
 		List<ProductDTO> selectAll = prodService.selectAll();
 		request.setAttribute("list", selectAll);//뷰에서 ${list}
 		
-		return new ModelAndView("product.jsp");  //forward방식으로 이동
+		return new ModelAndView("Admin_selectAll.jsp");  //forward방식으로 이동
 	}
 	
 	
@@ -240,8 +240,7 @@ public class ProductController implements Controller {
 		
 		
 		List<ProductDTO> cateList=prodService.productSelectByCategory(Integer.parseInt(productCategory));
-		request.setAttribute("cateList", cateList);
-		
+		request.setAttribute("cateList", cateList);		
 		return MAP.get(productCategory);
 		
 	}

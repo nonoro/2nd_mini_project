@@ -118,24 +118,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int userCount() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+  int userCount = userDAO.userCount();
+	      
+	      return userCount;
 	}
 
-	@Override
-	public int monthSalse(int year, int month) throws SQLException {
-		int monthSalse = userDAO.monthSalse(year,month);
-		if(monthSalse == 0) throw new SQLException(year+"년 "+month+"월 매출액이 없습니다.");
-		
-		return monthSalse;
-	}
+	/*
+	 * @Override public int monthSalse(int year, int month) throws SQLException {
+	 * int monthSalse = userDAO.monthSalse(year,month); if(monthSalse == 0) throw
+	 * new SQLException(year+"년 "+month+"월 매출액이 없습니다.");
+	 * 
+	 * return monthSalse; }
+	 */
 
 	@Override
-	public int yearSalse(int year) throws SQLException {
-		int yearSalse = userDAO.yearSalse(year);
-		if(yearSalse == 0) throw new SQLException(year+"년 매출액이 없습니다.");
+	public List<OrderDTO> yearSalse(int year) throws SQLException {
+		List<OrderDTO> orderlist = userDAO.yearSalse(year);
 		
-		return yearSalse;
+		System.out.println(orderlist);
+		if(orderlist == null) throw new SQLException(year+"년 매출액이 없습니다.");
+		
+		return orderlist;
 	}
 
 	@Override
@@ -188,7 +191,12 @@ public class UserServiceImpl implements UserService {
 		if(result == 0) throw new SQLException("포인트 테이블 인서트 오류");
 		
 	}
-	
+
+	   public List<UserDTO> selectAll() throws SQLException {
+	      List<UserDTO> userList = userDAO.selectAll();
+	      
+	      return userList;
+	   }
 	
 	
 

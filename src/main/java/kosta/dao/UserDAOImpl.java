@@ -355,54 +355,36 @@ public class UserDAOImpl implements UserDAO {
 		return userCount;
 	}
 
-	@Override
-	public int monthSalse(int year, int month) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		int monthSalse = 0;
-		
-		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS WHERE ORDER_DATE LIKE '?/?/%'";
-		
-		try {
-			con=DbUtil.getConnection();
-			ps=con.prepareStatement(sql);
-			ps.setInt(1, year);
-			ps.setInt(2, month);
-			rs=ps.executeQuery();
-			if(rs.next()) {
-				monthSalse = rs.getInt(1);
-			}
-			
-		} finally {
-			DbUtil.dbClose(con, ps, rs);
-		}
-		return monthSalse;
-	}
+	
 
 	@Override
-	public int yearSalse(int year) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		int yearSalse = 0;
-		
-		String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS WHERE ORDER_DATE LIKE '?/%'";
-		
-		try {
-			con=DbUtil.getConnection();
-			ps=con.prepareStatement(sql);
-			ps.setInt(1, year);
-			rs=ps.executeQuery();
-			if(rs.next()) {
-				yearSalse = rs.getInt(1);
-			}
-			
-		} finally {
-			DbUtil.dbClose(con, ps, rs);
-		}
-		return yearSalse;
-	}
+	public List<OrderDTO> yearSalse(int year) throws SQLException {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<OrderDTO> orderlist = new ArrayList<OrderDTO>();
+        //int yearSalse = 0;
+
+//      String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS WHERE ORDER_DATE LIKE '?/%'";
+        String sql = "SELECT order_date,SUM(ORDER_TOTALPRICE)\n"
+        		+ "FROM ORDERS\n"
+        		+ "group by order_date";
+
+        try {
+            con = DbUtil.getConnection();
+            ps = con.prepareStatement(sql);
+//          ps.setInt(1, year);  ?표시가 있을 때만
+            rs=ps.executeQuery();
+           while (rs.next()) {
+        	   OrderDTO order = new OrderDTO(rs.getString(1),rs.getInt(2));
+        	   orderlist.add(order);
+           	}
+
+        } finally {
+            DbUtil.dbClose(con, ps, rs);
+        }
+        return orderlist;
+    }
 
 	@Override
 	public int allSalse() throws SQLException {
@@ -546,4 +528,28 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
+	   public List<UserDTO> selectAll() throws SQLException {
+	      Connection con = null;
+	      PreparedStatement ps = null;
+	      ResultSet rs = null;
+	      List<UserDTO> list = new ArrayList<UserDTO>();
+	      UserDTO user = null;
+	      
+	      String sql = "SELECT * FROM USERS";
+	      
+	      try {
+	         con=DbUtil.getConnection();
+	         ps=con.prepareStatement(sql);
+	         rs=ps.executeQuery();
+	         while(rs.next()) {
+	            user = new  UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getInt(9) );
+	            list.add(user);
+	         }
+	         
+	      } finally {
+	         DbUtil.dbClose(con, ps, rs);
+	      }
+	      return list;
+	   }
+	
 }

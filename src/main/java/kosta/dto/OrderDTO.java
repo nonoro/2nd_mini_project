@@ -32,6 +32,11 @@ public class OrderDTO {
 		this.orderPay = orderPay;
 	}
 
+	public OrderDTO(String orderDate, int orderTotalPrice) {
+		this.orderDate = orderDate;
+		this.orderTotalPrice = orderTotalPrice;
+	}
+
 	public int getOrderCode() {
 		return orderCode;
 	}
