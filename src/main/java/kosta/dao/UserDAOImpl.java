@@ -434,7 +434,7 @@ public class UserDAOImpl implements UserDAO {
 //          ps.setInt(1, year);  ?표시가 있을 때만
             rs=ps.executeQuery();
            while (rs.next()) {
-        	   OrderDTO order = new OrderDTO(rs.getString(1),rs.getInt(2));
+        	   OrderDTO order = new OrderDTO(rs.getDate(1),rs.getInt(2));
         	   orderlist.add(order);
            	}
 
@@ -586,7 +586,6 @@ public class UserDAOImpl implements UserDAO {
 		return result;
 	}
 
-<<<<<<< HEAD
 	@Override
 	public List<UserDTO> selectAll() throws SQLException {
 		Connection con = null;
@@ -612,30 +611,4 @@ public class UserDAOImpl implements UserDAO {
 		return list;
 	}
 
-=======
-	   public List<UserDTO> selectAll() throws SQLException {
-	      Connection con = null;
-	      PreparedStatement ps = null;
-	      ResultSet rs = null;
-	      List<UserDTO> list = new ArrayList<UserDTO>();
-	      UserDTO user = null;
-	      
-	      String sql = "SELECT * FROM USERS";
-	      
-	      try {
-	         con=DbUtil.getConnection();
-	         ps=con.prepareStatement(sql);
-	         rs=ps.executeQuery();
-	         while(rs.next()) {
-	            user = new  UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getInt(9) );
-	            list.add(user);
-	         }
-	         
-	      } finally {
-	         DbUtil.dbClose(con, ps, rs);
-	      }
-	      return list;
-	   }
-	
->>>>>>> kyuyoun
 }

@@ -44,12 +44,12 @@
         <!--정렬버튼 들어가는 구간 시작-->
    	    <div class="product-sort">
        		<button type="button">
-            상품등록
+            <a href="#" onclick="location.href='Admin_insert.jsp'">상품등록</a>>
         	</button>
         	<button type="button">
             상품수정
        		</button>   
-    </div>
+   		</div>
     <!--정렬버튼 들어가는 구간 끝-->
         <tr style="text-align: center;">
             <th>상품 코드</th>

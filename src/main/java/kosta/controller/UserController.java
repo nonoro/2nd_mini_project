@@ -278,7 +278,7 @@ public class UserController implements Controller {
         String year = request.getParameter("year");
 
         List<OrderDTO> yearSalse = userService.yearSalse(Integer.parseInt(year));
-        System.out.println(yearSalse);
+        //System.out.println(yearSalse);
         request.setAttribute("yearSalse", yearSalse);
 
 

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kosta.dto.ProductDTO;
+import kosta.dto.ProductFileDTO;
 import kosta.dto.ReviewDTO;
 
 public interface ProductService {
@@ -26,6 +27,16 @@ public interface ProductService {
 	 * 상품등록
 	 */
 	void insert(ProductDTO product) throws SQLException;
+	
+	/**
+	 * 상품등록
+	 */
+	void insertDetailPhoto(ProductFileDTO productFileDTO) throws SQLException;
+	
+	/**
+	 * 상품등록
+	 */
+	void insertInfoPhoto(ProductFileDTO productFileDTO) throws SQLException;
 		
 
 	/**

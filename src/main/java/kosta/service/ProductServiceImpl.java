@@ -6,6 +6,7 @@ import java.util.List;
 import kosta.dao.ProductDAO;
 import kosta.dao.ProductDAOImpl;
 import kosta.dto.ProductDTO;
+import kosta.dto.ProductFileDTO;
 import kosta.dto.ReviewDTO;
 
 public class ProductServiceImpl implements ProductService {
@@ -46,6 +47,20 @@ public class ProductServiceImpl implements ProductService {
 	public void insert(ProductDTO product) throws SQLException {
 		int result=prodDAO.insert(product);
 		if(result==0) throw new SQLException("등록 실패하였습니다.");
+	}
+	
+	@Override
+	public void insertDetailPhoto(ProductFileDTO productFileDTO) throws SQLException {
+		int result=prodDAO.insertDetailPhoto(productFileDTO);
+		if(result==0) throw new SQLException("세부 사진 등록 실패하였습니다.");
+		
+	}
+
+	@Override
+	public void insertInfoPhoto(ProductFileDTO productFileDTO) throws SQLException {
+		int result=prodDAO.insertInfoPhoto(productFileDTO);
+		if(result==0) throw new SQLException("상세 정보 사진 등록 실패하였습니다.");
+		
 	}
 
 	@Override
@@ -128,6 +143,8 @@ public class ProductServiceImpl implements ProductService {
 		return cateBottomList;
 	}
 	*/
+
+	
 	
 	
 

@@ -13,6 +13,7 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kosta.dto.ProductDTO;
+import kosta.dto.ProductFileDTO;
 import kosta.dto.ReviewDTO;
 import kosta.service.ProductService;
 import kosta.service.ProductServiceImpl;
@@ -153,15 +154,18 @@ public class ProductController implements Controller {
 		MultipartRequest m= 
 				new MultipartRequest(request, saveDir, maxSize,encoding, new DefaultFileRenamePolicy());
 		//전송데이터 받기 
-		String ProductCode=m.getParameter("productCode"); //아직 등록페이지 없음
+		//String ProductCode=m.getParameter("productCode"); //아직 등록페이지 없음
 		String ProductCategory=m.getParameter("productCategory");
 		String ProductName=m.getParameter("productName");
 		String ProductPrice=m.getParameter("productPrice");
 		String ProductQty=m.getParameter("productQty");
 		String ProductExplain=m.getParameter("productExplain");
 		String fname=m.getParameter("fname");
+		
+		System.out.println("productName = "+ProductName);
+
 		//받은값넣깅
-		ProductDTO product= new ProductDTO(Integer.parseInt(ProductCode), Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,fname, null,null);
+		ProductDTO product= new ProductDTO(10, Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,fname, null,null);
 				
 		if(m.getFilesystemName("file") != null) {
 			//파일이름저장
@@ -169,7 +173,42 @@ public class ProductController implements Controller {
 			
 			prodService.insert(product);
 		}
-		return new ModelAndView("testForKyu.jsp", true);
+		return new ModelAndView("Admin_insert.jsp", true);
+		
+	}
+	
+	/**
+	 * 상품 사진 등록하기 세부사진 4장, info 하나
+	 * */
+	public ModelAndView insertMorePhoto(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		// 상품등록.jsp 에서  enctype="multipart/form-data" 설정되어 있다면 request아닌 MultipartRequest로 처리한다. - cos.jar
+				String saveDir = request.getServletContext().getRealPath("/save"); //
+				int maxSize=1024*1024*100; //100M
+				String encoding="UTF-8";
+		MultipartRequest m= 
+				new MultipartRequest(request, saveDir, maxSize,encoding, new DefaultFileRenamePolicy());
+		//전송데이터 받기 
+		String ProductCode=m.getParameter("productCode");  // 이거 히든으로 넘겨주세요 라고 말하기 
+		String detail1=m.getParameter("detail1");
+		String detail2=m.getParameter("detail2");
+		String detail3=m.getParameter("detail3");
+		String detail4=m.getParameter("detail4");
+		String info1=m.getParameter("info1");
+		
+		//받은값넣깅
+		ProductFileDTO detail11 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail1, 2);
+		ProductFileDTO detail22 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail2, 2);
+		ProductFileDTO detail33 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail3, 2);
+		ProductFileDTO detail44 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail4, 2);
+		ProductFileDTO info11 = new ProductFileDTO(0,Integer.parseInt(ProductCode), info1, 2);
+				
+		prodService.insertDetailPhoto(detail11);
+		prodService.insertDetailPhoto(detail22);
+		prodService.insertDetailPhoto(detail33);
+		prodService.insertDetailPhoto(detail44);
+		prodService.insertInfoPhoto(detail11);
+		return new ModelAndView("Admin_insert.jsp", true);
 		
 	}
 	

@@ -89,7 +89,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				productFileDTO = new ProductFileDTO(0, productCode, rs.getString(1));
+				productFileDTO = new ProductFileDTO(0, productCode, rs.getString(1),2);
 
 				productFileList.add(productFileDTO);
 			}
@@ -117,13 +117,12 @@ public class ProductDAOImpl implements ProductDAO {
 
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				productFileDTO = new ProductFileDTO(0, productCode, rs.getString(1));
+				productFileDTO = new ProductFileDTO(0, productCode, rs.getString(1),3);
 			}
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		return productFileDTO;
-
 	}
 
 	/** 상품이름별 */
@@ -156,18 +155,19 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into Product values(?,?,?,?,?,?,?)";// insert into Electronics
+		String sql = "insert into Product values(10,?,?,?,?,?,?)";// insert into Electronics
 																	// values(?,?,?,?,?,sysdate,0,?,?)
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, product.getProductCode());
-			ps.setInt(2, product.getProductCategory());
-			ps.setString(3, product.getProductName());
-			ps.setInt(4, product.getProductPrice());
-			ps.setInt(5, product.getProductQty());
-			ps.setString(6, product.getProductExplain());
-			ps.setString(7, product.getFname());
+			
+			//ps.setInt(1, product.getProductCode());
+			ps.setInt(1, product.getProductCategory());
+			ps.setString(2, product.getProductName());
+			ps.setInt(3, product.getProductPrice());
+			ps.setInt(4, product.getProductQty());
+			ps.setString(5, product.getProductExplain());
+			ps.setString(6, product.getFname());
 
 			result = ps.executeUpdate();
 		} finally {
@@ -175,6 +175,46 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return result;
 	}
+	
+	public int insertDetailPhoto(ProductFileDTO productFileDTO) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "insert into product_file values(product_file_seq.nextval,?,?,2)";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, productFileDTO.getProductCode());
+			ps.setString(2, productFileDTO.getProductFile());
+			
+
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return result;
+	}
+	public int insertInfoPhoto(ProductFileDTO productFileDTO) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "insert into product_file values(product_file_seq.nextval,?,?,3)";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, productFileDTO.getProductCode());
+			ps.setString(2, productFileDTO.getProductFile());
+			
+
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return result;
+	}
+	
+	
+	
 
 	@Override
 	public int update(ProductDTO product) throws SQLException {
