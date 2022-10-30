@@ -48,7 +48,6 @@
                     $("#pointDetail").attr("href", "../mypagepart/pointOk.jsp");
                 } else {
                     $("#pointDetail").attr("href", "../mypagepart/pointEmpty.jsp");
-
                 }
             });
 
@@ -57,7 +56,6 @@
                     $("#notice").attr("href", "../mypagepart/noticeDetail.jsp");
                 } else {
                     $("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
-
                 }
             });
         });
