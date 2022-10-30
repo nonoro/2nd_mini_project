@@ -32,11 +32,7 @@
 	}
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-
-
-
-</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 <body>
@@ -56,30 +52,30 @@
 	<!-- 상품리스트 시작 -->
 
 	<div class="product_list row">
-		<c:forEach items="${list}" var="p">
+		<c:forEach items="${cateList}" var="cateList">
 			<!--상품 -->
 			<div class="product_box cell">
 				<!-- product img -->
 				<div class="img_box">
 					<a
-						href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}&productCode=${p.productCode}">
-						<img id="food_01_img" src="img/${p.pFileName}.jpeg">
+						href="${path}/front?key=product&methodName=selectByProductName&productName=${cateList.productName}&productCode=${cateList.productCode}">
+						<img id="food_01_img" src="img/${cateList.pFileName}.jpeg">
 					</a>
 				</div>
 				<!-- product text box -->
 				<div class="text_box">
 					<a id="food_01_title"
-						href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}&productCode=${p.productCode}">
-						<!--상품 이름--> ${p.productName}
+						href="${path}/front?key=product&methodName=selectByProductName&productName=${cateList.productName}&productCode=${cateList.productCode}">
+						<!--상품 이름--> ${cateList.productName}
 					</a> <br>
 					<div class="food_01_text">
 						<!--상품 설명-->
-						${p.productExplain}
+						${cateList.productExplain}
 					</div>
 
 					<div class="food_01_price">
 						<!--상품 가격-->
-						${p.productPrice}
+						${cateList.productPrice}
 					</div>
 					<a href="">👉 후기보러가기 👈</a>
 				</div>

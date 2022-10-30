@@ -46,7 +46,7 @@ public class ProductDTO {
 	
 	
 	//수정하기- 이름, 가격, 수량, 설명 
-	public ProductDTO( int productCode,String productName, int productPrice, int productQty, String productExplain) {
+	public ProductDTO( int productCode,String productName, int productPrice, int productQty, String productExplain, String pFileName) {
 		super();
 		this.productCode = productCode;
 		this.productName = productName;
@@ -64,7 +64,7 @@ public class ProductDTO {
 		this.orderTotalPrice = orderTotalPrice;
 	}
 	//상위카테고리
-	public ProductDTO(int productCode, String productName,int productPrice,String productExplain ) {
+	public ProductDTO(int productCode, String productName,int productPrice,String productExplain) {
 		super();
 		this.productCode = productCode;
 		this.productName = productName;

@@ -24,9 +24,10 @@
     <!-- dropdownMenu.css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main/dropdownMenu.css">
 
-    <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-
-
+    <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js">
+	//////////////////////////////////////
+	//사료에 건식페이지
+</script>
 </head>
 
 <!-- header -->
@@ -78,34 +79,34 @@
         <ul class="menu01">
             <li><span>사료</span>
                 <ul class="dept01">
-                    <li id="nop"><a href="#">건식</a></li>
-                    <li id="nop"><a href="#">습식</a></li>
-                    <li id="nop"><a href="#">프리미엄</a></li>
-                </ul>
+                   	<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=5" id="dryFood">건식</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=6" id="wetFood">습식</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=7" id="premiumFood">프리미엄</a></li>
+					</ul>
             </li>
             <li><span>간식</span>
                 <ul class="dept01">
-                    <li id="nop"><a href="#">껌</a></li>
-                    <li id="nop"><a href="#">캔</a></li>
-                    <li id="nop"><a href="#">츄르</a></li>
-                </ul>
+                    <li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=8" id="gum">껌</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=9" id="can">캔</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=10" id="churu">츄르</a></li>
+					</ul>
             </li>
             <li><span>용품</span>
                 <ul class="dept01">
-                    <li id="nop"><a href="#">방석</a></li>
-                    <li id="nop"><a href="#">패드</a></li>
-                    <li id="nop"><a href="#">유모차</a></li>
-                    <li id="nop"><a href="#">매트</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=11" id="cushion">방석</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=12" id="pad">패드</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=13" id="buggy">유모차</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=14" id="mat">매트</a></li>
+					
                 </ul>
             </li>
             <li><span>영양제</span>
                 <ul class="dept01">
-                    <li id="nop"><a href="#">눈</a></li>
-                    <li id="nop"><a href="#">피부</a></li>
-                    <li id="nop"><a href="#">구강</a></li>
-                    <li id="nop"><a href="#">관절</a></li>
-                    <li id="nop"><a href="#">장</a></li>
-                    <li id="nop"><a href="#">심장</a></li>
+                	<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=15" id="eye">눈</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=16" id="skin">피부</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=17" id="mouth">구강</a></li>
+						<li id="nop"><a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=18" id="joint">관절</a></li>
+
                 </ul>
             </li>
             <li style="width: 150px"><span>커뮤니티</span>

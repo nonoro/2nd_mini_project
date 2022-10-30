@@ -282,15 +282,16 @@ public class ProductDAOImpl implements ProductDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<ProductDTO> list = new ArrayList<ProductDTO>();
-		String sql = "select distinct(p.product_code), p.product_name, p.product_price, p.product_explain\r\n"
+		String sql = "select distinct(p.product_code), p.product_name, p.product_price, p.product_explain, p.product_file_name\r\n"
 				+ "from product p, product_category pc\r\n"
-				+ "where p.product_category = pc.product_category_code and p.product_category "+productCategory;
+				+ "where p.product_category = pc.product_category_code and p.product_category=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, productCategory);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4));
+				ProductDTO product = new ProductDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5));
 				list.add(product);
 			}
 		} finally {

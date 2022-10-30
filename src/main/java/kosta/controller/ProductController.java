@@ -1,7 +1,9 @@
 package kosta.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +21,26 @@ import kosta.service.ReviewServiceImpl;
 
 
 public class ProductController implements Controller {
+	
+	private static final Map<String, ModelAndView> MAP = new HashMap<>();
+
+    static {
+        MAP.put("5", new ModelAndView("dryfood5.jsp"));
+        MAP.put("6", new ModelAndView("wetFood6.jsp"));
+        MAP.put("7", new ModelAndView("premiumFood7.jsp"));
+        MAP.put("8", new ModelAndView("gum8.jsp"));
+        MAP.put("9", new ModelAndView("can9.jsp"));
+        MAP.put("10", new ModelAndView("churu10.jsp"));
+        MAP.put("11", new ModelAndView("cushion11.jsp"));
+        MAP.put("12", new ModelAndView("pad12.jsp"));
+        MAP.put("13", new ModelAndView("buggy13.jsp"));
+        MAP.put("14", new ModelAndView("mat14.jsp"));
+        MAP.put("15", new ModelAndView("eye15.jsp"));
+        MAP.put("16", new ModelAndView("skin16.jsp"));
+        MAP.put("17", new ModelAndView("mouth17.jsp"));
+        MAP.put("18", new ModelAndView("joint18.jsp"));
+        
+    }
 	
 	private ProductService prodService = new ProductServiceImpl();
 	private ReviewService reviewService = new ReviewServiceImpl();
@@ -162,11 +184,12 @@ public class ProductController implements Controller {
 		String productPrice=request.getParameter("productPrice");
 		String productQty=request.getParameter("productQty");
 		String productExplain=request.getParameter("productExplain");
+		String pFileName=request.getParameter("pFileName");
 		
 		//페이징처리 자리 
 		String pageNo = request.getParameter("pageNo");
 				
-		prodService.update(new ProductDTO(Integer.parseInt(productCode),productName, Integer.parseInt(productPrice), Integer.parseInt(productQty), productExplain));
+		prodService.update(new ProductDTO(Integer.parseInt(productCode),productName, Integer.parseInt(productPrice), Integer.parseInt(productQty), productExplain, pFileName));
 		
 		//ModelAndView mv= new ModelAndView();
 		//mv.setViewName("");
@@ -211,20 +234,21 @@ public class ProductController implements Controller {
 	/**
 	 * 상위카테고리별 
 	 * */
-	public ModelAndView productSelectByCategorytop(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView productSelectByCategory(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
-
+		
+		
 		List<ProductDTO> cateList=prodService.productSelectByCategory(Integer.parseInt(productCategory));
 		request.setAttribute("cateList", cateList);
 		
-		return new ModelAndView("testForKyu.jsp");
+		return MAP.get(productCategory);
 		
 	}
 	
 	/**
 	 * 하위카테고리별 
-	 * */
+	 * 
 	public ModelAndView productSelectByCategorybottom(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		String productCategory=request.getParameter("productCategory");
@@ -235,6 +259,7 @@ public class ProductController implements Controller {
 		return new ModelAndView("testForKyu.jsp");
 		
 	}
+	*/
 	
 	/**
 	 *  정렬 
