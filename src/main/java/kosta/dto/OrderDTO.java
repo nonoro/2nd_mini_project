@@ -38,6 +38,11 @@ public class OrderDTO {
 		this.orderLineList = orderLineList;
 	}
 
+	public OrderDTO(Date orderDate, int orderTotalPrice) {
+		this.orderDate = orderDate;
+		this.orderTotalPrice = orderTotalPrice;
+	}
+
 	public int getOrderCode() {
 		return orderCode;
 	}
