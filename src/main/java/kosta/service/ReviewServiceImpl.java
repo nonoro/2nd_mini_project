@@ -59,4 +59,12 @@ public class ReviewServiceImpl implements ReviewService {
 		return avrGrade;
 	}
 
+	@Override
+	public ReviewDTO selectByCode(int productCode) throws SQLException {
+		ReviewDTO review = reviewDAO.selectByCode(productCode);
+		if(review==null) throw new SQLException("검색된 정보가 없습니다.");
+		
+		return review;
+	}
+
 }

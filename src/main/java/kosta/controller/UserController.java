@@ -57,13 +57,15 @@ public class UserController implements Controller {
 		//두개의 전송되는 값을 받는다.
 		String id = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
-		String message = null;
+		String message = "ㅅㅊ";
 		//서비스 호출
 		UserDTO user = userService.login(new UserDTO(id, pwd));
-		PointDTO pointCheck = userService.birthdayCheck(user.getUserId());
+		String loginId = user.getUserId();
+		PointDTO pointCheck = userService.birthdayCheck(loginId);
+	
 		if(pointCheck == null) {
 			message = userService.birthdayPoint(user);
-			userService.insertBirthday(pointCheck);
+			userService.insertBirthday(loginId);
 		}
 		
 		//로그인 성공하면 세션에 정보를 저장  - ${loginUser} / ${loginName}
@@ -74,13 +76,12 @@ public class UserController implements Controller {
 		session.setAttribute("loginPoint", user.getUserPoint());
 		session.setAttribute("loginDogBirthday", user.getDogBirthday());
 		
-		ModelAndView mv = new ModelAndView("jongmintest2.jsp" , true);
+		ModelAndView mv = new ModelAndView("index.jsp" , true);
 		
-		if(message!=null) {
-			request.setAttribute("message", message);
-			mv.setRedirect(false);
-		}
-
+		System.out.println("message ="+ message);
+		request.setAttribute("message", message);
+			
+		mv.setRedirect(false);
 		
 		return mv;
 	}
@@ -224,7 +225,7 @@ public class UserController implements Controller {
 		//모든세션의 정보를 삭제
 		request.getSession().invalidate();
 		
-		return new ModelAndView("jongmintest.jsp", true);
+		return new ModelAndView("index.jsp", true);
 	}
 
 

@@ -24,7 +24,7 @@ public interface ProductDAO {
 	ProductDTO selectByProductName(String productName) throws SQLException;
 	
 	/**
-	 * 상품등록
+	 * 상품등록 -대표사진 
 	 */
 	int insert(ProductDTO product) throws SQLException;
 		
@@ -55,22 +55,18 @@ public interface ProductDAO {
 	/**
 	 * 상위카테고리에 따라 검색하는 기능 
 	 * */
-	List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException;
+	List<ProductDTO> productSelectByCategory(int productCategory) throws SQLException;
 	
 	/**
 	 * 하위카테고리에 따라 검색하는 기능 
-	 * */
-	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;
+	 * 
+	List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException;*/
 	
 	/**
 	 *  정렬하는기능 - 주문많은순, 후기 많은순
 	 * */
 	List<ProductDTO> selectByarrange(String arrange) throws SQLException;
 	
-	/**
-	 * 상세정보에 사진띄우기
-	 * */
-	List<ProductDTO> DetailPhotoByProductName(String Details) throws SQLException;
-	
+
 
 }

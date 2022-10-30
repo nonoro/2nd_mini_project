@@ -21,7 +21,7 @@
         margin: 0 auto;
     }
     img{
-        width: 100%;
+        width: 100%;ㄴ
         height: 100%;
     }
     .btn-group{
@@ -190,14 +190,14 @@
             <td>
                 <div class="product-detail-star jump">
                     <h4>
-				    	<c:set var="star" value="${avrGrade}"/>
-				    	<c:if test="${star eq '1'}">⭐</c:if>
-				    	<c:if test="${star eq '2'}">⭐⭐</c:if>
-				    	<c:if test="${star eq '3'}">⭐⭐⭐</c:if>
-				    	<c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
-				    	<c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
-				    	${avrGrade}점
-				    </h4>
+                   <c:set var="star" value="${avrGrade}"/>
+                   <c:if test="${star eq '1'}">⭐</c:if>
+                   <c:if test="${star eq '2'}">⭐⭐</c:if>
+                   <c:if test="${star eq '3'}">⭐⭐⭐</c:if>
+                   <c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
+                   <c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
+                   ${avrGrade}점
+                </h4>
                 </div>
                 <a href="#" >후기보러가기</a><!--고정-->
             </td>
@@ -205,7 +205,7 @@
         <tr>
             <td>
                 <div class="product-detail-price jump">
-                    <h2><strong>${selectByName.productPrice}</strong></h2>
+                    <h2><strong>${selectByName.productPrice}원</strong></h2>
                 </div>
                 <div class="product-detail-price">
                     <h4>원</h4><!--고정-->
@@ -294,16 +294,16 @@
     <table class="review-box">
         <tr>
             <td class="product-detail-review-td" colspan="6">
-	            <h4>
-	            	<c:set var="star" value="${avrGrade}"/>
-			    	<c:if test="${star eq '1'}">⭐</c:if>
-			    	<c:if test="${star eq '2'}">⭐⭐</c:if>
-			    	<c:if test="${star eq '3'}">⭐⭐⭐</c:if>
-			    	<c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
-			    	<c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
-			    	${avrGrade}점
-		    	</h4>
-	    	</td>
+               <h4>
+                  <c:set var="star" value="${avrGrade}"/>
+                <c:if test="${star eq '1'}">⭐</c:if>
+                <c:if test="${star eq '2'}">⭐⭐</c:if>
+                <c:if test="${star eq '3'}">⭐⭐⭐</c:if>
+                <c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
+                <c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
+                ${avrGrade}점
+             </h4>
+          </td>
         </tr>
         <tr class="product-detail-review-photo-group">
         <!-- 포문 -->
@@ -323,14 +323,14 @@
             <td class="product-detail-review-td" colspan="6"> 
                 <div class="product-detail-review-star" style="display: inline-block;">
                    <h4>
-	            	<c:set var="star" value="${review.reviewGrade}"/>
-			    	<c:if test="${star eq '1'}">⭐</c:if>
-			    	<c:if test="${star eq '2'}">⭐⭐</c:if>
-			    	<c:if test="${star eq '3'}">⭐⭐⭐</c:if>
-			    	<c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
-			    	<c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
-			    	${review.reviewPostdate}
-		    	</h4>
+                  <c:set var="star" value="${review.reviewGrade}"/>
+                <c:if test="${star eq '1'}">⭐</c:if>
+                <c:if test="${star eq '2'}">⭐⭐</c:if>
+                <c:if test="${star eq '3'}">⭐⭐⭐</c:if>
+                <c:if test="${star eq '4'}">⭐⭐⭐⭐</c:if>
+                <c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
+                ${review.reviewPostdate}
+             </h4>
                 </div>
             </td>
         </tr>
@@ -349,8 +349,8 @@
         <tr>
             <td class="product-detail-review-td" colspan="6">
                 <div class="product-detail-review-text" style="display: inline-block;">
-                    내용 : ${review.reviewDetail } // 
-                    <img id="20417.jpeg" src="img/${review.reviewFile}">
+                    내용 : ${review.reviewDetail } 
+                    <img id="reviewPhoto" src="img/${review.reviewFile}">
                 </div>
             </td>
         </tr>

@@ -108,16 +108,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDTO> productSelectByCategorytop(int productCategory) throws SQLException {
+	public List<ProductDTO> productSelectByCategory(int productCategory) throws SQLException {
 		List<ProductDTO> cateList = new ArrayList<ProductDTO>();
-		cateList=prodDAO.productSelectByCategorytop(productCategory);
+		cateList=prodDAO.productSelectByCategory(productCategory);
 		if (cateList==null || cateList.size()==0){
-			throw new SQLException("대분류에 상품이 없습니다.");
+			throw new SQLException("카테고리에 해당하는 상품이 없습니다.");
 		}
 		return cateList;
 	}
-
+	/*
 	@Override
+	
 	public List<ProductDTO> productSelectByCategorybottom(int productCategory) throws SQLException {
 		List<ProductDTO> cateBottomList = new ArrayList<ProductDTO>();
 		cateBottomList=prodDAO.productSelectByCategorybottom(productCategory);
@@ -126,7 +127,7 @@ public class ProductServiceImpl implements ProductService {
 		}
 		return cateBottomList;
 	}
-	
+	*/
 	
 	
 

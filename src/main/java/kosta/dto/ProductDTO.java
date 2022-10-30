@@ -1,5 +1,7 @@
 package kosta.dto;
 
+import java.util.List;
+
 public class ProductDTO {
 	private int productCode;
 	private int productCategory;
@@ -16,14 +18,20 @@ public class ProductDTO {
 	private String productMgr;
 
 	private String pFileName;	
-
 	
+	private List<ProductFileDTO> productFileList;
+
+	private String detailPhoto;
+
+
+
+
 	public ProductDTO() { }
 
 	
 
 	public ProductDTO(int productCode, int productCategory, String productName, int productPrice, int productQty,
-			String productExplain,String pFileName) {
+			String productExplain,String pFileName, List<ProductFileDTO> productFileList, String detailPhoto) {
 		super();
 		this.productCode = productCode;
 		this.productCategory = productCategory;
@@ -32,11 +40,13 @@ public class ProductDTO {
 		this.productQty = productQty;
 		this.productExplain = productExplain;
 		this.pFileName = pFileName;
+		this.productFileList=productFileList;
+		this.detailPhoto = detailPhoto;
 	}
 	
 	
 	//수정하기- 이름, 가격, 수량, 설명 
-	public ProductDTO( int productCode,String productName, int productPrice, int productQty, String productExplain) {
+	public ProductDTO( int productCode,String productName, int productPrice, int productQty, String productExplain, String pFileName) {
 		super();
 		this.productCode = productCode;
 		this.productName = productName;
@@ -54,7 +64,7 @@ public class ProductDTO {
 		this.orderTotalPrice = orderTotalPrice;
 	}
 	//상위카테고리
-	public ProductDTO(int productCode, String productName,int productPrice,String productExplain ) {
+	public ProductDTO(int productCode, String productName,int productPrice,String productExplain) {
 		super();
 		this.productCode = productCode;
 		this.productName = productName;
@@ -88,8 +98,6 @@ public class ProductDTO {
 		this.productExplain = productExplain;
 		this.pFileName = pFileName;
 	}
-
-
 
 
 	public int getProductCode() {
@@ -181,6 +189,23 @@ public class ProductDTO {
 	public void setpFileName(String pFileName) {
 		this.pFileName = pFileName;
 	}
-	
-	
+	public List<ProductFileDTO> getProductFileList() {
+		return productFileList;
+	}
+
+
+
+	public void setProductFileList(List<ProductFileDTO> productFileList) {
+		this.productFileList = productFileList;
+	}
+
+	public String getDetailPhoto() {
+		return detailPhoto;
+	}
+
+
+
+	public void setDetailPhoto(String detailPhoto) {
+		this.detailPhoto = detailPhoto;
+	}
 }

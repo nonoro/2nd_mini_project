@@ -29,36 +29,53 @@
             text-align: center;
         }
 
-        input {
-            width: 400px;
+        #idCheck {
+            padding-left: 50px;
         }
     </style>
-    <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery.form.min.js"></script>
 
     <script>
         $(function () {
             $(document).on("keyup", "#id", function(){
+
                 if($(this).val() == ""){
                     $("#idCheck").text("중복결과여부");
                     return;
                 }
 
                 $.ajax({
-                    url :"/front" , //서버요청주소
+                    url :"../ajax" , //서버요청주소
                     type:"post", //요청방식(method방식 : get | post | put | delete )
                     dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-                    data: {key:"user" , methodName : "idCheck" , id : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
+                    data: {key:"ajax" , methodName : "idCheck" , id : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
                     success :function(result){
-                        alert($(this).val());
                         $("#idCheck").text(result);
-
                     } , //성공했을때 실행할 함수
                     error : function(err){
                         alert(err+"에러 발생했어요.");
-                    }  //실팽했을때 실행할 함수
+                    }  //실패했을때 실행할 함수
                 });//ajax끝
             });//keyup끝
+
+            $(document).on("click", "#sign_up", function () {
+                $("#signUpForm").ajaxForm({
+                    url: "../ajax?key=ajax&methodName=join",
+                    type: "post",
+                    dataType: "text",
+                    // data: $("#signUpForm").serialize(),
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error : function(err){
+                        alert(err+"에러 발생했어요.");
+                    }
+
+                });
+                $("#signUpForm").submit();
+            });
+
         });
     </script>
 
@@ -112,12 +129,12 @@
         </li>
     </ul>
 
-<form  action="/front" method="post">
+<form  enctype="multipart/form-data" method="post" id="signUpForm">
     <input type="hidden" name="key" value="user">
     <input type="hidden" name="methodName" value="join">
     <!-- id input -->
     <div class="first-input input__block first-input__block">
-        <input type="text" placeholder="id" class="input" name="id" id="id"/> <span id="idCheck">중복결과여부</span>
+        <input type="text" placeholder="id" class="input" name="id" id="id"/><span id="idCheck">중복결과여부</span>
     </div>
     <!-- password input -->
     <div class="input__block">
@@ -141,8 +158,8 @@
     <div class="input__block">
         <input type="text" placeholder="DogBirthday" class="input" name="dogBirthday"/>
     </div>
-    <!-- sign in button -->
-    <button class="signin__btn">
+    <!-- sign up button -->
+    <button class="signin__btn" id="sign_up" type="button">
         Sign up
     </button>
 </form>

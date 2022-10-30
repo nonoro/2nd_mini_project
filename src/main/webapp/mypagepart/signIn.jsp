@@ -69,7 +69,7 @@
     <!-- Links -->
     <ul class="links" style="text-align: center">
         <li>
-            <a href="$${pageContext.request.contextPath}/mypagepart/signIn.jsp" id="signin">SIGN IN</a>
+            <a href="${pageContext.request.contextPath}/mypagepart/signIn.jsp" id="signin">SIGN IN</a>
         </li>
         <li>
             <a href="${pageContext.request.contextPath}/mypagepart/signUp.jsp" id="signup">SIGN UP</a>
@@ -138,6 +138,6 @@
 
 
 <script src="${pageContext.request.contextPath}/js/login.js"></script>
-<jsp:include page="../footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/footer.jsp"/>
 </body>
 </html>
