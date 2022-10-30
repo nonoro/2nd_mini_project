@@ -47,7 +47,11 @@
                 if (false) {
                     $("#pointDetail").attr("href", "../mypagepart/pointOk.jsp");
                 } else {
+<<<<<<< HEAD
                     $("#pointDetail").attr("href", "../mypagepart/pointEmpty.jsp");
+=======
+                    $("#pointDetail").attr("href", "./mypagepart/pointEmpty.jsp");
+>>>>>>> minjeong
                 }
             });
 
@@ -55,7 +59,11 @@
                 if (false) {
                     $("#notice").attr("href", "../mypagepart/noticeDetail.jsp");
                 } else {
+<<<<<<< HEAD
                     $("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
+=======
+                    $("#notice").attr("href", "mypagepart/noticeEmpty.jsp");
+>>>>>>> minjeong
                 }
             });
         });
