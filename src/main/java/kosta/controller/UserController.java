@@ -44,7 +44,7 @@ public class UserController implements Controller {
 		String dogName = request.getParameter("dogName");
 		String dogBirthday = request.getParameter("dogBirthday");
 		
-		UserDTO user = new UserDTO(userId, userPwd, userEmail, userAddr, userPhone, null, dogName, dogBirthday, 0);
+		UserDTO user = new UserDTO(userId, userPwd, userEmail, userAddr, userPhone, null, dogName, dogBirthday, 5000, 0);
 		
 		userService.join(user);
 		
@@ -57,16 +57,11 @@ public class UserController implements Controller {
 		//두개의 전송되는 값을 받는다.
 		String id = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
-		String message = "ㅅㅊ";
+		
 		//서비스 호출
 		UserDTO user = userService.login(new UserDTO(id, pwd));
-		String loginId = user.getUserId();
-		PointDTO pointCheck = userService.birthdayCheck(loginId);
+		
 	
-		if(pointCheck == null) {
-			message = userService.birthdayPoint(user);
-			userService.insertBirthday(loginId);
-		}
 		
 		//로그인 성공하면 세션에 정보를 저장  - ${loginUser} / ${loginName}
 		HttpSession session = request.getSession();
@@ -78,10 +73,6 @@ public class UserController implements Controller {
 		
 		ModelAndView mv = new ModelAndView("index.jsp" , true);
 		
-		System.out.println("message ="+ message);
-		request.setAttribute("message", message);
-			
-		mv.setRedirect(false);
 		
 		return mv;
 	}
@@ -234,14 +225,16 @@ public class UserController implements Controller {
 	 * MANAGEMENT
 	 */
 	/**
-	 * 가입 회원수조회(-1은 관리자 아이디 제외)
+	 * 가입 회원수조회 및 회원정보 조회(-1은 관리자 아이디 제외)
 	 * SELECT COUNT(USER_ID)-1 FROM T_USER;
 	 */
 	public ModelAndView userCount(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		int userCount = userService.userCount();
+		List<UserDTO> userList = userService.selectAll();
 		
 		request.setAttribute("userCount", userCount);
+		request.setAttribute("userList", userList);
 		
 		
 		return new ModelAndView("jongmintest.jsp");

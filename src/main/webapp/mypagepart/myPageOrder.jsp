@@ -57,7 +57,6 @@
                     $("#notice").attr("href", "../mypagepart/noticeDetail.jsp");
                 } else {
                     $("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
-
                 }
             });
             

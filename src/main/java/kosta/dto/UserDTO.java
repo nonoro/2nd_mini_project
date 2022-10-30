@@ -10,11 +10,12 @@ public class UserDTO {
 	private String dogName;
 	private String dogBirthday;
 	private int userPoint;
+	private int userState;//최초 로그인시 포인트 지급 0 = 미지급 1 = 지급
 	
 	public UserDTO() { }
 
 	public UserDTO(String userId, String userPwd, String userEmail, String userAddr, String userPhone, String userProfile,
-			String dogName, String dogBirthday, int userPoint) {
+			String dogName, String dogBirthday, int userPoint, int userState) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
@@ -25,6 +26,7 @@ public class UserDTO {
 		this.dogName = dogName;
 		this.dogBirthday = dogBirthday;
 		this.userPoint = userPoint;
+		this.userState = userState;
 	}
 	
 	public UserDTO(String userId, String userPwd) {
@@ -103,6 +105,14 @@ public class UserDTO {
 
 	public void setUserPoint(int userPoint) {
 		this.userPoint = userPoint;
+	}
+
+	public int getUserState() {
+		return userState;
+	}
+
+	public void setUserState(int userState) {
+		this.userState = userState;
 	}
 	
 	

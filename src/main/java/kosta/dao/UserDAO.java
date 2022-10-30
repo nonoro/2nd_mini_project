@@ -108,6 +108,11 @@ public interface UserDAO {
 	/*
 	 * MANAGEMENT
 	 */
+	/**
+	 * 모든 회원의 정보 추출
+	 * SELECT * FROM USERS;
+	 */
+	List<UserDTO> selectAll() throws SQLException;
 	
 	/**
 	 * 가입 회원수조회(-1은 관리자 아이디 제외)
