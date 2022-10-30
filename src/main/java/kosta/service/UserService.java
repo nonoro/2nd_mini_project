@@ -128,5 +128,10 @@ public interface UserService {
 	 * INSERT INTO T_POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)
 	 */
 	void insertBirthday(String userId)throws SQLException;
+	
+	/**
+	 * 모든유저정보
+	 */
+	List<UserDTO> selectAll() throws SQLException;
 
 }

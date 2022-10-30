@@ -118,8 +118,15 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int userCount() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		int userCount = userDAO.userCount();
+		
+		return userCount;
+	}
+	@Override
+	public List<UserDTO> selectAll() throws SQLException {
+		List<UserDTO> userList = userDAO.selectAll();
+		
+		return userList;
 	}
 
 	@Override
