@@ -37,43 +37,25 @@
 
             $(document).on("click", "#cancelOrder", function () {
                 if (false) {
-<<<<<<< HEAD
                     $("#cancelOrder").attr("href", "../mypagepart/myPageCancelOrder.jsp");
                 } else {
                     $("#cancelOrder").attr("href", "../mypagepart/myPageCancelOrderEmpty.jsp");
-=======
-                    $("#cancelOrder").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageCancelOrder.jsp");
-                } else {
-                    $("#cancelOrder").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageCancelOrderEmpty.jsp");
->>>>>>> main
                 }
             });
 
             $(document).on("click", "#pointDetail", function () {
                 if (false) {
-<<<<<<< HEAD
                     $("#pointDetail").attr("href", "../mypagepart/pointOk.jsp");
                 } else {
-                    $("#pointDetail").attr("href", "./mypagepart/pointEmpty.jsp");
-=======
-                    $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointOk.jsp");
-                } else {
-                    $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointEmpty.jsp");
->>>>>>> main
+                    $("#pointDetail").attr("href", "../mypagepart/pointEmpty.jsp");
                 }
             });
 
             $(document).on("click", "#notice", function () {
                 if (false) {
-<<<<<<< HEAD
                     $("#notice").attr("href", "../mypagepart/noticeDetail.jsp");
                 } else {
-                    $("#notice").attr("href", "mypagepart/noticeEmpty.jsp");
-=======
-                    $("#notice").attr("href", "${pageContext.request.contextPath}/mypagepart/noticeDetail.jsp");
-                } else {
-                    $("#notice").attr("href", "${pageContext.request.contextPath}/mypagepart/noticeEmpty.jsp");
->>>>>>> main
+                    $("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
                 }
             });
         });
