@@ -21,8 +21,7 @@ public class UserDAOImpl implements UserDAO {
 		UserDTO user = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO USERS (USER_ID, USER_PWD, USER_EMAIL, USER_ADDR, USER_PHONE, USER_PROFILE, DOG_NAME, DOG_BIRTHDAY, USER_POINT) \r\n"
-				+ "VALUES (?, ?, ?, ?, ?, NULL, ?, ?, 0)";
+		String sql = "INSERT INTO USERS VALUES (?, ?, ?, ?, ?, NULL, ?, ?, 5000, 0)";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -60,7 +59,12 @@ public class UserDAOImpl implements UserDAO {
 			
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				user = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), 0);
+				user = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), 0, rs.getInt(10));
+				if(user.getUserState()==0) {
+					insertPoint(user.getUserId());
+					updateState(user.getUserId());
+					user.setUserState(1);
+				}
 			}
 			
 			
@@ -70,6 +74,60 @@ public class UserDAOImpl implements UserDAO {
 		
 		return user;
 	}
+	
+	/**
+	 * 포인트 테이블에 5000포인트 기록
+	 */
+	public int insertPoint(String userId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+	
+		String sql = "INSERT INTO POINT VALUES(POINT_SEQ.NEXTVAL, 9999998,?, 5000, TO_CHAR(SYSDATE,'YY-MM-DD'), NULL)";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, userId);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		
+		
+		return result;
+	}
+	
+	
+	/**
+	 * 최초로그인시 user_state 1(지급으로) 변경
+	 */
+	public int updateState(String userId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+	
+		String sql = "UPDATE USERS SET USER_STATE =1 WHERE USER_ID =?";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, userId);
+			
+			result = ps.executeUpdate();
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		
+		
+		
+		return result;
+	}
+	
 
 	@Override
 	public int updatePwd(String newPwd, UserDTO userDTO) throws SQLException {
@@ -269,7 +327,7 @@ public class UserDAOImpl implements UserDAO {
 			
 			rs=ps.executeQuery();
 			if(rs.next()) {
-				user = new UserDTO(null, null, null, null, null, null, null, null, rs.getInt(1));
+				user = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getInt(9), rs.getInt(10));
 			}
 			
 			
@@ -544,6 +602,31 @@ public class UserDAOImpl implements UserDAO {
 		
 		
 		return result;
+	}
+
+	@Override
+	public List<UserDTO> selectAll() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<UserDTO> list = new ArrayList<UserDTO>();
+		UserDTO user = null;
+		
+		String sql = "SELECT * FROM USERS";
+		
+		try {
+			con=DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				user = new  UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getInt(9), 0);
+				list.add(user);
+			}
+			
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return list;
 	}
 
 }
