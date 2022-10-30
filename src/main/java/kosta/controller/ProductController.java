@@ -84,6 +84,21 @@ public class ProductController implements Controller {
 	}
 	
 	/**
+	 * @@ 리뷰에서 쓰는 @@ 상품코드에 해당하는 레코드 검색
+	 * 
+	 */
+	public ModelAndView reviewByProductCode(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {                              
+		String productCode=request.getParameter("productCode") ;
+		System.out.println(productCode);
+		ProductDTO selectByCode =prodService.selectByProductCode(Integer.parseInt(productCode));
+		
+		request.setAttribute("selectByCode", selectByCode);
+		
+		return new ModelAndView("review_write_test.jsp");
+	}
+	
+	/**
 	 * 상품이름에 해당하는 레코드 검색
 	 * */
 	public ModelAndView selectByProductName(HttpServletRequest request, HttpServletResponse response)
@@ -122,7 +137,7 @@ public class ProductController implements Controller {
 		request.setAttribute("productFile", selectByCode.getProductFileList());
 		request.setAttribute("detailPhoto", selectByCode.getDetailPhoto());
 
-		return new ModelAndView("product_detail_best.jsp");
+		return new ModelAndView("product_detail2.jsp");
 
 	}
 	

@@ -50,7 +50,7 @@ public class OrderController implements Controller {
 			totalPay += Integer.parseInt(totalPrice);
 		}
 		
-		 //총결재해야할 금액 - 포인트 뺀금액
+		//총결재해야할 금액 - 포인트 뺀금액
 		int realPayAmonut = totalPay;
 		
 		if(orderUsedPoint!=null && !orderUsedPoint.equals("")) {

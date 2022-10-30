@@ -21,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<ReviewDTO> selectAll(ReviewDTO reviewDTO) throws SQLException {
 		List<ReviewDTO> list = reviewDAO.selectAll(reviewDTO);
-		if(list.size() == 0 || list.isEmpty()) throw new SQLException("리뷰 정보가 없습니다.");
+		
 		
 		return list;
 	}

@@ -25,8 +25,8 @@
 
     <script>
         $(function () {
-        	let userId = sessionStorage.getItem("userId");
-        	
+           let userId = sessionStorage.getItem("userId");
+           
             $(document).on("click", "#order", function () {
                 if (false) {
                     $("#order").attr("href", "../mypagepart/myPageOrder.jsp");
@@ -47,11 +47,8 @@
                 if (false) {
                     $("#pointDetail").attr("href", "../mypagepart/pointOk.jsp");
                 } else {
-<<<<<<< HEAD
                     $("#pointDetail").attr("href", "../mypagepart/pointEmpty.jsp");
-=======
-                    $("#pointDetail").attr("href", "./mypagepart/pointEmpty.jsp");
->>>>>>> minjeong
+
                 }
             });
 
@@ -59,11 +56,8 @@
                 if (false) {
                     $("#notice").attr("href", "../mypagepart/noticeDetail.jsp");
                 } else {
-<<<<<<< HEAD
                     $("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
-=======
-                    $("#notice").attr("href", "mypagepart/noticeEmpty.jsp");
->>>>>>> minjeong
+
                 }
             });
         });
@@ -101,22 +95,22 @@
                     </div>
                     <div class="menu-result-content" style="text-align: left;">
                         <div> 
-                        	상품 이름:
-                        	<c:choose>
+                           상품 이름:
+                           <c:choose>
                                 <c:when test="${(order.orderComplete) == 3}">
                                      주문이 취소되었습니다.
                                 </c:when>
-                        		<c:when test="${fn:length(order.orderLineList) le 1}" >
-                        			${order.orderLineList[0].productName}                                 
-                        		</c:when>
-                        		<c:otherwise>
-                        			${order.orderLineList[0].productName} 외 ${fn:length(order.orderLineList) + 3}
-                        		</c:otherwise>
-                        	</c:choose>
+                              <c:when test="${fn:length(order.orderLineList) le 1}" >
+                                 ${order.orderLineList[0].productName}                                 
+                              </c:when>
+                              <c:otherwise>
+                                 ${order.orderLineList[0].productName} 외 ${fn:length(order.orderLineList) + 3}
+                              </c:otherwise>
+                           </c:choose>
                          </div>                      
                         <div>총액: <fmt:formatNumber value="${order.orderTotalPrice}"/>원 &nbsp;&nbsp;&nbsp;&nbsp;
-                        	결제일: ${order.orderDate}
-                        	<%-- <fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd" /> --%>
+                           결제일: ${order.orderDate}
+                           <%-- <fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd" /> --%>
                         </div>
                     </div>
                     <div class="menu-result-review">

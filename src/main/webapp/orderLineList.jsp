@@ -40,7 +40,7 @@
         	<jsp:include page="menu.jsp"/>
         	<div class="menu-result-container" id="menu-result-container"><h2>주문 ∙ 배송</h2>
             	<hr class="menu-result-list-hr">
-    
+    			
             	<input type="hidden" name="userId" value="${userId}">
             	
             	<table align="center" border="0" cellpadding="5" cellspacing="2" width="100%" bordercolordark="white" bordercolorlight="black">
@@ -61,6 +61,9 @@
         				<td bgcolor="#00cc00">
             				<p align="center"><font color="white"><b><span style="font-size:9pt;">주문 상품 금액</span></b></font></p>
         				</td>
+        				<td bgcolor="#00cc00">
+            				<p align="center"><font color="white"><b><span style="font-size:9pt;">후기 작성/수정</span></b></font></p>
+        				</td>
     				</tr>
     
 					<c:forEach items="${orderLineList}" var="orderLine">
@@ -80,6 +83,9 @@
 		        		<td bgcolor="">
 		            		<p align="center"><span style="font-size:9pt;"><fmt:formatNumber value="${orderLine.orderlineTotalPrice}" />원</span></p>
 		        		</td> 
+		        		<td bgcolor="">
+		        			<div><a href="${path}/front?key=review&methodName=reviewByProductCode&productCode=${orderLine.productCode}" class="btn btn-outline-secondary" id="checkOrderList">후기 작성</a></div>
+ 		        		</td> 
 		    		</tr>
     			</c:forEach>
 			</table>            
