@@ -25,14 +25,13 @@ public class OrderServiceImpl implements OrderService {
 	 * 주문 취소
 	 * */
 	@Override
-	public int orderCancel(OrderDTO order) throws SQLException {
+	public void orderCancel(OrderDTO order) throws SQLException {
 		 //취소하려는 상품에 대한 정보 가져오기
 		List<OrderLineDTO> orderLineList= orderDao.selectOrderLineByOrderCode(order.getOrderCode());
 		order.setOrderLineList(orderLineList);
 		
 		int result = orderDao.orderCancel(order);
 		if(result == 0) throw new SQLException("주문이 취소되지 않았습니다.");
-		return result;
 	}
 	
 	/**

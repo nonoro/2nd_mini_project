@@ -92,7 +92,7 @@ public class ProductController implements Controller {
 
 		request.setAttribute("selectByName", selectByName);
 
-		return new ModelAndView("product_detail_test.jsp");
+		return new ModelAndView("product_detail2.jsp");
 
 	}
 	

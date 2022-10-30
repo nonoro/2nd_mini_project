@@ -287,8 +287,12 @@ public class OrderDAOImpl implements OrderDAO {
 			ps.setString(1, userId);
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
-				OrderDTO order = new OrderDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+			while(rs.next()) {				
+				OrderDTO order = new OrderDTO(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
+				
+				List<OrderLineDTO> orderLines = selectOrderLineByOrderCode(order.getOrderCode());
+				order.setOrderLineList(orderLines);
+				
 				list.add(order);
 			}
 		} finally {
@@ -313,7 +317,7 @@ public class OrderDAOImpl implements OrderDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				OrderLineDTO orderLine = new OrderLineDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7));
+				OrderLineDTO orderLine = new OrderLineDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8));
 				list.add(orderLine);
 			}
 		} finally {
@@ -389,7 +393,7 @@ public class OrderDAOImpl implements OrderDAO {
 	          rs = ps.executeQuery(); 
 	          
 	          while(rs.next()) {
-	             order = new OrderDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), 
+	             order = new OrderDTO(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4), 
 	                   rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
 	             list.add(order);
 	          }

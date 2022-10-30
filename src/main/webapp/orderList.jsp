@@ -16,9 +16,7 @@
 
 		$("[name=delete]").on("click", function() { 
 			if(confirm("주문 취소하시겠습니까?")) {
-
-				location.href ="${path}/front?key=order&methodName=orderCancel&userId="+userId+"&orderCode="+$(this).attr("id")
-
+				location.href ="${path}/front?key=order&methodName=orderCancel&userId="+userId+"&orderCode="+$(this).attr("id");
 			}
 		})
 	})
@@ -89,7 +87,21 @@
 		        </td>
 		        <td bgcolor="">
 		            <p align="center"><span style="font-size:9pt;">
-		            ${order.orderComplete}</span></p>
+		            	<c:choose>
+		            		<c:when test="${order.orderComplete  == 0}">
+								배송 대기
+							</c:when>
+							<c:when test="${order.orderComplete  == 1}">
+								배송 중
+							</c:when>
+							<c:when test="${order.orderComplete  == 2}">
+								배송 완료
+							</c:when>
+							<c:otherwise>
+								주문 취소
+							</c:otherwise>							
+		            	</c:choose>
+		          	</span></p>
 		        </td>
 		        <td bgcolor="">
 		            <p align="center"><span style="font-size:9pt;">

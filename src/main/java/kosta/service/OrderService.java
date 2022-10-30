@@ -16,7 +16,7 @@ public interface OrderService {
 	/**
 	 * 주문 취소
 	 * */
-	int orderCancel(OrderDTO order) throws SQLException;
+	public void orderCancel(OrderDTO order) throws SQLException;
 	
 	/**
 	 * 주문 내역 보기

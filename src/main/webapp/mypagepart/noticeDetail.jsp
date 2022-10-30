@@ -14,24 +14,30 @@
     <link href="${pageContext.request.contextPath}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
+    <!-- ###############################################mypage############################################### -->
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/myPage/myPage.css">
+
+    <style>
+        th {
+            text-align: center;
+        }
+    </style>
 
     <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 
     <script>
         $(function () {
-        	let userId = sessionStorage.getItem("userId");
-        	
             $(document).on("click", "#order", function () {
-                if (true) {
-                    $("#order").attr("href", "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId);                    
+                if (false) {
+                    $("#order").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageOrder.jsp");
                 } else {
                     $("#order").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageOrderEmpty.jsp");
                 }
             });
 
             $(document).on("click", "#cancelOrder", function () {
-                if (true) {
+                if (false) {
                     $("#cancelOrder").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageCancelOrder.jsp");
                 } else {
                     $("#cancelOrder").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageCancelOrderEmpty.jsp");
@@ -39,7 +45,7 @@
             });
 
             $(document).on("click", "#pointDetail", function () {
-                if (true) {
+                if (false) {
                     $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointOk.jsp");
                 } else {
                     $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointEmpty.jsp");
@@ -47,14 +53,12 @@
             });
 
             $(document).on("click", "#notice", function () {
-                if (true) {
+                if (false) {
                     $("#notice").attr("href", "${pageContext.request.contextPath}/mypagepart/noticeDetail.jsp");
                 } else {
                     $("#notice").attr("href", "${pageContext.request.contextPath}/mypagepart/noticeEmpty.jsp");
                 }
             });
-            
-            
         });
     </script>
 
@@ -63,34 +67,42 @@
 <!-- header -->
 
 <body>
+<jsp:include page="${pageContext.request.contextPath}/header.jsp"/>
 
-<div class="menu-container">
-    <div class="menu-container-a">
-        <span>&nbsp;&nbsp;나의 쇼핑</span>
-        
-        <input type="hidden" name="userId" value="${userId}">
-    </div>
-    <hr style="margin: 0;">
-    <div class="menu-container-a" >
-        <a href="#" id="order"><span>&nbsp;&nbsp;주문&nbsp;∙&nbsp;배송&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
-    </div>
-    <div class="menu-container-a">
-        <a href="#" id="cancelOrder"><span>&nbsp;&nbsp;주문취소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
-    </div>
-    <div class="menu-container-a">
-        <a href="#" id="pointDetail"><span>&nbsp;&nbsp;포인트내역
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
-    </div>
-    <div class="menu-container-a">
-        <a href="#" id="notice"
-        ><span>&nbsp;&nbsp;공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
-    </div>
-    <div class="menu-container-a">
-        <a href="${pageContext.request.contextPath}/mypagepart/repeatedQuestion.jsp">
-            <span>&nbsp;&nbsp;자주묻는질문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span>
-        </a><br>
+<div class="shopTool">
+    <div class="shopTool-detail">
+        <span style="margin-left: 10px">홈&nbsp;>&nbsp;</span>
+        <span>마이페이지&nbsp;>&nbsp;</span>
+        <span id="pageName">공지사항&nbsp;</span>
     </div>
 </div>
 
+<div class="myPageMain">
+    <jsp:include page="${pageContext.request.contextPath}/informationBar.jsp"/>
+    <div class="menuMain">
+        <jsp:include page="${pageContext.request.contextPath}/menu.jsp"/>
+        <div class="menu-result-container" id="menu-result-container">
+            <h2>공지사항</h2>
+            <div class="menu-result-container-list" style="margin: 0px">
+                <div style="background-color: lightgray; text-align: left; font-size: 20px; padding: 10px 20px">견수무강
+                    하세요
+                </div>
+                <div style="text-align: left; padding: 10px 20px">
+                    <span class="noticeInformation">카테고리이름&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                    <span class="noticeInformation">작성자&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                    <span class="noticeInformation">작성일&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+                    <span class="noticeInformation">조회수</span>
+                </div>
+                <div>content</div>
+                <hr>
+                <div style="text-align: right">
+                    <a href="notice.jsp" class="btn btn-outline-secondary">목록</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<jsp:include page="${pageContext.request.contextPath}/footer.jsp"/>
 </body>
 </html>

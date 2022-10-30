@@ -1,19 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-	pageEncoding="UTF-8" %> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+	<title>Order</title>
 
 <link  rel="stylesheet" type="text/css" href="css/basic.css"  />
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		let totalprice = 0;
+		let inputPoint = 0;
+		
 		function refreshPage() {			
 			let str = ""; 
-			let toalprice = 0;
 			let userId = sessionStorage.getItem("userId");
 			
 			for(let i=0; i < localStorage.length; i++) {
@@ -34,36 +42,51 @@
 				str+=`<input type="hidden" name="productQty" value='${"${arr[1]}"}'>`;
 				str+=`<input type="hidden" name="orderlinePrice" value='${"${arr[2]}"}'>`;
 				str+=`<input type="hidden" name="orderTotalPrice" value='${"${arr[1]*arr[2]}"}'>`;
-				
+				str+=`<input type="hidden" name="productName" value='${"${arr[0]}"}'>`;
 				str+=`<input type="hidden" name="userId" value='${"${userId}"}'>`;
-				//str+=`<input type="hidden" name="productQty" value='${"${arr[1]}"}'>`;
 				str += `</td>`;
 				str += `</tr>`;
 
 				//가격 누적
-				toalprice += parseInt(arr[2]); 
+				totalprice += parseInt(arr[1] * arr[2]); 
 			} //for문 끝
 
 			//테이블에 추가
 			$("#content").html(str);
 
 			//가격 추가
-			$("#price").html(toalprice + "원");
-			$("#pay").html("<b>" + toalprice + "원</b>");
-
+			$("#price").html(totalprice + "원");
+			$("#pay").html("<b>" + (totalprice - inputPoint) + "원</b>");
 		} //함수 끝
+		
+		//총 결제 금액 반영하기
+		function calTotal() {
+			$("#pay").html("<b>" + (totalprice - inputPoint) + "원</b>");
+		}
 		
 		$("[name=doPay]").click(function() { 
 			alert("결제 완료되었습니다.");
-			location.href = "testLogin.jsp";
+			//location.href = "testLogin.jsp";
+			location.href = "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId;
 			
-			for(let i=0; i <= localStorage.length; i++) {
-				 let key = localStorage.key(i); 
-				 let value = localStorage.getItem(key); 
-				 localStorage.clear();
-			}
+			localStorage.clear();
 		});
+		
+		$("#orderUsedPoint").on("keyup", function() {
+			let loginPoint = parseInt("${loginPoint}");
+			
+			inputPoint = parseInt($(this).val());
+			
+			if(inputPoint < 0) {
+				$(this).val(0);
+			} else if(inputPoint > loginPoint) {
+				$(this).val(loginPoint);
+			}
+			
+			calTotal();
 
+		});
+		
 		refreshPage();
 
 	}); //readyEnd
@@ -72,6 +95,7 @@
 
 </head>
 <body>
+	<jsp:include page="header.jsp"/>
 
 	<div class="container">
 	<h1>주문/결제</h1> 
@@ -89,6 +113,8 @@
     		<input type="text" class="form-control" id="orderAddr" name="orderAddr">
   		</div>			
 	
+	
+	
 	<br><br><br>
 	<h3>주문 상품</h3>
 		<section>
@@ -105,18 +131,18 @@
 	<br><br><br>
 	<h3>포인트</h3>  		
   		<div class="mb-3">
-    		<label for="usedPoint" class="form-label">사용 포인트</label>
+    		<label for="usedPoint" class="form-label">보유 포인트: ${loginPoint}</label>
     		<input type="text" class="form-control" id="orderUsedPoint" name="orderUsedPoint">
   		</div>
 	
 	<br><br><br>
 	<h3>최종 결제 금액</h3>
 		<h5>총 상품 금액</h5>
-			<section  class="toalprice" id="price" name="orderTotalPrice">
+			<section  class="totalprice" id="price" name="orderTotalPrice">
 				<!-- 총 상품 금액 -->			
 			</section>
 		<h5>총 결제 금액</h5>
-			<section  class="toalpay" id="pay" name="orderPay">
+			<section  class="totalpay" id="pay" name="orderPay">
 				<!-- 총 결제 금액 -->			
 			</section>
 			
@@ -142,5 +168,6 @@
 	</div>
 	<br><br><br>
 
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

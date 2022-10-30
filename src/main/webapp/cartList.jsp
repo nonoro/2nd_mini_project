@@ -1,12 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
-	pageEncoding="UTF-8" %> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+	<title>Cart LIST</title>
 
 <link  rel="stylesheet" type="text/css" href="css/basic.css"  />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
 <style type="text/css">
 	.poster {
 		width : 150px;
@@ -18,7 +26,7 @@
 	td {text-align: center;}
 </style>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		function refreshPage() {
@@ -55,13 +63,14 @@
 			} //for문 끝
 
 			//테이블에 추가
-			$("#content").html(str);
+			if(str != "") {
+				$("#content").html(str);
+			} else {
+				$("#content").html("<p>장바구니가 비었습니다.<p>");
+			}
 
 			//가격 추가
-			$("#price").html("<b>주문 가격: " + toalprice + "원</b>");
-		
-			let onePrice = $('#proPrice').text() / $("#qty").val(); //상품의 원래 가격 6000
-			let newPrice = 0;
+			$("#price").html("<b>주문 가격: " + toalprice + "원</b>");	
 			
 	}//refresh 끝
 	
@@ -128,8 +137,7 @@
 			  //가격 누적
 			  toalprice += parseInt(arr[1]*arr[2]); 
 			} //for문 끝
-		  
-		  $("#price").text(toalprice +"원")
+		  $("#price").html("<b>주문 가격: " + toalprice + "원</b>");
 	  }
 	  
 	  //////////////////////////////////////////////////////
@@ -138,7 +146,6 @@
 		  if(confirm("삭제하시겠습니까?")) {
 			  let key = $(this).attr("id");
 			  let value = localStorage.getItem(key);
-			  //console.log($(this).parent());
 			  localStorage.removeItem(key, value);
 			  
 			  refreshPage();
@@ -156,14 +163,27 @@
 
 	 ////////////////////////////////////////	 
 
-		refreshPage();
+	 refreshPage();
 		
 	});//readyEnd
 </script>
 
 </head>
 <body>
+	<jsp:include page="header.jsp"/>
 
+	<div class="menu-result-container" id="menu-result-container">
+		<div>
+			<h2>장바구니</h2>
+			<hr class="menu-result-list-hr">
+		</div>
+
+		<!-- <div class="cartSection">
+			장바구니에 담긴 상품이 없습니다.
+		</div> -->
+
+	</div>
+	
 	<button name="delAllItem">전체 삭제</button>
 	<article class="main">
 		<section>
@@ -189,5 +209,6 @@
 		</section>
 	</article>
 
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

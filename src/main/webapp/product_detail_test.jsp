@@ -3,7 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -96,11 +96,77 @@
     
     </style>
     
+    <script src="js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
-    
-    
-    </script>
-    
+   		$(function() {
+   			let userId;
+   			
+   			$("[name=cartInsert]").click(function() {
+   				userId = sessionStorage.getItem("userId");
+   				if(userId == null) {
+   					alert("로그인 먼저 해주세요!");
+   					location.href = "mypagepart/signIn.jsp";
+   				} else {
+   					let str = "";
+   					str += "${selectByName.productName}" + ",";
+   					str += $("#qty").val() + ",";
+   					str += "${selectByName.productPrice}";
+   					
+   					let key = "${selectByName.productCode}";
+   					
+   					localStorage.setItem(key, str);
+   					
+   					if(confirm("장바구니를 확인하시겠습니까?")) {
+   						location.href = "${path}/cartList.jsp";
+   					}
+   				}
+   			});
+   			
+   			
+			$("[name=order]").click(function() { 
+				userId = sessionStorage.getItem("userId");
+				if(userId == null) {
+					alert("로그인 먼저 해주세요!");
+					location.href = "mypagepart/signIn.jsp";
+				} else {
+					let str = "";
+					str += "${selectByName.productName}" + ",";
+					str += $('#qty').val() + ",";
+					str += "${selectByName.productPrice}";
+					
+					let key = "${selectByName.productCode}";
+
+					localStorage.setItem(key, str);
+					
+					location.href = "order.jsp";
+					/* 
+					if(confirm("장바구니를 확인하시겠습니까?")) {
+						location.href = "${path}/cartList.jsp";
+					} */
+				}
+				
+			});
+			
+			
+			$("[name=minus]").on("click", function() { 
+				let value = $(this).next().val();
+				value--;
+				$('#qty').val(value).change();
+				
+				newPrice = onePrice * $('#qty').val();
+				$('#proPrice').text(newPrice);
+			});
+
+			$("[name=plus]").on("click", function() { 
+				let value = $('#qty').val();
+				value++;
+				$('#qty').val(value).change();
+				
+				newPrice = onePrice * $('#qty').val();
+				$('#proPrice').text(newPrice);
+			});
+		}); //readyEnd
+	</script>
     
 </head>
 <body>
@@ -185,8 +251,8 @@
             </div>
             <td>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-danger" type="button">구매하기</button>
-                    <button class="btn btn-danger" type="button">장바구니</button>
+                    <button class="btn btn-danger" type="button" name="order">구매하기</button>
+                    <button class="btn btn-danger" type="button" name="cartInsert">장바구니</button>
                 </div>
             </td>
         </tr>

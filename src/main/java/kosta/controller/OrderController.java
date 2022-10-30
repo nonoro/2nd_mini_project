@@ -1,18 +1,19 @@
 package kosta.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import kosta.dao.ProductDAO;
+import kosta.dao.ProductDAOImpl;
 import kosta.dto.OrderDTO;
 import kosta.dto.OrderLineDTO;
 import kosta.dto.PointDTO;
+import kosta.dto.ProductDTO;
 import kosta.service.OrderService;
 import kosta.service.OrderServiceImpl;
 
@@ -41,6 +42,7 @@ public class OrderController implements Controller {
 		String orderAddr = request.getParameter("orderAddr");
 		String orderType = request.getParameter("orderType");
 		String orderUsedPoint = request.getParameter("orderUsedPoint");
+		String productName = request.getParameter("productName");
 		
 		//주문을 하려는 상품들의 단가 * 수량을 한 금액의 누적총 결재
 		int totalPay=0;
@@ -68,21 +70,14 @@ public class OrderController implements Controller {
 			qty = pqty[i];
 					
 			order.getOrderLineList().add(new OrderLineDTO(0, 0, userId, Integer.parseInt(code), Integer.parseInt(orderlinePrice[i]), Integer.parseInt(qty), 
-					Integer.parseInt(orderTotalPriceArr[i])));		
+					Integer.parseInt(orderTotalPriceArr[i]), productName));		
 		}
 		
-		PointDTO pointDTO= new PointDTO(0, order.getOrderCode(), userId, 0, null, null);
-		
-		//if(userId != null) { 			
+		//PointDTO pointDTO= new PointDTO(0, order.getOrderCode(), userId, 0, null, null);	
 			
-			orderService.orderInsert(order);	
+		orderService.orderInsert(order);	
 			
-			return new ModelAndView("testLogin.jsp", true);
-		/* } else {
-			return new ModelAndView("error", true);
-		}	*/
-		
-		//return null;
+		return new ModelAndView("testLogin.jsp", true);
 	}
 	
 	/**
@@ -115,7 +110,7 @@ public class OrderController implements Controller {
 			List<OrderDTO> orderList = orderService.selectOrderByUserId(userId); 
 			request.setAttribute("orderList", orderList);
 			
-			return new ModelAndView("orderList.jsp");
+			return new ModelAndView("mypagepart/myPageOrder.jsp");
 		} else {
 			return new ModelAndView("error", true);
 		}
@@ -131,6 +126,17 @@ public class OrderController implements Controller {
 			List<OrderLineDTO> orderLineList = orderService.selectOrderLineByOrderCode(orderCode); 
 			request.setAttribute("orderLineList", orderLineList);
 			
+			List<ProductDTO> products = new ArrayList<ProductDTO>();
+			
+			ProductDAO productDao = new ProductDAOImpl();
+			
+			for(OrderLineDTO orderLine: orderLineList) {
+				ProductDTO product = productDao.selectByProductCode(orderLine.getProductCode());
+				products.add(product);
+			}
+			
+			request.setAttribute("productList", products);
+
 			return new ModelAndView("orderLineList.jsp");
 		} else {
 			return new ModelAndView("error");

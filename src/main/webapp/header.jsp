@@ -50,7 +50,7 @@
                                             class="nav-link">로그아웃</a></li>
                 </c:otherwise>
             </c:choose>
-            <li class="nav-item"><a href="#" class="nav-link">장바구니</a></li>
+            <li class="nav-item"><a href="${path}/cartList.jsp" class="nav-link">장바구니</a></li>
 <%--            <li class="nav-item"><a href="${pageContext.request.contextPath}/myPage.jsp" class="nav-link" id="myPage">마이페이지</a>--%>
             <li class="nav-item"><a href="${pageContext.request.contextPath}/front?key=myPage&methodName=myPage" class="nav-link" id="myPage">마이페이지</a>
             </li>
@@ -108,7 +108,7 @@
                     <li id="nop"><a href="#">심장</a></li>
                 </ul>
             </li>
-            <li style="width: 150px"><span>커뮤니티</span>
+            <li style="margin-left: 12px"><span>커뮤니티</span>
                 <ul class="dept01">
                     <li id="nop"><a href="#">광고</a></li>
                     <li id="nop"><a href="#">질병</a></li>

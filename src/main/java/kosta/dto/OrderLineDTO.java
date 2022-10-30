@@ -8,11 +8,11 @@ public class OrderLineDTO {
 	private int orderlinePrice;
 	private int orderlineQty;
 	private int orderlineTotalPrice;
+	private String productName;
 	
 	public OrderLineDTO() { }
 	public OrderLineDTO(int orderlineCode, int orderCode, String userId, int productCode, int orderlinePrice,
 			int orderlineQty, int orderlineTotalPrice) {
-		super();
 		this.orderlineCode = orderlineCode;
 		this.orderCode = orderCode;
 		this.userId = userId;
@@ -20,6 +20,12 @@ public class OrderLineDTO {
 		this.orderlinePrice = orderlinePrice;
 		this.orderlineQty = orderlineQty;
 		this.orderlineTotalPrice = orderlineTotalPrice;
+	}
+	
+	public OrderLineDTO(int orderlineCode, int orderCode, String userId, int productCode, int orderlinePrice,
+			int orderlineQty, int orderlineTotalPrice, String productName) {
+		this(orderlineCode, orderCode, userId, productCode, orderlinePrice, orderlineQty, orderlineTotalPrice);
+		this.productName = productName;
 	}
 	
 	public int getOrderlineCode() {
@@ -64,5 +70,10 @@ public class OrderLineDTO {
 	public void setOrderlineTotalPrice(int orderlineTotalPrice) {
 		this.orderlineTotalPrice = orderlineTotalPrice;
 	}
-	
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 }

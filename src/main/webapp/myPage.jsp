@@ -26,7 +26,7 @@
 <!-- header -->
 
 <body>
-<jsp:include page="${pageContext.request.contextPath}/header.jsp"/>
+<jsp:include page="header.jsp"/>
     <div class="shopTool">
         <div class="shopTool-detail">
             <span style="margin-left: 10px">홈&nbsp;>&nbsp;</span>
@@ -36,9 +36,9 @@
     </div>
 
     <div class="myPageMain">
-        <jsp:include page="${pageContext.request.contextPath}/informationBar.jsp"/>
+        <jsp:include page="informationBar.jsp"/>
         <div class="menuMain">
-            <jsp:include page="${pageContext.request.contextPath}/menu.jsp"/>
+            <jsp:include page="menu.jsp"/>
             <div class="menu-result-container" id="menu-result-container">
                 <main>
                     <h2 style="margin-bottom: 30px; font-size: 28px;">회원정보</h2>
@@ -68,7 +68,7 @@
                         <span>${loginPoint}</span><br>
                     </div>
                     <div style="margin: 30px 0;">
-                        <a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/mypagepart/updateUserConfirm.jsp">수정하기</a>
+                        <a class="btn btn-outline-secondary" href="mypagepart/updateUserConfirm.jsp">수정하기</a>
                     </div>
                 </main>
 
@@ -76,6 +76,6 @@
         </div>
     </div>
 
- <jsp:include page="${pageContext.request.contextPath}/footer.jsp"/>
+ <jsp:include page="footer.jsp"/>
 </body>
 </html>

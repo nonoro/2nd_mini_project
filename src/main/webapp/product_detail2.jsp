@@ -84,23 +84,28 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script type="text/javascript">
    		$(function() {
+   			let userId;
+   			let newPrice = 0;
+   			let onePrice = ${selectByName.productPrice};
+ 
 			$("[name=cartInsert]").click(function() { 
-				let str = "";
-				/* str += ${selectByName.productCode} + "," */
-				str += "${selectByName.productName}" + ","
-				str += $('#qty').val() + ","
-				str += ${selectByName.productPrice} 
-				//str += ${selectByName.productPrice} + ","
-				//str += (${selectByName.productPrice}*$('#qty').val())
-				
-				let key = "${selectByName.productCode}";
-				//let value = $("#${selectByName.productCode}").val();
-				localStorage.setItem(key, str);
-				
-				if(confirm("장바구니를 확인하시겠습니까?")) {
-					//location.href = "${path}/front?key=cart&methodName=viewCart&productCode=${selectByName.productCode}";
+				userId = sessionStorage.getItem("userId");
+				if(userId == null) {
+					alert("로그인 먼저 해주세요!");
+					location.href = "${path}/testLogin.jsp";
+				} else {
+					let str = "";
+					str += "${selectByName.productName}" + ",";
+					str += $('#qty').val() + ",";
+					str += ${selectByName.productPrice};
 					
-					location.href = "${path}/cartList.jsp";
+					let key = "${selectByName.productCode}";
+
+					localStorage.setItem(key, str);
+					
+					if(confirm("장바구니를 확인하시겠습니까?")) {
+						location.href = "${path}/cartList.jsp";
+					}
 				}
 			});
 			
@@ -110,7 +115,7 @@
 				$('#qty').val(value).change();
 				
 				newPrice = onePrice * $('#qty').val();
-				$('#proPrice').text(newPrice);
+				$('#totalPrice').text(newPrice);
 			});
 
 			$("[name=plus]").on("click", function() { 
@@ -119,13 +124,12 @@
 				$('#qty').val(value).change();
 				
 				newPrice = onePrice * $('#qty').val();
-				$('#proPrice').text(newPrice);
+				$('#totalPrice').text(newPrice);
 			});
 		}); //readyEnd
 	</script>
-    
-
 </head>
+
 <body>
     <!--js-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>    
@@ -140,7 +144,6 @@
                     <img id="food_01_img" src="food/dryfood/42782_originalView_01579592.jpeg">
                 </td>
             </div>
-           
                 <td>
                     <div class="detail_box">
                     <div class="detail_title">
@@ -157,9 +160,8 @@
                     </div>
                 </div><!--detail_box-->
                 </td>
-           
-       </tr>  
-       <tr>
+       		</tr>  
+			<tr>
             <div class="detail_box_2">   
         		 <td>
                    <div class="order_name">
@@ -168,13 +170,10 @@
                         <button class="minus" tabindex="0" type="button" name="minus">
                         	<span class="minus">&nbsp;-&nbsp;</span>
                         </button>
-                        
                         <input type="text" inputmode="decimal" id="qty" value="1">
-                        
                         <button class="plus" tabindex="0" type="button" name="plus">
                         	<span class="plus">&nbsp;+&nbsp;</span>
                         </button>
-                   
                    </div>
                    <div class="total_price">
                     <p>총 상품 금액</p>
@@ -183,9 +182,7 @@
                 </td>
             </div>     
         </tr>
-        
         <tr>
-           
             <td>
                 <div class="detail_img_zip">
                 <div class="detail_img_1">
@@ -199,23 +196,15 @@
                 </div>
                 </div><!--detail_img_zip-->
             </td>
-            
             <td>
-               
                 <div class="d-grid gap-2">
                     <button class="btn btn-danger" type="button"><h3>바로 구매</h3></button>
                     <input type="hidden" id="${selectByName.productCode}" value="${selectByName.productCode},${selectByName.productName},${selectByName.productPrice}">
                     <button class="btn btn-danger" type="button" name="cartInsert"><h3>장바구니</h3></button>
                 </div>
-                
             </td>
         </tr>
-
-</table>
-
+	</table>
 </div><!--product_list-->
-
-    
 </body>
-
 </html>

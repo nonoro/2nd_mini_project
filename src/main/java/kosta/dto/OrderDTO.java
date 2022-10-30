@@ -1,12 +1,13 @@
 package kosta.dto;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDTO {
 	private int orderCode;
 	private String userId;
-	private String orderDate;
+	private Date orderDate;
 	private String orderAddr;
 	private int orderComplete;
 	private int orderType;
@@ -14,13 +15,12 @@ public class OrderDTO {
 	private int orderTotalPrice;
 	private int orderPay;
 
-	private List<OrderLineDTO> orderLineList = new ArrayList<OrderLineDTO>();
+	private List<OrderLineDTO> orderLineList;
 
 	public OrderDTO() { }
-
-	public OrderDTO(int orderCode, String userId, String orderDate, String orderAddr, int orderComplete, int orderType,
+	
+	public OrderDTO(int orderCode, String userId, Date orderDate, String orderAddr, int orderComplete, int orderType,
 			int usedPoint, int orderTotalPrice, int orderPay) {
-		super();
 		this.orderCode = orderCode;
 		this.userId = userId;
 		this.orderDate = orderDate;
@@ -30,6 +30,12 @@ public class OrderDTO {
 		this.usedPoint = usedPoint;
 		this.orderTotalPrice = orderTotalPrice;
 		this.orderPay = orderPay;
+	}
+	
+	public OrderDTO(int orderCode, String userId, Date orderDate, String orderAddr, int orderComplete, int orderType,
+			int usedPoint, int orderTotalPrice, int orderPay, List<OrderLineDTO> orderLineList) {
+		this(orderCode, userId, orderDate, orderAddr, orderComplete, orderType, usedPoint, orderTotalPrice, orderPay);
+		this.orderLineList = orderLineList;
 	}
 
 	public int getOrderCode() {
@@ -48,11 +54,11 @@ public class OrderDTO {
 		this.userId = userId;
 	}
 
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
