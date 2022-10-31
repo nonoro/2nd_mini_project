@@ -160,20 +160,27 @@ public class ProductController implements Controller {
 		String ProductPrice=m.getParameter("productPrice");
 		String ProductQty=m.getParameter("productQty");
 		String ProductExplain=m.getParameter("productExplain");
-		String fname=m.getParameter("fname");
-		
+		//String fname=m.getParameter("fname");
+		String fname=m.getFilesystemName("fname");
+				
 		System.out.println("productName = "+ProductName);
+		System.out.println("productCategory = "+ProductCategory);
+		System.out.println("productPrice = "+ProductPrice);
+		System.out.println("ProductQty = "+ProductQty);
+		System.out.println("ProductExplain = "+ProductExplain);
+		System.out.println("fname = "+fname);
 
 		//받은값넣깅
-		ProductDTO product= new ProductDTO(10, Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,fname, null,null);
+		ProductDTO product= new ProductDTO(0, Integer.parseInt(ProductCategory), ProductName, Integer.parseInt(ProductPrice), Integer.parseInt(ProductQty), ProductExplain,fname, null,null);
 				
-		if(m.getFilesystemName("file") != null) {
+		if(m.getFilesystemName("fname") != null) {
 			//파일이름저장
-			product.setFname(m.getFilesystemName("file"));
+			product.setFname(m.getFilesystemName("fname"));
 			
 			prodService.insert(product);
+			
 		}
-		return new ModelAndView("Admin_insert.jsp", true);
+		return new ModelAndView("Admin_insert2.jsp", true);
 		
 	}
 	
@@ -189,26 +196,30 @@ public class ProductController implements Controller {
 		MultipartRequest m= 
 				new MultipartRequest(request, saveDir, maxSize,encoding, new DefaultFileRenamePolicy());
 		//전송데이터 받기 
-		String ProductCode=m.getParameter("productCode");  // 이거 히든으로 넘겨주세요 라고 말하기 
-		String detail1=m.getParameter("detail1");
-		String detail2=m.getParameter("detail2");
-		String detail3=m.getParameter("detail3");
-		String detail4=m.getParameter("detail4");
-		String info1=m.getParameter("info1");
+		//String ProductCode=m.getParameter("productCode");  // 이거 히든으로 넘겨주세요 라고 말하기 
+		String detail1=m.getFilesystemName("detail1");
+		String detail2=m.getFilesystemName("detail2");
+		String detail3=m.getFilesystemName("detail3");
+		String detail4=m.getFilesystemName("detail4");
+		String info1=m.getFilesystemName("info1");
+		
+		System.out.println("productName = "+detail1);
+		System.out.println("productCategory = "+detail2);
+
 		
 		//받은값넣깅
-		ProductFileDTO detail11 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail1, 2);
-		ProductFileDTO detail22 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail2, 2);
-		ProductFileDTO detail33 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail3, 2);
-		ProductFileDTO detail44 = new ProductFileDTO(0,Integer.parseInt(ProductCode), detail4, 2);
-		ProductFileDTO info11 = new ProductFileDTO(0,Integer.parseInt(ProductCode), info1, 2);
+		ProductFileDTO detail11 = new ProductFileDTO(0,0, detail1, 2);
+		ProductFileDTO detail22 = new ProductFileDTO(0,0, detail2, 2);
+		ProductFileDTO detail33 = new ProductFileDTO(0,0, detail3, 2);
+		ProductFileDTO detail44 = new ProductFileDTO(0,0, detail4, 2);
+		ProductFileDTO info11 = new ProductFileDTO(0,0, info1, 2);
 				
 		prodService.insertDetailPhoto(detail11);
 		prodService.insertDetailPhoto(detail22);
 		prodService.insertDetailPhoto(detail33);
 		prodService.insertDetailPhoto(detail44);
 		prodService.insertInfoPhoto(detail11);
-		return new ModelAndView("Admin_insert.jsp", true);
+		return new ModelAndView("Admin_main.jsp", true);
 		
 	}
 	

@@ -32,7 +32,7 @@
     <!--부트스트랩-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
-    <form name=updateForm method=post action="${path}/font" onsubmit="return check()">
+    <form name=updateForm method=post  enctype="multipart/form-data" action="${path}/front?key=product&methodName=insertMorePhoto">
         <table align="center" cellpadding="5" width="600">
     
     
@@ -41,6 +41,7 @@
                 <td width="150" height="20">
                     <p align="center"><b><span style="font-size:9pt;">상세사진1</span></b></p>
                 </td>
+                
                 <td width="450" height="20">
                     <b><span style="font-size:9pt;">
                          <input type="file" name="detail1" maxlength="60" size="40">
