@@ -9,7 +9,7 @@ public class ReviewDTO {
 	private String reviewPostdate;
 	private String reviewFile;
 	private String dogName;
-	private String productName;
+	private String productName;//9
 	
 	public ReviewDTO() { }
 	public ReviewDTO(int reviewCode, String userId, int productCode, int reviewGrade, String reviewDetail,

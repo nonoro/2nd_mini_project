@@ -15,7 +15,6 @@
 
 
     <link rel="stylesheet" href="${path}/css/myPage/myPage.css">
-
     <script src="${path}/js/jquery-3.6.0.min.js"></script>
 
     <script>
@@ -38,7 +37,8 @@
 
             $(document).on("click", "#pointDetail", function () {
                 if (true) {
-                    $("#pointDetail").attr("href", "${path}/mypagepart/pointOk.jsp");
+
+                    $("#pointDetail").attr("href", "${path}/front?key=point&methodName=selectPointByUserId&userId=" + userId);     
                 } else {
                     $("#pointDetail").attr("href", "${path}/mypagepart/pointEmpty.jsp");
                 }
@@ -53,7 +53,6 @@
             });
         });
     </script>
-
 </head>
 
 <!-- header -->
@@ -69,9 +68,7 @@
         <a
                 href="#" id="order"><span>&nbsp;&nbsp;주문&nbsp;∙&nbsp;배송&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
-    <div class="menu-container-a">
-        <a href="#" id="cancelOrder"><span>&nbsp;&nbsp;주문취소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
-    </div>
+
     <div class="menu-container-a">
         <a href="#" id="pointDetail"><span>&nbsp;&nbsp;포인트내역
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>

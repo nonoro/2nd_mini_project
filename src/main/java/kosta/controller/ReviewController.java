@@ -67,7 +67,7 @@ public class ReviewController implements Controller{
 		reviewService.insert(review);
 		
 		
-		return new ModelAndView("orderLineList.jsp",true);
+		return new ModelAndView("myPage.jsp",true);
 	}
 	
 	public ModelAndView selectAll(HttpServletRequest request, HttpServletResponse response)

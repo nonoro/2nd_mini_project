@@ -145,13 +145,13 @@ public class UserServiceImpl implements UserService {
 		return allSalse;
 	}
 
-	@Override
-	public List<OrderDTO> readyProduct() throws SQLException {
-		List<OrderDTO> list = userDAO.readyProduct();
-		if(list.size() == 0 || list.isEmpty()) throw new SQLException("준비중인 주문이 없습니다.");
-		
-		return list;
-	}
+	/*
+	 * @Override public List<OrderDTO> readyProduct() throws SQLException {
+	 * List<OrderDTO> list = userDAO.readyProduct(); if(list.size() == 0 ||
+	 * list.isEmpty()) throw new SQLException("준비중인 주문이 없습니다.");
+	 * 
+	 * return list; }
+	 */
 
 	@Override
 	public void updateReady(int orderCode) throws SQLException {

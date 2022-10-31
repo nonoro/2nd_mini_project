@@ -19,10 +19,12 @@
 	$(function() {
 		let totalprice = 0;
 		let inputPoint = 0;
+		let nf = Intl.NumberFormat();
+		let userId = null;
 		
 		function refreshPage() {			
 			let str = ""; 
-			let userId = sessionStorage.getItem("userId");
+			userId = sessionStorage.getItem("userId");
 			
 			for(let i=0; i < localStorage.length; i++) {
 				let key = localStorage.key(i); 
@@ -30,12 +32,14 @@
 
 				//value의 값을 , 기준으로 분리
 				let arr = value.split(",");
+				let pro = arr[2];
+				let total = arr[1] * pro; 
 
 				str += `<tr>`;
 				str += `<td><img src="${"${arr[1]}"}" class="poster"></td>`;
 				str += `<td>${"${arr[0]}"}</td>`;
 				str += `<td>${"${arr[1]}"}</td>`;
-				str += `<td>${"${arr[1]*arr[2]}"}`;
+				str += `<td>${"${nf.format(total)}"}원`;
 				
 				//전송할 항목 만들기
 				str+=`<input type="hidden" name="productCode" value='${"${key}"}'>`;
@@ -46,7 +50,7 @@
 				str+=`<input type="hidden" name="userId" value='${"${userId}"}'>`;
 				str += `</td>`;
 				str += `</tr>`;
-
+				
 				//가격 누적
 				totalprice += parseInt(arr[1] * arr[2]); 
 			} //for문 끝
@@ -55,23 +59,65 @@
 			$("#content").html(str);
 
 			//가격 추가
-			$("#price").html(totalprice + "원");
-			$("#pay").html("<b>" + (totalprice - inputPoint) + "원</b>");
+			$("#price").html(nf.format(totalprice) + "원");
+
+			$("#pay").html("<b>" + nf.format((totalprice - inputPoint)) + "원</b>");
 		} //함수 끝
 		
 		//총 결제 금액 반영하기
 		function calTotal() {
-			$("#pay").html("<b>" + (totalprice - inputPoint) + "원</b>");
+			$("#pay").html("<b>" + nf.format((totalprice - inputPoint)) + "원</b>");
 		}
 		
-		$("[name=doPay]").click(function() { 
-			alert("결제 완료되었습니다.");
-			//location.href = "testLogin.jsp";
-			location.href = "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId;
+		//$("[name=doPay]").click(function() { 
 			
-			localStorage.clear();
-		});
+			/* let state = true;
+			$("input[type=text]").each(function(index, item){ //item은 input element이다.
+				if($(this).val()==""){
+					alert("값을 입력해주세요.");
+					$(this).focus();//커서놓기
+					   
+					state=false;
+					return false;//return false의 의미는 each함수를 빠져나가라.
+				}
+			}); */
+
+			//location.href = "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId;
+			
+			//location.href = "testLogin.jsp";
+		//});
 		
+		
+		function checkValid() {
+		    var f = window.document.orderForm;
+				
+			if(f.orderAddr.value == "") {
+			    alert( "배송할 주소를 입력해 주세요." );
+			    f.orderAddr.focus();
+				return false;
+		    }
+			
+			if(f.orderUsedPoint.value == "") {
+			    alert( "사용할 포인트를 입력해 주세요." );
+			    f.orderUsedPoint.focus();
+				return false;
+		    }
+			
+			return true;
+		}
+		
+		
+		$("[name=doPay]").click(function() { 
+			if(!checkValid()) {
+				return false;
+			} else {
+				alert("결제 완료되었습니다.");
+				localStorage.clear();
+			}
+			
+
+		});
+
 		$("#orderUsedPoint").on("keyup", function() {
 			let loginPoint = parseInt("${loginPoint}");
 			
@@ -102,14 +148,14 @@
 		
 	<br><br><br>	
 	<h3>배송 정보</h3>   
-	<!-- <form method="post" action="orderList.jsp"> -->
-	<form method="post" action="${path}/front?key=order&methodName=orderInsert">
-	<%-- <form name="writeForm" method="post" action="${path}/front?key=review&methodName=insert" onSubmit='return checkValid()'> --%>
+
+	<%-- <form method="post" action="${path}/front"> --%>
+	<form name="orderForm" method="post" action="${path}/front">
 	
 		<input type="hidden" name="key" value="order">
 		<input type="hidden" name="methodName" value="orderInsert">
-  		<div class="mb-3">
-    		<label for="orderAddr" class="form-label">배송 주소</label>
+  		<div class="mb-3" >
+    		<label for="orderAddr" class="form-label" >배송 주소</label>
     		<input type="text" class="form-control" id="orderAddr" name="orderAddr">
   		</div>			
 	

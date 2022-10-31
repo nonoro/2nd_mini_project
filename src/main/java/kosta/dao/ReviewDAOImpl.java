@@ -19,7 +19,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
-		String sql = "INSERT INTO REVIEW VALUES(review_code_seq.NEXTVAL,?,?,?,?,sysdate,?,?)";
+		String sql = "INSERT INTO REVIEW VALUES(review_code_seq.NEXTVAL,?,?,?,?,sysdate,?,?,?)";
 		try {
 			con=DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -30,6 +30,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			ps.setString(4, reivewDTO.getReviewDetail());;
 			ps.setString(5, reivewDTO.getReviewFile());
 			ps.setString(6, reivewDTO.getDogName());
+			ps.setString(7, reivewDTO.getProductName());
 			
 			result = ps.executeUpdate();
 			

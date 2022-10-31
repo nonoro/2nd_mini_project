@@ -147,9 +147,9 @@ public interface UserDAO {
 	/**
 	 * 상태가 준비중인 상품 리스트업
 	 * SELECT * FROM T_ORDER WHERE ORDER_COMPLETE = 0;
-	 */
+	 
 	List<OrderDTO> readyProduct() throws SQLException;
-	
+	*/
 	/**
 	 * 상태가 준비중인 상품의 ORDER_COMPLETE를 배송중으로 변경
 	 * UPDATE T_ORDRE SET ORDRE_COMPLETE=1 WHERE ORDER_CODE=?

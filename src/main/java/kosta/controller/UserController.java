@@ -250,7 +250,7 @@ public class UserController implements Controller {
     /**
      * 상태가 준비중인 상품 리스트업
      * SELECT * FROM T_ORDER WHERE ORDER_COMPLETE = 0;
-     */
+     
     public ModelAndView readyProduct(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         List<OrderDTO> list = userService.readyProduct();
@@ -259,7 +259,7 @@ public class UserController implements Controller {
 
         return new ModelAndView("jongmintest.jsp");
     }
-
+*/
 
     /**
      * 상태가 준비중인 상품의 ORDER_COMPLETE를 배송중으로 변경

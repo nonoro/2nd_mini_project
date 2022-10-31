@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -27,6 +30,8 @@
 
     <script>
         $(function () {
+        	let userId = sessionStorage.getItem("userId"); //나중에 합칠 때 빼야 함!!!!!!!!!!!!!!!!
+        	
             $(document).on("click", "#order", function () {
                 if (false) {
                     $("#order").attr("href", "${path}/mypagepart/myPageOrder.jsp");
@@ -84,37 +89,25 @@
         <div class="menu-result-container" id="menu-result-container">
             <h2>포인트내역</h2>
             <div class="menu-result-container-list"  style="margin: 0px">
+            <hr>
                 <table class="table table-striped">
                     <tr>
                         <th>번호</th>
-                        <th>구매한 상품</th>
                         <th>적립/사용 포인트</th>
                         <th>포인트 적립일</th>
                         <th>포인트 사용일</th>
+                         <th>주문 번호</th>
                     </tr>
-                    <tr>
-                        <th>1</th>
-                        <th><a href="#">건식사료</a></th>
-                        <th>2310p</th>
-                        <th>2022.10.25</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <th><a href="#">습식사료</a></th>
-                        <th>4310p</th>
-                        <th>2022.10.25</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <th><a href="#">눈 영양제</a></th>
-                        <th>-5310p</th>
-                        <th></th>
-                        <th>2022.10.25</th>
-                    </tr>
+                    <c:forEach items="${pointList}" var="point" varStatus="state">
+                    	 <tr>
+                        	<th>${state.index + 1}</th>
+                        	<th><fmt:formatNumber value="${point.pointSave}"/></th>
+                        	<th>${point.pointSavedate}</th>
+                        	<th>${point.pointUseddate}</th>
+                        	<th><a href="${path}/front?key=order&methodName=selectOrderLineByOrderCode&orderCode=${point.orderCode}">${point.orderCode}</a></th>
+                    	</tr>
+                    </c:forEach>
                 </table>
-                <hr>
             </div>
         </div>
     </div>

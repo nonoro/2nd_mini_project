@@ -430,30 +430,20 @@ public class UserDAOImpl implements UserDAO {
         return allSalse;
     }
 
-    @Override
-    public List<OrderDTO> readyProduct() throws SQLException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        List<OrderDTO> list = new ArrayList<OrderDTO>();
-        OrderDTO order = null;
-
-        String sql = "SELECT * FROM ORDERS WHERE ORDER_COMPLETE = 0";
-
-        try {
-            con = DbUtil.getConnection();
-            ps = con.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                order = new OrderDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
-                list.add(order);
-            }
-
-        } finally {
-            DbUtil.dbClose(con, ps, rs);
-        }
-        return list;
-    }
+	/*
+	 * @Override public List<OrderDTO> readyProduct() throws SQLException {
+	 * Connection con = null; PreparedStatement ps = null; ResultSet rs = null;
+	 * List<OrderDTO> list = new ArrayList<OrderDTO>(); OrderDTO order = null;
+	 * 
+	 * String sql = "SELECT * FROM ORDERS WHERE ORDER_COMPLETE = 0";
+	 * 
+	 * try { con = DbUtil.getConnection(); ps = con.prepareStatement(sql); rs =
+	 * ps.executeQuery(); while (rs.next()) { order = new OrderDTO(rs.getInt(1),
+	 * rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+	 * rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9)); list.add(order); }
+	 * 
+	 * } finally { DbUtil.dbClose(con, ps, rs); } return list; }
+	 */
 
     @Override
     public int updateReady(int orderCode) throws SQLException {

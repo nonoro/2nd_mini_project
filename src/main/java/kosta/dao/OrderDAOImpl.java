@@ -68,7 +68,7 @@ public class OrderDAOImpl implements OrderDAO {
 		int result[] = null;
 		try {
 
-			ps = con.prepareStatement("insert into orderline values(orderline_code_seq.nextval, order_seq.currval, ?, ?, ?, ?, ?)");
+			ps = con.prepareStatement("insert into orderline values(orderline_code_seq.nextval, order_seq.currval, ?, ?, ?, ?, ?, ?)");
 
 			for(OrderLineDTO orderLine: order.getOrderLineList()) { 
 				ProductDTO product = productDao.selectByProductCode(orderLine.getProductCode());
@@ -77,6 +77,11 @@ public class OrderDAOImpl implements OrderDAO {
 				ps.setInt(3, orderLine.getOrderlinePrice()); 
 				ps.setInt(4, orderLine.getOrderlineQty()); 
 				ps.setInt(5, product.getProductPrice() * orderLine.getOrderlineQty()); 
+				ps.setString(6, product.getProductName()); 
+				
+				System.out.println("orderLine.getOrderlinePrice(): " + orderLine.getOrderlinePrice());
+				System.out.println("product.getProductPrice(): " + product.getProductPrice());
+				
 				ps.addBatch(); 
 				ps.clearParameters(); 
 			}
@@ -167,6 +172,8 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		int result = 0;
 		
+		System.out.println("0 result: " + result);
+		
 		try {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
@@ -174,6 +181,8 @@ public class OrderDAOImpl implements OrderDAO {
 			ps = con.prepareStatement("update orders set order_complete=3 where order_code=?");
 			ps.setInt(1, order.getOrderCode());
 			result = ps.executeUpdate();
+			
+			System.out.println("시작 result: " + result);
 			
 			if(result == 0) {
 				con.rollback();
@@ -185,11 +194,10 @@ public class OrderDAOImpl implements OrderDAO {
 				loseUserPoint(con, order);
 				
 				//상세삭제
-				int re = orderLineDelete(con, order);
-				 if(re==0) {
-						con.rollback();
-						throw new SQLException("주문할 수 없습니다.");
-					}
+				/*
+				 * int re = orderLineDelete(con, order); if(re==0) { con.rollback(); throw new
+				 * SQLException("주문할 수 없습니다."); }
+				 */
 				
 				con.commit();
 			}
@@ -197,7 +205,10 @@ public class OrderDAOImpl implements OrderDAO {
 			DbUtil.dbClose(con, ps);
 		}
 		
+		
+		System.out.println("끝 result: " + result);
 		return result;
+		
 	}
 	
 	/**
@@ -217,6 +228,7 @@ public class OrderDAOImpl implements OrderDAO {
 		}
 		return result;
 	}
+	
 	/**
 	 * 재고 증가
 	 * */

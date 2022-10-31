@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 
 <head>
@@ -17,10 +20,13 @@
 
     <link rel="stylesheet" href="${path}/css/myPage/myPage.css">
 
-    <script src="${path}/js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
 
     <script>
         $(function () {
+        	let userId = ${sessionScope.loginUser}; //나중에 합칠 때 빼야 함!!!!!!!!!!!!!!!!
+        	let values = "" ;
+        	
             $(document).on("click", "#order", function () {
                 if (false) {
                     $("#order").attr("href", "${path}/mypagepart/myPageOrder.jsp");
@@ -29,14 +35,19 @@
                 }
             });
 
-            $(document).on("click", "#cancelOrder", function () {
-                if (false) {
-                    $("#cancelOrder").attr("href", "${path}/mypagepart/myPageCancelOrder.jsp");
-                } else {
-                    $("#cancelOrder").attr("href", "${path}/mypagepart/myPageCancelOrderEmpty.jsp");
-                }
-            });
 
+            $(document).on('click', '#orderCancel', function(){
+            	values = $(this).val();
+            	
+            	let arr = values.split(",");
+
+            	let orderCode = arr[0];
+            	
+            	if(confirm("주문을 취소하시겠습니까?")) {
+					location.href = "${path}/front?key=order&methodName=orderCancel&orderCode=" + orderCode;
+				}
+            });
+            
             $(document).on("click", "#pointDetail", function () {
                 if (false) {
                     $("#pointDetail").attr("href", "${path}/mypagepart/pointOk.jsp");
@@ -51,7 +62,7 @@
                 } else {
                     $("#notice").attr("href", "${path}/mypagepart/noticeEmpty.jsp");
                 }
-            });
+            });            
         });
     </script>
 
@@ -75,50 +86,67 @@
         <jsp:include page="../menu.jsp"/>
         <div class="menu-result-container" id="menu-result-container"><h2>주문 ∙ 배송</h2>
             <hr class="menu-result-list-hr">
+
+    
+            <input type="hidden" name="userId" value="${userId}">
+    
+            <c:forEach items="${orderList}" var="order">
+ 
             <div class="menu-result-container-list" style="margin-left: 0; width: 78%;">
                 <div class="okMenuList">
                     <div>
-                        <img src="${path}/img/logo.png" style="width: 150px; height: 150px;" alt="">
+                        <img src="img/logo.png" style="width: 150px; height: 150px;" alt="">
                     </div>
                     <div class="menu-result-content" style="text-align: left;">
-                        <div>눈에좋고 다리에좋고 몸에좋은 건식사료 외 2종</div>
-                        <div>총액 : 30,000원&nbsp;&nbsp;&nbsp;&nbsp;결제일: 22.10.25</div>
+                        <div> 
+                        	<c:choose>
+                                <c:when test="${(order.orderComplete) == 3}">
+                                     <h5 style="color: red">주문이 취소되었습니다.</h5>
+                                     <c:choose>
+                                     	<c:when test="${fn:length(order.orderLineList) le 1}" >
+                        					상품 이름: ${order.orderLineList[0].productName}                                 
+                        				</c:when>
+                        				<c:otherwise>
+                        					상품 이름: ${order.orderLineList[0].productName} 외 ${fn:length(order.orderLineList) - 1}건
+                        				</c:otherwise>
+                                     </c:choose>
+                                </c:when>
+
+                        		<c:otherwise>
+                        			<c:choose>
+                                     	<c:when test="${fn:length(order.orderLineList) le 1}" >
+                        					상품 이름: ${order.orderLineList[0].productName}                                 
+                        				</c:when>
+                        				<c:otherwise>
+                        					상품 이름: ${order.orderLineList[0].productName} 외 ${fn:length(order.orderLineList) - 1}건
+                        				</c:otherwise>
+                                     </c:choose>
+                        		</c:otherwise>
+                        	</c:choose>
+                         </div>                      
+                        <div>총액: <fmt:formatNumber value="${order.orderTotalPrice}"/>원 &nbsp;&nbsp;&nbsp;&nbsp;
+                        	결제일: ${order.orderDate}
+                        </div>
                     </div>
-                    <div class="menu-result-review">
-                        <div><a href="#" class="btn btn-outline-secondary" id="writeReview">리뷰쓰기</a></div>
-                    </div>
+
+                    <c:choose>
+                    	<c:when test="${(order.orderComplete) == 3}">
+                        </c:when>
+                        <c:otherwise>
+                        	<div class="menu-result-review">
+                        		<div><a href="${path}/front?key=order&methodName=selectOrderLineByOrderCode&orderCode=${order.orderCode}" class="btn btn-outline-secondary" id="checkOrderList">주문 내역</a></div>
+                    		</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    		<div class="menu-result-review">
+                       			 <div>
+                        			<button type="button" class="btn btn-outline-danger" id="orderCancel" value="${order.orderCode},${order.orderComplete}">주문 취소</button>
+                        		</div>
+                    		</div>
+                        </c:otherwise>
+                    </c:choose>  
+
                 </div>
             </div>
-            <hr class="menu-result-list-hr">
-            <div class="menu-result-container-list" style="margin-left: 0; width: 78%;">
-                <div class="okMenuList">
-                    <div>
-                        <img src="${path}/img/logo.png" style="width: 150px; height: 150px;" alt="">
-                    </div>
-                    <div class="menu-result-content" style="text-align: left;">
-                        <div>눈에좋고 다리에좋고 몸에좋은 건식사료 외 2종</div>
-                        <div>총액 : 30,000원&nbsp;&nbsp;&nbsp;&nbsp;결제일: 22.10.25</div>
-                    </div>
-                    <div class="menu-result-review">
-                        <div><a href="#" class="btn btn-outline-secondary" id="writeReview">리뷰쓰기</a></div>
-                    </div>
-                </div>
-            </div>
-            <hr class="menu-result-list-hr">
-            <div class="menu-result-container-list" style="margin-left: 0; width: 78%;">
-                <div class="okMenuList">
-                    <div>
-                        <img src="${path}/img/logo.png" style="width: 150px; height: 150px;" alt="">
-                    </div>
-                    <div class="menu-result-content" style="text-align: left;">
-                        <div>눈에좋고 다리에좋고 몸에좋은 건식사료 외 2종</div>
-                        <div>총액 : 30,000원&nbsp;&nbsp;&nbsp;&nbsp;결제일: 22.10.25</div>
-                    </div>
-                    <div class="menu-result-review">
-                        <div><a href="#" class="btn btn-outline-secondary" id="writeReview">리뷰쓰기</a></div>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
             <hr class="menu-result-list-hr">
         </div>
     </div>
