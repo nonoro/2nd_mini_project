@@ -63,7 +63,8 @@
 				<div class="img_box">
 					<a
 						href="${path}/front?key=product&methodName=selectByProductName&productName=${p.productName}&productCode=${p.productCode}">
-						<img id="food_01_img" src="img/${p.pFileName}.jpeg">
+						<%-- <img id="food_01_img" src="img/${p.pFileName}.jpeg"> --%>
+						<img id="food_01_img" src="${path}/save/${p.fname}" />
 					</a>
 				</div>
 				<!-- product text box -->

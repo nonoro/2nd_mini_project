@@ -32,6 +32,7 @@
                 <p align="center"><b> 상품 등록 </b></font></p>
             </td>
         </tr>
+       <%--  <input type="hidden" name="productCode" value="${??}"> --%>
         <tr>
             <td width="150" height="20" >
                 <p align="center"><b><span style="font-size:9pt;">카테고리</span></b></p>
@@ -83,7 +84,7 @@
             <td width="150" height="20">
                 <p align="center"><b><span style="font-size:9pt;">상세사진 파일첨부</span></b></p>
             </td>
-           <!--  <td>
+          <!-- <td>
                 <button type="button" onclick="location.href='Admin_insert2.jsp'">
                     파일선택(상세사진 첨부하는 페이지로 이동할거임)
                 </button>
@@ -92,7 +93,7 @@
         
         <tr>
             <td width="450" height="20" colspan="2" align="center">
-                <input type=submit value=등록하기> 
+                <input type=submit value=다음> 
                 <input type=reset value=취소하기>
             </td>
         </tr>

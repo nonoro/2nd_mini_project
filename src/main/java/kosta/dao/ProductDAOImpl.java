@@ -155,7 +155,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into Product values(10,?,?,?,?,?,?)";// insert into Electronics
+		String sql = "insert into Product values(11,?,?,?,?,?,?)";// insert into Electronics
 																	// values(?,?,?,?,?,sysdate,0,?,?)
 		try {
 			con = DbUtil.getConnection();
@@ -180,12 +180,12 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into product_file values(product_file_seq.nextval,?,?,2)";
+		String sql = "insert into product_file values(product_file_seq.nextval,11,?,2)";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, productFileDTO.getProductCode());
-			ps.setString(2, productFileDTO.getProductFile());
+			
+			ps.setString(1, productFileDTO.getProductFile());
 			
 
 			result = ps.executeUpdate();
@@ -198,12 +198,12 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into product_file values(product_file_seq.nextval,?,?,3)";
+		String sql = "insert into product_file values(product_file_seq.nextval,11,?,3)";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, productFileDTO.getProductCode());
-			ps.setString(2, productFileDTO.getProductFile());
+			
+			ps.setString(1, productFileDTO.getProductFile());
 			
 
 			result = ps.executeUpdate();
