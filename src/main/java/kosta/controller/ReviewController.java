@@ -57,7 +57,7 @@ public class ReviewController implements Controller{
 		System.out.println("reviewFile = "+reviewFile);
 		
 		ReviewDTO review = new ReviewDTO
-				(0, userId, productCode, Integer.parseInt(reviewGrade), reviewDetail, new Date().toString(),reviewFile,dogName);
+				(0, userId, productCode, Integer.parseInt(reviewGrade), reviewDetail, new Date().toString(),reviewFile,dogName, productName);
 		
 		//만약, 파일첨부가 되었다면....
 		if(m.getFilesystemName("file") != null) {
@@ -67,7 +67,7 @@ public class ReviewController implements Controller{
 		reviewService.insert(review);
 		
 		
-		return new ModelAndView("jongmintest.jsp",true);
+		return new ModelAndView("orderLineList.jsp",true);
 	}
 	
 	public ModelAndView selectAll(HttpServletRequest request, HttpServletResponse response)
@@ -100,19 +100,19 @@ public class ReviewController implements Controller{
 			throws Exception {
 		String reviewCode = request.getParameter("reviewCode");
 		String userId = request.getParameter("userId");
-		String reviewGrade = request.getParameter("reviewGrade");
+		String reviewGrade = request.getParameter("reviewStar");
 		String reviewDetail = request.getParameter("reviewDetail");
 		System.out.println("reviewCode = "+reviewCode);
 		System.out.println("userId = "+userId);
 		System.out.println("reviewGrade = "+ reviewGrade);
 		System.out.println("reviewDetail = "+ reviewDetail);
 		
-		ReviewDTO review = new ReviewDTO(Integer.parseInt(reviewCode), userId, 0, Integer.parseInt(reviewGrade), reviewDetail, null, null, null);
+		ReviewDTO review = new ReviewDTO(Integer.parseInt(reviewCode), userId, 0, Integer.parseInt(reviewGrade), reviewDetail, null, null, null, null);
 		
 		reviewService.update(review);
 		
 		
-		return new ModelAndView("jongmintest.jsp", true);
+		return new ModelAndView("myPage.jsp", true);
 	}
 	
 	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response)
@@ -123,7 +123,7 @@ public class ReviewController implements Controller{
 		reviewService.delete(Integer.parseInt(reviewCode), saveDir);
 		
 		
-		return new ModelAndView("jongmintest.jsp",true);
+		return new ModelAndView("myPage.jsp",true);
 	}
 	
 	public ModelAndView selectByCode(HttpServletRequest request, HttpServletResponse response)
@@ -134,7 +134,18 @@ public class ReviewController implements Controller{
 		
 		request.setAttribute("reviewByCode", review);
 		
-		return new ModelAndView("UpdateForm");
+		return new ModelAndView("review_update_test.jsp");
+	}
+	
+	public ModelAndView selectByUserId(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String userId = request.getParameter("userId");
+		
+		List<ReviewDTO> myReviewList = reviewService.selectByUserId(userId);
+		System.out.println(myReviewList);
+		
+		request.setAttribute("myReviewList", myReviewList);
+		return new ModelAndView("myReview.jsp");
 	}
 
 }

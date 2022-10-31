@@ -54,6 +54,14 @@
                 }
             });
             
+            $(document).on("click", "#myReview", function () {
+                if (true) {
+                    $("#myReview").attr("href", "${path}/front?key=review&methodName=selectByUserId&userId=${sessionScope.loginUser}");
+                } else {
+                    $("#myReview").attr("href", "${path}/front?key=review&methodName=selectByUserId&userId=${sessionScope.loginUser}");
+                }
+            });
+            
             
         });
     </script>
@@ -89,6 +97,10 @@
         <a href="${pageContext.request.contextPath}/mypagepart/repeatedQuestion.jsp">
             <span>&nbsp;&nbsp;자주묻는질문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span>
         </a><br>
+    </div>
+   <div class="menu-container-a">
+        <a href="#" id="myReview"><span>&nbsp;&nbsp;내가 작성한 리뷰
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
 </div>
 
