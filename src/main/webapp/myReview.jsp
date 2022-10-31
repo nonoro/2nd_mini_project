@@ -82,7 +82,7 @@
 		        		</td>
 		        		<td bgcolor="">
 		            		<p align="center"><span style="font-size:9pt;">
-		            			<img id="img1" src="img/${review.reviewFile}">
+		            			<img class="poster" src="${path}/save/${review.reviewFile}" height="100" width="100" />
 		            		</span></p>
 		        		</td> 
 		        		<td bgcolor="">
