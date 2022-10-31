@@ -67,4 +67,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return review;
 	}
 
+	@Override
+	public List<ReviewDTO> selectByUserId(String userId) throws SQLException {
+		List<ReviewDTO> list = reviewDAO.selectByUserId(userId);
+		if(list.isEmpty() || list.size()==0) throw new SQLException("작성된 리뷰가 없습니다.");
+		return list;
+	}
+
 }

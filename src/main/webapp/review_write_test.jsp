@@ -14,7 +14,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Document</title>
-	
+	<script type="text/javascript" src="js/jquery-3.6.0.min.js">
+		let userId= sessionStorage.getItem("userId");
+	</script>
 
 </head>
 <body>
@@ -39,11 +41,11 @@
             <td>
                 <div class="review-product-box">
                     <div class="review-product-date">
-                        <h6>등록일 2022.10. 28</h6>
+                        <h6>상품명 : ${selectByCode.productName}</h6>
+                        <input type="hidden" name="productName" value="${selectByCode.productName}">
                     </div>
                     <div class="review-product-name" >
-                        <h6>상품이름 애니펫 비타 칼슘 비스킷</h6>
-                        <input type="hidden" name="productName" value="사료222">
+                        <h6>가격 : ${selectByCode.productPrice}</h6>
                     </div>
                 </div>
             </td>

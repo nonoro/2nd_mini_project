@@ -47,7 +47,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		ReviewDTO review = null;
 		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
 	
-		String sql = "SELECT USER_ID, PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE, DOGNAME FROM REVIEW WHERE PRODUCT_CODE=?";
+		String sql = "SELECT USER_ID, PRODUCT_CODE, REVIEW_GRADE, REVIEW_DETAIL, REVIEW_POSTDATE, REVIEW_FILE, DOGNAME, PRODUCT_NAME FROM REVIEW WHERE PRODUCT_CODE=?";
 		try {
 			con = DbUtil.getConnection();
 			ps=con.prepareStatement(sql);
@@ -55,7 +55,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				review = new ReviewDTO(0,rs.getString(1),rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
+				review = new ReviewDTO(0,rs.getString(1),rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
 				list.add(review);
 			}
 			
@@ -130,7 +130,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 			
 			rs = ps.executeQuery();
 			if(rs.next()) {
-				review = new ReviewDTO(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
+				review = new ReviewDTO(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9));
 			
 			}
 			
@@ -166,5 +166,35 @@ public class ReviewDAOImpl implements ReviewDAO {
 		
 		return avrGrade;
 	}
+	
+	@Override
+	public List<ReviewDTO> selectByUserId(String userId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps =null;
+		ResultSet rs= null;
+		ReviewDTO review = null;
+		List<ReviewDTO> list = new ArrayList<ReviewDTO>();
+	
+		String sql = "SELECT * FROM REVIEW WHERE USER_ID=?";
+		try {
+			con = DbUtil.getConnection();
+			ps=con.prepareStatement(sql);
+			ps.setString(1, userId);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				review = new ReviewDTO(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9));
+				list.add(review);
+			}
+			
+		}finally {
+			DbUtil.dbClose(con, ps, rs);
+		}		
+		
+		return list;
+	}
+
+	
+	
 
 }

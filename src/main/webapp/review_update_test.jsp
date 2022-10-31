@@ -27,6 +27,7 @@
                 <h5><strong>구매후기 수정</strong></h5>
                 <input type="hidden" name="userId" value="${sessionScope.loginUser}">
                  <input type="hidden" name="dogName" value="${sessionScope.loginDogName}">
+                 <input type="hidden" name="reviewCode" value="${reviewByCode.reviewCode}">
             </td>
         </tr>
         <tr>
@@ -39,11 +40,11 @@
             <td>
                 <div class="review-product-box">
                     <div class="review-product-date">
-                        <h6>등록일 2022.10. 28</h6>
+                        <h6>등록일 : ${reviewByCode.reviewPostdate}</h6>
                     </div>
                     <div class="review-product-name" >
-                        <h6>상품이름 애니펫 비타 칼슘 비스킷</h6>
-                        <input type="hidden" name="productName" value="사료222">
+                        <h6>상품이름 : ${reviewByCode.productName}</h6>
+                        <input type="hidden" name="productName" value="${reviewByCode.productName}">
                     </div>
                 </div>
             </td>
@@ -77,14 +78,14 @@
                 <h5>어떤 점이 좋았나요?</h5>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label"></label>
-                    <textarea class="form-control" name = "reviewDetail" id="exampleFormControlTextarea1" rows="4"></textarea>
+                    <textarea class="form-control" name = "reviewDetail" id="exampleFormControlTextarea1" rows="4">${reviewByCode.reviewDetail}</textarea>
                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="3">
                 <div class="photo-attach" >
-                    <input type="text" name="file" maxlength="60" size="40" class="btn btn-outline-danger">
+                    <img id="reviewFile" src="img/${reviewByCode.reviewFile}">
                 </div>
             </td>
         </tr>

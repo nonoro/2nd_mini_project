@@ -41,6 +41,11 @@ public interface ReviewDAO {
 	 * SELECT trunc(AVG(REVIEW_GRADE), 0.1) FROM REVIEW WHERE PRODUCT_CODE=?
 	 */
 	int selectAvrGrade(int productCode) throws SQLException;
+
+	/**
+	 * 내가 작성한 후기
+	 */
+	List<ReviewDTO> selectByUserId(String userId) throws SQLException;
 	
 	
 }

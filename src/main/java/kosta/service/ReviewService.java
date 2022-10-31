@@ -37,4 +37,9 @@ public interface ReviewService {
 	 */
 	ReviewDTO selectByCode(int productCode) throws SQLException;
 	
+	/**
+	 * 내가 작성한 후기
+	 */
+	List<ReviewDTO> selectByUserId(String userId) throws SQLException;
+	
 }
