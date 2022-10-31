@@ -87,7 +87,8 @@
    			let userId;
    			let newPrice = 0;
    			let onePrice = ${selectByName.productPrice};
- 
+   			let nf = Intl.NumberFormat();
+   			
 			$("[name=cartInsert]").click(function() { 
 				userId = sessionStorage.getItem("userId");
 				if(userId == null) {
@@ -109,13 +110,33 @@
 				}
 			});
 			
+			$("[name=order]").click(function() { 
+				userId = sessionStorage.getItem("userId");
+				if(userId == null) {
+					alert("로그인 먼저 해주세요!");
+					location.href = "mypagepart/signIn.jsp";
+				} else {
+					let str = "";
+					str += "${selectByName.productName}" + ",";
+					str += $('#qty').val() + ",";
+					str += "${selectByName.productPrice}";
+					
+					let key = "${selectByName.productCode}";
+
+					localStorage.setItem(key, str);
+					
+					location.href = "${path}/order2.jsp";
+				}
+				
+			});
+			
 			$("[name=minus]").on("click", function() { 
 				let value = $(this).next().val();
 				value--;
 				$('#qty').val(value).change();
 				
 				newPrice = onePrice * $('#qty').val();
-				$('#totalPrice').text(newPrice);
+				$('#totalPrice').html("<h4>" + nf.format(newPrice) + "원</h4>");
 			});
 
 			$("[name=plus]").on("click", function() { 
@@ -124,8 +145,14 @@
 				$('#qty').val(value).change();
 				
 				newPrice = onePrice * $('#qty').val();
-				$('#totalPrice').text(newPrice);
+				$('#totalPrice').html("<h4>" + nf.format(newPrice) + "원</h4>");
 			});
+			
+			//alert(nf.format(onePrice));
+			
+			//let nfOnePrice = 
+   			$("#productPrice").html("<h1>" + nf.format(onePrice) + "</h1>");
+   			$("#totalPrice").html("<h4>" + nf.format(onePrice) + "원</h4>");
 		}); //readyEnd
 	</script>
 </head>
@@ -148,14 +175,14 @@
                     <div class="detail_box">
                     <div class="detail_title">
                         <p>
-                        <h1><strong id="productName">${selectByName.productName}</strong></h1>
+                        <h1><strong id="productName"></strong></h1>
                         </p>
                     </div>
                     <div class="detail_text">
                         <h3>${selectByName.productExplain}</h3>
                     </div>
                     <div class="detail_price">
-                        <div class="detail_price_1" id="productPrice"><h1>${selectByName.productPrice}</h1></div>    
+                        <div class="detail_price_1" id="productPrice"><h1></h1></div>    
                         <div class="detail_price_2"><h2>원</h2></div>    
                     </div>
                 </div><!--detail_box-->
@@ -177,7 +204,7 @@
                    </div>
                    <div class="total_price">
                     <p>총 상품 금액</p>
-                    <p class="result_price" id="totalPrice">${selectByName.productPrice}</p>
+                    <p class="result_price" id="totalPrice"></p>
                    </div>
                 </td>
             </div>     
@@ -198,7 +225,7 @@
             </td>
             <td>
                 <div class="d-grid gap-2">
-                    <button class="btn btn-danger" type="button"><h3>바로 구매</h3></button>
+                    <button class="btn btn-danger" type="button" name="order"><h3>바로 구매</h3></button>
                     <input type="hidden" id="${selectByName.productCode}" value="${selectByName.productCode},${selectByName.productName},${selectByName.productPrice}">
                     <button class="btn btn-danger" type="button" name="cartInsert"><h3>장바구니</h3></button>
                 </div>

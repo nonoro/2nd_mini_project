@@ -21,12 +21,18 @@
 
     <link rel="stylesheet" href="../css/myPage/myPage.css">
 
-    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
 
     <script>
         $(function () {
+<<<<<<< HEAD
            let userId = sessionStorage.getItem("userId");
            
+=======
+        	let userId = sessionStorage.getItem("userId"); //나중에 합칠 때 빼야 함!!!!!!!!!!!!!!!!
+        	let values = "" ;
+
+>>>>>>> minjeong
             $(document).on("click", "#order", function () {
                 if (false) {
                     $("#order").attr("href", "../mypagepart/myPageOrder.jsp");
@@ -35,14 +41,19 @@
                 }
             });
 
-            $(document).on("click", "#cancelOrder", function () {
-                if (false) {
-                    $("#cancelOrder").attr("href", "../mypagepart/myPageCancelOrder.jsp");
-                } else {
-                    $("#cancelOrder").attr("href", "../mypagepart/myPageCancelOrderEmpty.jsp");
-                }
-            });
+            $(document).on('click', '#orderCancel', function(){
 
+            	values = $(this).val();
+            	
+            	let arr = values.split(",");
+
+            	let orderCode = arr[0];
+            	
+            	if(confirm("주문을 취소하시겠습니까?")) {
+					location.href = "${path}/front?key=order&methodName=orderCancel&orderCode=" + orderCode;
+				}
+            });
+            
             $(document).on("click", "#pointDetail", function () {
                 if (false) {
                     $("#pointDetail").attr("href", "../mypagepart/pointOk.jsp");
@@ -57,7 +68,7 @@
                 } else {
                     $("#notice").attr("href", "../mypagepart/noticeEmpty.jsp");
                 }
-            });
+            });            
         });
     </script>
 
@@ -85,35 +96,63 @@
             <input type="hidden" name="userId" value="${userId}">
     
             <c:forEach items="${orderList}" var="order">
-      
+ 
             <div class="menu-result-container-list" style="margin-left: 0; width: 78%;">
                 <div class="okMenuList">
                     <div>
-                        <img src="../img/logo.png" style="width: 150px; height: 150px;" alt="">
+                        <img src="img/logo.png" style="width: 150px; height: 150px;" alt="">
                     </div>
                     <div class="menu-result-content" style="text-align: left;">
                         <div> 
-                           상품 이름:
-                           <c:choose>
+
+                        
+                        	<c:choose>
                                 <c:when test="${(order.orderComplete) == 3}">
-                                     주문이 취소되었습니다.
+                                     <h5 style="color: red">주문이 취소되었습니다.</h5>
+                                     <c:choose>
+                                     	<c:when test="${fn:length(order.orderLineList) le 1}" >
+                        					상품 이름: ${order.orderLineList[0].productName}                                 
+                        				</c:when>
+                        				<c:otherwise>
+                        					상품 이름: ${order.orderLineList[0].productName} 외 ${fn:length(order.orderLineList) - 1}건
+                        				</c:otherwise>
+                                     </c:choose>
                                 </c:when>
-                              <c:when test="${fn:length(order.orderLineList) le 1}" >
-                                 ${order.orderLineList[0].productName}                                 
-                              </c:when>
-                              <c:otherwise>
-                                 ${order.orderLineList[0].productName} 외 ${fn:length(order.orderLineList) + 3}
-                              </c:otherwise>
-                           </c:choose>
+
+  
+                        		<c:otherwise>
+                        			<c:choose>
+                                     	<c:when test="${fn:length(order.orderLineList) le 1}" >
+                        					상품 이름: ${order.orderLineList[0].productName}                                 
+                        				</c:when>
+                        				<c:otherwise>
+                        					상품 이름: ${order.orderLineList[0].productName} 외 ${fn:length(order.orderLineList) - 1}건
+                        				</c:otherwise>
+                                     </c:choose>
+                        		</c:otherwise>
+                        		
+                        	</c:choose>
+ 
                          </div>                      
                         <div>총액: <fmt:formatNumber value="${order.orderTotalPrice}"/>원 &nbsp;&nbsp;&nbsp;&nbsp;
-                           결제일: ${order.orderDate}
-                           <%-- <fmt:formatDate value="${order.orderDate}" pattern="yyyy-MM-dd" /> --%>
+                        	결제일: ${order.orderDate}
                         </div>
                     </div>
-                    <div class="menu-result-review">
-                        <div><a href="${path}/front?key=order&methodName=selectOrderLineByOrderCode&orderCode=${order.orderCode}" class="btn btn-outline-secondary" id="checkOrderList">주문 내역</a></div>
-                    </div>
+
+                    <c:choose>
+                    	<c:when test="${(order.orderComplete) == 3}">
+                        </c:when>
+                        <c:otherwise>
+                        	<div class="menu-result-review">
+                        		<div><a href="${path}/front?key=order&methodName=selectOrderLineByOrderCode&orderCode=${order.orderCode}" class="btn btn-outline-secondary" id="checkOrderList">주문 내역</a></div>
+                    		</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    		<div class="menu-result-review">
+                       			 <div>
+                        			<button type="button" class="btn btn-outline-danger" id="orderCancel" value="${order.orderCode},${order.orderComplete}">주문 취소</button>
+                        		</div>
+                    		</div>
+                        </c:otherwise>
+                    </c:choose>  
                 </div>
             </div>
             <hr class="menu-result-list-hr">

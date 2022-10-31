@@ -33,7 +33,7 @@ public class OrderController implements Controller {
 	public ModelAndView orderInsert(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String pcodeArr [] = request.getParameterValues("productCode");
 		String pqty [] = request.getParameterValues("productQty");
-		
+		String pname [] = request.getParameterValues("productName");
 		String orderlinePrice [] = request.getParameterValues("orderlinePrice");
 		String orderTotalPriceArr [] = request.getParameterValues("orderTotalPrice"); //단가 * 수량
 		
@@ -42,7 +42,6 @@ public class OrderController implements Controller {
 		String orderAddr = request.getParameter("orderAddr");
 		String orderType = request.getParameter("orderType");
 		String orderUsedPoint = request.getParameter("orderUsedPoint");
-		String productName = request.getParameter("productName");
 		
 		//주문을 하려는 상품들의 단가 * 수량을 한 금액의 누적총 결재
 		int totalPay=0;
@@ -64,20 +63,22 @@ public class OrderController implements Controller {
 
 		String code = null;
 		String qty = null;
-
+		String name = null;
+		
 		for(int i=0; i < pcodeArr.length; i++) {
 			code = pcodeArr[i];
 			qty = pqty[i];
-					
+			name = pname[i];
+
 			order.getOrderLineList().add(new OrderLineDTO(0, 0, userId, Integer.parseInt(code), Integer.parseInt(orderlinePrice[i]), Integer.parseInt(qty), 
-					Integer.parseInt(orderTotalPriceArr[i]), productName));		
+					Integer.parseInt(orderTotalPriceArr[i]), name));	
 		}
 		
 		//PointDTO pointDTO= new PointDTO(0, order.getOrderCode(), userId, 0, null, null);	
 			
 		orderService.orderInsert(order);	
 			
-		return new ModelAndView("testLogin.jsp", true);
+		return new ModelAndView("front?key=order&methodName=selectOrderByUserId&userId="+userId, true);
 	}
 	
 	/**
@@ -89,11 +90,11 @@ public class OrderController implements Controller {
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));        
         
 		OrderDTO order = new OrderDTO(orderCode, userId, null, null, 0, 0, 0, 0, 0);
-		
-		if(userId != null) { 
+
+		if(orderCode != 0) { 
 			orderService.orderCancel(order);
 			
-			return new ModelAndView("orderList.jsp", true);
+			return new ModelAndView("front?key=order&methodName=selectOrderByUserId&userId="+userId);
 		} else {
 			return new ModelAndView("error", true);
 		}
@@ -105,7 +106,7 @@ public class OrderController implements Controller {
 	public ModelAndView selectOrderByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//전송된 데이터 받기
 		String userId = request.getParameter("userId");
-		
+		System.out.println(userId);
 		if(userId != null) { 
 			List<OrderDTO> orderList = orderService.selectOrderByUserId(userId); 
 			request.setAttribute("orderList", orderList);
