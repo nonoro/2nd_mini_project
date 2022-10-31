@@ -43,22 +43,22 @@
     
             	<input type="hidden" name="userId" value="${userId}">
             	
-            	<table align="center" border="0" cellpadding="5" cellspacing="2" width="100%" bordercolordark="white" bordercolorlight="black">
+            	<table align="center" border="0" cellpadding="5" cellspacing="2" width="80%" bordercolordark="white" bordercolorlight="black" >
 					
 					<tr>
-        				<td bgcolor="#00cc00">
+        				<td bgcolor="#808080">
             				<p align="center"><font color="white"><b><span style="font-size:9pt;">주문 번호</span></b></font></p>
         				</td>
-       		 			<td bgcolor="#00cc00">
+       		 			<td bgcolor="#808080">
             				<p align="center"><font color="white"><b><span style="font-size:9pt;">상품 이름</span></b></font></p>
       			 	 	</td>
-        				<td bgcolor="#00cc00">
+        				<td bgcolor="#808080">
             				<p align="center"><font color="white"><b><span style="font-size:9pt;">상품 가격</span></b></font></p>
         				</td>
-        				<td bgcolor="#00cc00">
+        				<td bgcolor="#808080">
             				<p align="center"><font color="white"><b><span style="font-size:9pt;">상품 수량</span></b></font></p>
         				</td>
-        				<td bgcolor="#00cc00">
+        				<td bgcolor="#808080">
             				<p align="center"><font color="white"><b><span style="font-size:9pt;">주문 상품 금액</span></b></font></p>
         				</td>
     				</tr>

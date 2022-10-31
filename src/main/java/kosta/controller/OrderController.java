@@ -78,7 +78,7 @@ public class OrderController implements Controller {
 			
 		orderService.orderInsert(order);	
 			
-		return new ModelAndView("testLogin.jsp", true);
+		return new ModelAndView("front?key=order&methodName=selectOrderByUserId&userId="+userId, true);
 	}
 	
 	/**
@@ -90,11 +90,11 @@ public class OrderController implements Controller {
 		int orderCode = Integer.parseInt(request.getParameter("orderCode"));        
         
 		OrderDTO order = new OrderDTO(orderCode, userId, null, null, 0, 0, 0, 0, 0);
-		
-		if(userId != null) { 
+
+		if(orderCode != 0) { 
 			orderService.orderCancel(order);
 			
-			return new ModelAndView("orderList.jsp", true);
+			return new ModelAndView("front?key=order&methodName=selectOrderByUserId&userId="+userId);
 		} else {
 			return new ModelAndView("error", true);
 		}
@@ -106,7 +106,7 @@ public class OrderController implements Controller {
 	public ModelAndView selectOrderByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//전송된 데이터 받기
 		String userId = request.getParameter("userId");
-		
+		System.out.println(userId);
 		if(userId != null) { 
 			List<OrderDTO> orderList = orderService.selectOrderByUserId(userId); 
 			request.setAttribute("orderList", orderList);

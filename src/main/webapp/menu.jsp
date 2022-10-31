@@ -19,8 +19,6 @@
 
     <script>
         $(function () {
-        	let userId = sessionStorage.getItem("userId");
-        	
             $(document).on("click", "#order", function () {
                 if (true) {
                     $("#order").attr("href", "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId);                    

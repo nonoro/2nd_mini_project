@@ -138,6 +138,6 @@
 
 
 <script src="${pageContext.request.contextPath}/js/login.js"></script>
-<jsp:include page="${pageContext.request.contextPath}/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>
