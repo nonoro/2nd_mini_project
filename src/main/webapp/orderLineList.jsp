@@ -38,57 +38,37 @@
     	<jsp:include page="informationBar.jsp"/>
     	<div class="menuMain">
         	<jsp:include page="menu.jsp"/>
-        	<div class="menu-result-container" id="menu-result-container"><h2>주문 ∙ 배송</h2>
-            	<hr class="menu-result-list-hr">
-    			
+        	<div class="menu-result-container" id="menu-result-container">
+        		<h2>주문 ∙ 배송</h2>
+        		 <div class="menu-result-container-list"  style="margin: 0px">
+    			<hr>
             	<input type="hidden" name="userId" value="${userId}">
-            	
-            	<table align="center" border="0" cellpadding="5" cellspacing="2" width="80%" bordercolordark="white" bordercolorlight="black" >
-					
-					<tr>
-        				<td bgcolor="#808080">
-            				<p align="center"><font color="white"><b><span style="font-size:9pt;">주문 번호</span></b></font></p>
-        				</td>
-       		 			<td bgcolor="#808080">
-            				<p align="center"><font color="white"><b><span style="font-size:9pt;">상품 이름</span></b></font></p>
-      			 	 	</td>
-        				<td bgcolor="#808080">
-            				<p align="center"><font color="white"><b><span style="font-size:9pt;">상품 가격</span></b></font></p>
-        				</td>
-        				<td bgcolor="#808080">
-            				<p align="center"><font color="white"><b><span style="font-size:9pt;">상품 수량</span></b></font></p>
-        				</td>
-        				<td bgcolor="#808080">
-            				<p align="center"><font color="white"><b><span style="font-size:9pt;">주문 상품 금액</span></b></font></p>
-        				</td>
-        				<td bgcolor="#00cc00">
-            				<p align="center"><font color="white"><b><span style="font-size:9pt;">후기 작성/수정</span></b></font></p>
-        				</td>
-    				</tr>
-    
-					<c:forEach items="${orderLineList}" var="orderLine">
-		    		<tr onmouseover="this.style.background='#eaeaea'" onmouseout="this.style.background='white'">
-		        		<td bgcolor="">
-		            		<p align="center"><span style="font-size:9pt;">${orderLine.orderCode}</span></p>
-		        		</td>
-		        		<td bgcolor="">
-		            		<p align="center"><span style="font-size:9pt;">${orderLine.productName}</span></p>
-		        		</td>
-		        		<td bgcolor="">
-		            		<p align="center"><span style="font-size:9pt;"><fmt:formatNumber value="${orderLine.orderlinePrice}" />원</span></p>
-		        		</td>
-		         		<td bgcolor="">
-		            		<p align="center"><span style="font-size:9pt;">${orderLine.orderlineQty}</span></p>
-		        		</td>
-		        		<td bgcolor="">
-		            		<p align="center"><span style="font-size:9pt;"><fmt:formatNumber value="${orderLine.orderlineTotalPrice}" />원</span></p>
-		        		</td> 
-		        		<td bgcolor="">
-		        			<div><a href="${path}/front?key=product&methodName=reviewByProductCode&productCode=${orderLine.productCode}" class="btn btn-outline-secondary" id="checkOrderList">후기 작성</a></div>
- 		        		</td> 
-		    		</tr>
-    			</c:forEach>
-			</table>            
+
+            	<table class="table table-striped">
+                    <tr>
+                        <th>주문 번호</th>
+                        <th>상품 이름</th>
+                        <th>상품 가격</th>
+                        <th>상품 수량</th>
+                        <th>주문 상품 금액</th>
+                        <th>후기 작성/수정</th>
+                    </tr>
+                    <c:forEach items="${orderLineList}" var="orderLine">
+                    	 <tr>
+                        	<td>${orderLine.orderCode}</td>
+                        	<td>${orderLine.productName}</td>
+                        	<td><fmt:formatNumber value="${orderLine.orderlinePrice}" />원</td>
+                        	<td>${orderLine.orderlineQty}개</td>
+                        	<td><fmt:formatNumber value="${orderLine.orderlineTotalPrice}" />원</td>
+                        	<td>
+                        		<div>
+                        		<a href="${path}/front?key=product&methodName=reviewByProductCode&productCode=${orderLine.productCode}" class="btn btn-outline-secondary" id="checkOrderList">후기 작성</a>
+                        		</div>
+                        	</td> 
+                        </tr>
+                    </c:forEach>
+                </table> 
+         	</div>
          </div>
     </div>
 </div>

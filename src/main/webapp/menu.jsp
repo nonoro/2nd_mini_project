@@ -37,7 +37,7 @@
 
             $(document).on("click", "#pointDetail", function () {
                 if (true) {
-                    $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointOk.jsp");
+                    $("#pointDetail").attr("href", "${path}/front?key=point&methodName=selectPointByUserId&userId=" + userId);     
                 } else {
                     $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointEmpty.jsp");
                 }

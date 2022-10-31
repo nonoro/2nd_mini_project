@@ -25,14 +25,9 @@
 
     <script>
         $(function () {
-<<<<<<< HEAD
-           let userId = sessionStorage.getItem("userId");
-           
-=======
         	let userId = sessionStorage.getItem("userId"); //나중에 합칠 때 빼야 함!!!!!!!!!!!!!!!!
         	let values = "" ;
-
->>>>>>> minjeong
+        	
             $(document).on("click", "#order", function () {
                 if (false) {
                     $("#order").attr("href", "../mypagepart/myPageOrder.jsp");
@@ -104,8 +99,6 @@
                     </div>
                     <div class="menu-result-content" style="text-align: left;">
                         <div> 
-
-                        
                         	<c:choose>
                                 <c:when test="${(order.orderComplete) == 3}">
                                      <h5 style="color: red">주문이 취소되었습니다.</h5>
@@ -119,7 +112,6 @@
                                      </c:choose>
                                 </c:when>
 
-  
                         		<c:otherwise>
                         			<c:choose>
                                      	<c:when test="${fn:length(order.orderLineList) le 1}" >
@@ -130,9 +122,7 @@
                         				</c:otherwise>
                                      </c:choose>
                         		</c:otherwise>
-                        		
                         	</c:choose>
- 
                          </div>                      
                         <div>총액: <fmt:formatNumber value="${order.orderTotalPrice}"/>원 &nbsp;&nbsp;&nbsp;&nbsp;
                         	결제일: ${order.orderDate}
