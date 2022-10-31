@@ -1,19 +1,18 @@
 package kosta.service;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import kosta.dao.ReplyDAO;
 import kosta.dao.ReplyDAOImpl;
-import kosta.dto.BoardDTO;
 import kosta.dto.ReplyDTO;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class ReplyServiceImpl implements ReplyService {
 	ReplyDAO replyDao = new ReplyDAOImpl();
 
 	@Override
-	public List<ReplyDTO> replyList(int boardCode) throws SQLException {
-		List<ReplyDTO> list = replyDao.replyList(boardCode);
+	public List<ReplyDTO> replyList(int boardCode, int categoryCode) throws SQLException {
+		List<ReplyDTO> list = replyDao.replyList(boardCode, categoryCode);
 		if(list.size()==0 || list.isEmpty()) throw new SQLException("댓글이 없습니다.");
 		
 		return list;
@@ -33,11 +32,13 @@ public class ReplyServiceImpl implements ReplyService {
 		
 	}
 
+/*
 	@Override
 	public void deleteReply(ReplyDTO reply) throws SQLException {
 		if(replyDao.deleteReply(reply) == 0 ) {
 			throw new SQLException("댓글이삭제되지 않았습니다.");		
 		}
 	}
+*/
 
 }

@@ -1,14 +1,14 @@
 package kosta.paging;
 
 public class PageCnt {
-	private static int pageCnt; //�������� ��Math.ceil(��ü���ڵ�� /pagesize) 
-	public static  int pagesize = 5;// �� ������ �� 5�� ��¹�
+	private static int pageCnt; //총페이지 수Math.ceil(전체레코드수 /pagesize) , 전체레코드수를 가져와서 pagesize로 나눠야되는데 dao에서만 가능
+	public static  int pagesize = 5;// 한 페이지 당 5개 출력물
 	public static int pageNo=1;
-	
-	public  int blockcount=2;
-	
+
+	public  int blockcount=3;
+
 	//String keyField;
-	
+
 	public PageCnt() {
 		super();
 	}
@@ -50,5 +50,5 @@ public class PageCnt {
 		this.blockcount = blockcount;
 	}
 
-	
+
 }

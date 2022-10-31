@@ -1,14 +1,14 @@
 package kosta.service;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import kosta.dao.UserDAO;
 import kosta.dao.UserDAOImpl;
 import kosta.dto.OrderDTO;
 import kosta.dto.PointDTO;
 import kosta.dto.UserDTO;
 import kosta.exception.AuthenticationException;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class UserServiceImpl implements UserService {
 	private UserDAO userDAO = new UserDAOImpl();
@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO login(UserDTO userDTO) throws SQLException, AuthenticationException {
 		//dao 호출
-			
 			UserDTO dbDTO = userDAO.login(userDTO);
 			if(dbDTO == null) {
 				throw new AuthenticationException("정보를 다시 확인해주세요.");
@@ -118,36 +117,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int userCount() throws SQLException {
-
-		int userCount = userDAO.userCount();
-		
-		return userCount;
-	}
-	
-	@Override
-	public List<UserDTO> selectAll() throws SQLException {
-		List<UserDTO> userList = userDAO.selectAll();
-		
-		return userList;
-
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	/*
-	 * @Override public int monthSalse(int year, int month) throws SQLException {
-	 * int monthSalse = userDAO.monthSalse(year,month); if(monthSalse == 0) throw
-	 * new SQLException(year+"년 "+month+"월 매출액이 없습니다.");
-	 * 
-	 * return monthSalse; }
-	 */
+	@Override
+	public int monthSalse(int year, int month) throws SQLException {
+		int monthSalse = userDAO.monthSalse(year,month);
+		if(monthSalse == 0) throw new SQLException(year+"년 "+month+"월 매출액이 없습니다.");
+		
+		return monthSalse;
+	}
 
 	@Override
-	public List<OrderDTO> yearSalse(int year) throws SQLException {
-		List<OrderDTO> orderlist = userDAO.yearSalse(year);
+	public int yearSalse(int year) throws SQLException {
+		int yearSalse = userDAO.yearSalse(year);
+		if(yearSalse == 0) throw new SQLException(year+"년 매출액이 없습니다.");
 		
-		System.out.println(orderlist);
-		if(orderlist == null) throw new SQLException(year+"년 매출액이 없습니다.");
-		
-		return orderlist;
+		return yearSalse;
 	}
 
 	@Override
@@ -177,9 +164,7 @@ public class UserServiceImpl implements UserService {
 	public String birthdayPoint(UserDTO userDTO) throws SQLException {
 		int result = userDAO.birthdayPoint(userDTO);
 		String message = "강아지 생일을 축하드립니다. 5,000포인트 지급해 드렸습니다.";
-		
 		return message;
-		
 	}
 
 	@Override
@@ -190,15 +175,35 @@ public class UserServiceImpl implements UserService {
 		}else {
 			return null;
 		}
-		
+	}
+
+	@Override
+	public void insertBirthday(UserDTO userDTO) throws SQLException {
+		int result = userDAO.insertBirthday(userDTO);
+		if(result == 0) throw new SQLException("포인트 테이블 인서트 오류");
 		
 	}
 
 	@Override
-	public void insertBirthday(String userId) throws SQLException {
-		int result = userDAO.insertBirthday(userId);
-		if(result == 0) throw new SQLException("포인트 테이블 인서트 오류");
-		
+	public void update(UserDTO userDTO) throws SQLException {
+		int result = userDAO.update(userDTO);
+		if (result == 0) {
+			throw new SQLException("회원정보 수정 실패!!");
+		}
+	}
+
+	@Override
+	public void updateOfNoneProfile(UserDTO userDTO) throws SQLException {
+		int result = userDAO.updateOfNoneProfile(userDTO);
+		if (result == 0) {
+			throw new SQLException("회원정보 수정 실패!!");
+		}
+	}
+
+	@Override
+	public boolean idCheck(String id) throws SQLException {
+		boolean result = userDAO.idCheck(id);
+		return result;
 	}
 
 

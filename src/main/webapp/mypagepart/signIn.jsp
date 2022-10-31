@@ -11,42 +11,41 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="${pagecontext.request.pagecontex}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${path}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- ###############################################메인틀############################################### -->
 
-    <!-- header css -->
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/headers/">
-    <link href="../css/main/header.css" rel="stylesheet">
+    <link href="${path}/css/main/header.css" rel="stylesheet">
 
     <!-- banner.css -->
-    <link rel="stylesheet" type="text/css" href="../css/main/banner.css">
+    <link rel="stylesheet" type="text/css" href="${path}/css/main/banner.css">
 
     <%-- login.css --%>
-    <link rel="stylesheet" href="${pagecontext.request.pagecontex}/css/login/login.css">
+    <link rel="stylesheet" href="${path}/css/login/login.css">
     <style>
         th {
             text-align: center;
         }
     </style>
-    <script src="${pagecontext.request.pagecontex}/js/jquery-3.6.0.min.js"></script>
+    <script src="${path}/js/jquery-3.6.0.min.js"></script>
 
 </head>
 
 <!-- header -->
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 <div class="header">
     <div class="header-side"></div>
     <div class="header-center">
-        <span style="display: inline-block; margin-top: 23px">👉&nbsp&nbsp공지안내드립니다&nbsp&nbsp👈</span>
+        <span style="margin-top: 12px; display: inline-block">👉&nbsp&nbsp공지안내드립니다&nbsp&nbsp👈</span>
     </div>
 
     <div class="header-side">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="${pagecontext.request.pagecontex}/mypagepart/signIn.jsp" class="nav-link">로그인</a></li>
+            <li class="nav-item"><a href="${path}/mypagepart/signIn.jsp" class="nav-link">로그인</a></li>
             <li class="nav-item"><a href="#" class="nav-link">장바구니</a></li>
-            <li class="nav-item"><a href="${pagecontext.request.contextpath}/front?key=myPage&methodName=myPage" class="nav-link" id="myPage">마이페이지</a>
+            <li class="nav-item"><a href="${path}/front?key=user&methodName=myPage" class="nav-link" id="myPage">마이페이지</a>
         </ul>
     </div>
 </div>
@@ -55,7 +54,7 @@
 <div class="banner">
     <div class="banner-side"></div>
     <div class="banner-center">
-        <a href="../index.jsp"><img src="${pageContext.request.contextPath}/img/logo.png" alt="" style="height: 190px; padding-top: 20px;"></a>
+        <a href="${path}/index.jsp"><img src="${pageContext.request.contextPath}/img/logo.png" alt="" style="height: 190px; padding-top: 20px;"></a>
     </div>
     <div class="banner-side" style="padding: 0"></div>
 </div>
@@ -69,10 +68,10 @@
     <!-- Links -->
     <ul class="links" style="text-align: center">
         <li>
-            <a href="${pageContext.request.contextPath}/mypagepart/signIn.jsp" id="signin">SIGN IN</a>
+            <a href="${path}/mypagepart/signIn.jsp" id="signin">SIGN IN</a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/mypagepart/signUp.jsp" id="signup">SIGN UP</a>
+            <a href="${path}/mypagepart/signUp.jsp" id="signup">SIGN UP</a>
         </li>
         <li>
             <a href="#" id="reset">RESET</a>
@@ -80,8 +79,8 @@
     </ul>
 
     <!-- Form -->
-    <form  action="/front" method="post">
-        <input type="hidden" name="key" value="user">
+    <form  action="${path}/front" method="post">
+        <input type="hidden" name="key" value="login">
         <input type="hidden" name="methodName" value="login">
         <!-- id input -->
         <div class="first-input input__block first-input__block">
@@ -138,6 +137,6 @@
 
 
 <script src="${pageContext.request.contextPath}/js/login.js"></script>
-<jsp:include page="${pageContext.request.contextPath}/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>

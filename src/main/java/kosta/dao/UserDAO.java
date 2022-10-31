@@ -1,11 +1,11 @@
 package kosta.dao;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import kosta.dto.OrderDTO;
 import kosta.dto.PointDTO;
 import kosta.dto.UserDTO;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public interface UserDAO {
 	/**
@@ -20,7 +20,18 @@ public interface UserDAO {
 	 * SELECT USER_ID, USER_PWD FROM USER WHERE USER_ID=? AND USER_PWD=?;
 	 */
 	UserDTO login(UserDTO user) throws SQLException;
-	
+
+
+/*
+	*/
+/*
+	* 유저정보 조회
+	* *//*
+
+	UserDTO userInfo(String userId) throws SQLException;
+
+*/
+
 	/**
 	 * 로그아웃
 	 */
@@ -108,11 +119,6 @@ public interface UserDAO {
 	/*
 	 * MANAGEMENT
 	 */
-	/**
-	 * 모든 회원의 정보 추출
-	 * SELECT * FROM USERS;
-	 */
-	List<UserDTO> selectAll() throws SQLException;
 	
 	/**
 	 * 가입 회원수조회(-1은 관리자 아이디 제외)
@@ -123,14 +129,15 @@ public interface UserDAO {
 	/**
 	 * 매출액조회(당월 매출)
 	 * SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '%?/%';
-	
-	int monthSalse(int year, int month) throws SQLException;
 	 */
+	int monthSalse(int year, int month) throws SQLException;
+	
 	/**
 	 * 매출액조회(당해 매출)
 	 * SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/%';
 	 */
-	List<OrderDTO> yearSalse(int year) throws SQLException;	
+	int yearSalse(int year) throws SQLException;
+	
 	/**
 	 * 매출액조회(전체 매출)
 	 *	SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER;	
@@ -167,7 +174,11 @@ public interface UserDAO {
 	 * 생일포인트 지급 시 포인트 테이블 insert
 	 * INSERT INTO T_POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)
 	 */
-	int insertBirthday(String userId)throws SQLException;
+	int insertBirthday(UserDTO pointDTO)throws SQLException;
 
-	
+	int update(UserDTO userDTO) throws SQLException;
+
+	int updateOfNoneProfile(UserDTO userDTO) throws SQLException;
+
+	boolean idCheck(String id) throws SQLException;
 }

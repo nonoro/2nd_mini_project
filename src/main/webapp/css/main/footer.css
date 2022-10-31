@@ -2,7 +2,7 @@
 .footer {
     width: 100%;
     height: 300px;
-    background-color: burlywood;
+    background-color: rgba(166,73,66,1);
     margin-top: 300px;
 }
 
@@ -30,13 +30,18 @@
 .span-title {
     /* display: block; */
     font-weight: bold;
+    color: rgba(255,241,193,1);
+
 }
 
 .span-content{
     display: block;
+    color: rgba(255,241,193,1);
 
 }
 
 .footer-content {
     margin: 50px 10px;
+    color: rgba(255,241,193,1);
+
 }

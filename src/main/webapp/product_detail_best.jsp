@@ -20,43 +20,14 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- header css -->
-<link rel="canonical"
-	href="https://getbootstrap.com/docs/5.2/examples/header/">
-<link href="css/main/header.css" rel="stylesheet">
-
-<!-- banner.css -->
-<link rel="stylesheet" type="text/css" href="css/main/banner.css">
-
-<!-- dropdownMenu.css -->
-<link rel="stylesheet" type="text/css" href="css/main/dropdownMenu.css">
-
-
-<!-- slide css -->
-<link rel="canonical"
-	href="https://getbootstrap.com/docs/5.2/examples/carousel/">
-<link href="css/main/carousel.css" rel="stylesheet">
-
-<!-- advertise.css -->
-<link rel="stylesheet" href="css/main/advertise.css">
-
-<!-- middle.css -->
-<link rel="stylesheet" href="css/main/middle.css">
-
-<!-- 페이징처리 -->
-<link rel="stylesheet" href="css/main/paging.css">
-
-<!-- footer -->
-<link rel="stylesheet" href="css/main/footer.css">
+<link href="${path}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!--product_detail_test.css-->
-<link href="css/product_detail_test.css" rel="stylesheet">
+<%-- <link href="${path}/css/product_detail_test.css" rel="stylesheet"> --%>
 
-<script src="js/jquery-3.6.0.min.js"></script>
-	
+<script src="${path}/js/jquery-3.6.0.min.js"></script>
 
+style="width: 200px";
 
 </head>
 

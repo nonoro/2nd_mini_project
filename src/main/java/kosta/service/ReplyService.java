@@ -1,16 +1,16 @@
 package kosta.service;
 
+import kosta.dto.ReplyDTO;
+
 import java.sql.SQLException;
 import java.util.List;
-
-import kosta.dto.ReplyDTO;
 
 public interface ReplyService {
 	/**
 	 * 글별 댓글 조회
 	 * SELECT * FROM reply WHERE board_CODE=?
 	 */
-	List<ReplyDTO> replyList (int boardCode) throws SQLException;
+	List<ReplyDTO> replyList (int boardCode, int categoryCode) throws SQLException;
 	
 	
 	/**
@@ -27,9 +27,9 @@ public interface ReplyService {
 	void updateReply(ReplyDTO reply) throws SQLException;
 	
 	
-	/**
+/*	*//**
 	 * 삭제
 	 * DELETE FROM reply WHERE REPLY_CODE=? AND USER_ID=?;
-	 */
-	void deleteReply(ReplyDTO reply) throws SQLException;
+	 *//*
+	void deleteReply(ReplyDTO reply) throws SQLException;*/
 }

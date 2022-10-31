@@ -44,10 +44,11 @@
         <!--정렬버튼 들어가는 구간 시작-->
    	    <div class="product-sort">
        		<button type="button">
-            <a href="#" onclick="location.href='Admin_insert.jsp'">상품등록</a>>
+            <a href="#" onclick="location.href='Admin_insert.jsp'">상품등록</a>
         	</button>
         	<button type="button">
-            상품수정
+        	<a href="${path}">상품수정</a>
+            
        		</button>   
    		</div>
     <!--정렬버튼 들어가는 구간 끝-->

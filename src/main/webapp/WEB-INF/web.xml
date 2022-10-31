@@ -3,12 +3,38 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-   
-	<!-- ServletContext 영역에 전달되는 init-param 정보 -->
-  	<context-param>
-  		<param-name>fileName</param-name>
-  		<param-value>actionMapping</param-value>
-  	</context-param>
+
+    <!-- ServletContext영역에 전달되는 init-param정보 -->
+    <context-param> 
+        <param-name>fileName</param-name>
+        <param-value>actionMapping</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ajaxFileName</param-name>
+        <param-value>ajaxMapping</param-value>
+    </context-param>
+
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>kosta.filter.EncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>sessionCheckFilter</filter-name>
+        <filter-class>kosta.filter.SessionCheckFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionCheckFilter</filter-name>
+        <url-pattern>/front</url-pattern>
+    </filter-mapping>
 
 </web-app>
-

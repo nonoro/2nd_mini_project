@@ -11,13 +11,13 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="${pageContext.request.contextPath}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${path}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- ###############################################mypage############################################### -->
 
-    <link rel="stylesheet" href="css/myPage/myPage.css">
+    <link rel="stylesheet" href="${path}/css/myPage/myPage.css">
 
-    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="${path}/js/jquery-3.6.0.min.js"></script>
 
 
 </head>
@@ -68,7 +68,7 @@
                         <span>${loginPoint}</span><br>
                     </div>
                     <div style="margin: 30px 0;">
-                        <a class="btn btn-outline-secondary" href="mypagepart/updateUserConfirm.jsp">수정하기</a>
+                        <a class="btn btn-outline-secondary" href="${path}/mypagepart/updateUserConfirm.jsp">수정하기</a>
                     </div>
                 </main>
 

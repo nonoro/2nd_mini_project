@@ -67,7 +67,7 @@
 <!-- header -->
 
 <body>
-<jsp:include page="${pageContext.request.contextPath}/header.jsp"/>
+<jsp:include page="../header.jsp"/>
 
 <div class="shopTool">
     <div class="shopTool-detail">
@@ -78,19 +78,19 @@
 </div>
 
 <div class="myPageMain">
-    <jsp:include page="${pageContext.request.contextPath}/informationBar.jsp"/>
+    <jsp:include page="../informationBar.jsp"/>
     <div class="menuMain">
-        <jsp:include page="${pageContext.request.contextPath}/menu.jsp"/>
+        <jsp:include page="../menu.jsp"/>
         <div class="menu-result-container" id="menu-result-container">
             <h2>포인트내역</h2>
             <div class="menu-result-container-list"  style="margin: 0px">
-                <span><img src="${pageContext.request.contextPath}/img/c.jpg" alt="" style="width: 60px; height:60px"></span><br>
+                <span><img src="${path}/img/c.jpg" alt="" style="width: 60px; height:60px"></span><br>
                 <span style="text-align: center">포인트 적립 내역이 없습니다.</span>
             </div>
         </div>
     </div>
 </div>
 
-<jsp:include page="${pageContext.request.contextPath}/footer.jsp"/>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>

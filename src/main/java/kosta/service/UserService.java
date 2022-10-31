@@ -1,12 +1,12 @@
  package kosta.service;
 
-import java.sql.SQLException;
-import java.util.List;
+ import kosta.dto.OrderDTO;
+ import kosta.dto.PointDTO;
+ import kosta.dto.UserDTO;
+ import kosta.exception.AuthenticationException;
 
-import kosta.dto.OrderDTO;
-import kosta.dto.PointDTO;
-import kosta.dto.UserDTO;
-import kosta.exception.AuthenticationException;
+ import java.sql.SQLException;
+ import java.util.List;
 
 public interface UserService {
 	/**
@@ -83,14 +83,14 @@ public interface UserService {
 	/**
 	* 매출액조회(당월 매출)
 	* SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '%?/%';
-	
-	int monthSalse(int year, int month) throws SQLException;
 	*/
+	int monthSalse(int year, int month) throws SQLException;
+	
 	/**
 	* 매출액조회(당해 매출)
 	* SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/%';
 	*/
-	List<OrderDTO> yearSalse(int year) throws SQLException;
+	int yearSalse(int year) throws SQLException;
 	
 	/**
 	* 매출액조회(전체 매출)
@@ -127,13 +127,11 @@ public interface UserService {
 	 * 생일포인트 지급 시 포인트 테이블 insert
 	 * INSERT INTO T_POINT VALUES(POINT_CODE_SEQ.NEXTVAL, ?, 5000, SYSDATE, NULL)
 	 */
-	void insertBirthday(String userId)throws SQLException;
-	
+	void insertBirthday(UserDTO pointDTO)throws SQLException;
 
-	/**
-	 * 모든유저정보
-	 */
+    void update(UserDTO userDTO) throws SQLException;
 
-	List<UserDTO> selectAll() throws SQLException;
+	void updateOfNoneProfile(UserDTO userDTO) throws SQLException;
 
+	boolean idCheck(String id) throws SQLException;
 }

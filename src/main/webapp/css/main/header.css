@@ -6,8 +6,8 @@ body {
 }
 
 .header {
-  background-color: burlywood;
-  height: 70px;
+  background-color: rgba(166,73,66,1);
+  height: 50px;
   text-align: center;
   /* padding-top: 20px; */
   /*display: table;*/
@@ -21,6 +21,7 @@ body {
   width: 30%;
   height: 100%;
   text-align: center;
+
 }
 
 .header-side {
@@ -30,13 +31,12 @@ body {
 }
 
 
-/* 로그인 회원가입 ~~ a태그 색깔 */
+
 a.nav-link {
   color: white;
 }
 
 
-/* 로그인 회원가입 ~~ a태그 위치 */
 ul.nav.nav-pills {
-  padding-top: 15px;
+  padding-top: 5px;
 }

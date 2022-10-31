@@ -6,18 +6,18 @@ public class ReplyDTO {
 	private int categoryCode;
 	private String userId;
 	private String replyContent;
-	private String replyregDate;
+	private String replyRegDate;
 	
 	public ReplyDTO() { }
 	public ReplyDTO(int replyCode, int boardCode, int categoryCode, String userId, String replyContent,
-			String replyregDate) {
+			String replyRegDate) {
 		super();
 		this.replyCode = replyCode;
 		this.boardCode = boardCode;
 		this.categoryCode = categoryCode;
 		this.userId = userId;
 		this.replyContent = replyContent;
-		this.replyregDate = replyregDate;
+		this.replyRegDate = replyRegDate;
 	}
 	public int getReplyCode() {
 		return replyCode;
@@ -49,11 +49,11 @@ public class ReplyDTO {
 	public void setReplyContent(String replyContent) {
 		this.replyContent = replyContent;
 	}
-	public String getReplyregDate() {
-		return replyregDate;
+	public String getReplyRegDate() {
+		return replyRegDate;
 	}
-	public void setReplyregDate(String replyregDate) {
-		this.replyregDate = replyregDate;
+	public void setReplyRegDate(String replyRegDate) {
+		this.replyRegDate = replyRegDate;
 	}
 	
 	

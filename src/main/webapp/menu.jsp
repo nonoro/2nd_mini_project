@@ -11,58 +11,46 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="${pageContext.request.contextPath}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${path}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/myPage/myPage.css">
+    <link rel="stylesheet" href="${path}/css/myPage/myPage.css">
 
-    <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+    <script src="${path}/js/jquery-3.6.0.min.js"></script>
 
     <script>
         $(function () {
-        	let userId = sessionStorage.getItem("userId");
-        	
             $(document).on("click", "#order", function () {
                 if (true) {
-                    $("#order").attr("href", "${path}/front?key=order&methodName=selectOrderByUserId&userId=" + userId);                    
+                    $("#order").attr("href", "${path}/mypagepart/myPageOrder.jsp");
                 } else {
-                    $("#order").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageOrderEmpty.jsp");
+                    $("#order").attr("href", "${path}/mypagepart/myPageOrderEmpty.jsp");
                 }
             });
 
             $(document).on("click", "#cancelOrder", function () {
                 if (true) {
-                    $("#cancelOrder").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageCancelOrder.jsp");
+                    $("#cancelOrder").attr("href", "${path}/mypagepart/myPageCancelOrder.jsp");
                 } else {
-                    $("#cancelOrder").attr("href", "${pageContext.request.contextPath}/mypagepart/myPageCancelOrderEmpty.jsp");
+                    $("#cancelOrder").attr("href", "${path}/mypagepart/myPageCancelOrderEmpty.jsp");
                 }
             });
 
             $(document).on("click", "#pointDetail", function () {
                 if (true) {
-                    $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointOk.jsp");
+                    $("#pointDetail").attr("href", "${path}/mypagepart/pointOk.jsp");
                 } else {
-                    $("#pointDetail").attr("href", "${pageContext.request.contextPath}/mypagepart/pointEmpty.jsp");
+                    $("#pointDetail").attr("href", "${path}/mypagepart/pointEmpty.jsp");
                 }
             });
 
             $(document).on("click", "#notice", function () {
                 if (true) {
-                    $("#notice").attr("href", "${pageContext.request.contextPath}/mypagepart/noticeDetail.jsp");
+                    $("#notice").attr("href", "${path}/mypagepart/noticeDetail.jsp");
                 } else {
-                    $("#notice").attr("href", "${pageContext.request.contextPath}/mypagepart/noticeEmpty.jsp");
+                    $("#notice").attr("href", "${path}/mypagepart/noticeEmpty.jsp");
                 }
             });
-            
-            $(document).on("click", "#myReview", function () {
-                if (true) {
-                    $("#myReview").attr("href", "${path}/front?key=review&methodName=selectByUserId&userId=${sessionScope.loginUser}");
-                } else {
-                    $("#myReview").attr("href", "${path}/front?key=review&methodName=selectByUserId&userId=${sessionScope.loginUser}");
-                }
-            });
-            
-            
         });
     </script>
 
@@ -75,16 +63,15 @@
 <div class="menu-container">
     <div class="menu-container-a">
         <span>&nbsp;&nbsp;나의 쇼핑</span>
-        
-        <input type="hidden" name="userId" value="${userId}">
     </div>
     <hr style="margin: 0;">
     <div class="menu-container-a" >
-        <a href="#" id="order"><span>&nbsp;&nbsp;주문&nbsp;∙&nbsp;배송&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
+        <a
+                href="#" id="order"><span>&nbsp;&nbsp;주문&nbsp;∙&nbsp;배송&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
- <!--    <div class="menu-container-a">
+    <div class="menu-container-a">
         <a href="#" id="cancelOrder"><span>&nbsp;&nbsp;주문취소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
-    </div> -->
+    </div>
     <div class="menu-container-a">
         <a href="#" id="pointDetail"><span>&nbsp;&nbsp;포인트내역
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
@@ -94,13 +81,9 @@
         ><span>&nbsp;&nbsp;공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
     <div class="menu-container-a">
-        <a href="${pageContext.request.contextPath}/mypagepart/repeatedQuestion.jsp">
+        <a href="${path}/mypagepart/repeatedQuestion.jsp">
             <span>&nbsp;&nbsp;자주묻는질문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span>
         </a><br>
-    </div>
-   <div class="menu-container-a">
-        <a href="#" id="myReview"><span>&nbsp;&nbsp;내가 작성한 리뷰
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
 </div>
 

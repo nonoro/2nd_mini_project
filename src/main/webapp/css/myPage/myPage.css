@@ -11,7 +11,9 @@
 
 
 .myPageMain-container {
+    /* width: 100%; */
     height: 100%;
+    /* background-color: aquamarine; */
     padding: 60px 90px;
     display: flex;
     justify-content: center;
@@ -21,6 +23,7 @@
 .state-container {
     width: 860px;
     height: 100px;
+    /* background-color: burlywood; */
     border: 5px double burlywood;
     padding: 20px;
     display: flex;
@@ -47,13 +50,14 @@
 .menu-container {
     width: 250px;
     height: 400px;
+    /* background-color: blue; */
     padding-top: 20px;
 }
 
 .menu-container-a {
     width: 250px;
     padding: 12px 10px;
-
+    /* background-color: cyan; */
 }
 
 .menu-container-a a {
@@ -62,6 +66,7 @@
 
 .menu-result-container {
     width: 100%;
+    /* background-color: pink; */
     margin-left: 40px;
     font-family: LeferiPoint-WhiteObliqueA;
 }
@@ -72,6 +77,9 @@
 
 .menu-result-container-list {
     width: 70%;
+    /* border: 1px solid burlywood; */
+    /* background-color: burlywood; */
+    /*margin-left: 12.35%;*/
     text-align: center;
 }
 
@@ -105,7 +113,7 @@
 }
 
 
-/* »∏ø¯¡§∫∏ */
+/* ÌöåÏõêÏ†ïÎ≥¥ */
 
 .myInformation {
     margin: 8px 0;

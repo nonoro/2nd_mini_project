@@ -10,12 +10,10 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-  <link href="${pageContext.request.contextPath}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${path}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- footer -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/footer.css">
-
-  <script src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="${path}/css/main/footer.css">
 
 </head>
 <body>
@@ -27,7 +25,7 @@
         <span class="span-title">Company</span><br>
         <hr>
         <span class="span-content">상호명 : 견수무강</span>
-        <span class="span-content">대표이사 : 정규연</span>
+        <span class="span-content" style="font-weight: bold; font-size: 20px" >대표이사 : 정규연</span>
         <span class="span-content">주소 : 경기도 성남시 오리역</span>
         <span class="span-content">사업자등록번호 : 683-98-0029</span>
         <span class="span-content">이메일문의 : old_dog@gmail.com</span>

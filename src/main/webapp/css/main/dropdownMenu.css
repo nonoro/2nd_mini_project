@@ -9,7 +9,7 @@ li {
     width: 100%;
     /* text-align: center; */
     height: 35px;
-    background-color: burlywood
+    /*background-color: burlywood*/
 }
 
 
@@ -53,26 +53,30 @@ li {
 }
 
 .menu01 span {
-    font-size: 20px;
+    font-size: 18px;
     /* font-weight: bold; */
     top: 15px;
-    background-color: rgb(224, 219, 219);
+    background-color: rgba(166,73,66,1);
     border-radius: 5px;
-    padding: 2% 15%;
+    padding: 2% 13%;
+    color: rgba(255,241,193,1);
 }
 
 .dept01 {
     position: absolute;
     top: 35px;
     display: none;
-    width: 120px;
+    width: 135px;
     height: 300px;
     padding: 0;
-    background: white;
+    background: rgba(255,241,193,1);
+    border-radius: 10%;
 }
 
 .dept01 a {
     text-decoration: none;
+    color: rgba(166,73,66,1);
+
 }
 
 #nop {

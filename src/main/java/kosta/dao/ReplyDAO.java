@@ -1,17 +1,18 @@
 package kosta.dao;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import kosta.dto.BoardDTO;
 import kosta.dto.ReplyDTO;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 public interface ReplyDAO {
 	/**
 	 * 글별 댓글 조회
 	 * SELECT * FROM reply WHERE board_CODE=?
 	 */
-	List<ReplyDTO> replyList (int boardCode) throws SQLException;
+	List<ReplyDTO> replyList (int boardCode, int categoryCode) throws SQLException;
 	
 	
 	/**
@@ -32,5 +33,7 @@ public interface ReplyDAO {
 	 * 삭제
 	 * DELETE FROM reply WHERE REPLY_CODE=? AND USER_ID=?;
 	 */
-	int deleteReply(ReplyDTO reply) throws SQLException;
+	int deleteReply(Connection con, BoardDTO board) throws SQLException;
+
+	int deleteUserReply(Connection con, BoardDTO board) throws SQLException;
 }

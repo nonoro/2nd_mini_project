@@ -1,17 +1,16 @@
 package kosta.dao;
 
+import kosta.dto.BoardDTO;
+
 import java.sql.SQLException;
 import java.util.List;
-
-import kosta.dto.BoardDTO;
-import kosta.dto.ReviewDTO;
 
 public interface BoardDAO {
 	/**
 	 * 카테고리별 리스트 출력(조회)
 	 * SELECT * FROM T_BOARD WHERE CATEGORY_CODE=?
 	 */
-	List<BoardDTO> categoryList(int category) throws SQLException;
+	List<BoardDTO> categoryList(int category, int pageNo) throws SQLException;
 	
 	
 	/**
@@ -35,7 +34,8 @@ public interface BoardDAO {
 	int deleteBoard(BoardDTO board) throws SQLException;
 
 
-	BoardDTO selectByCode(int reviewCode) throws SQLException;
-	
-	
+	BoardDTO selectByCode(int reviewCode, int categoryCode) throws SQLException;
+
+
+    int incrementByViews(int boardCode, int categoryCode) throws SQLException;
 }

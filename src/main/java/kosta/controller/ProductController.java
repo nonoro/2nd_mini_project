@@ -100,6 +100,21 @@ public class ProductController implements Controller {
 	}
 	
 	/**
+	 * @@ 어드민에서 쓸 @@ 상품코드에 해당하는 레코드 검색
+	 * 
+	 * */
+	public ModelAndView productCodeForAdmin(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {                              
+		String productCode=request.getParameter("productCode") ;
+		System.out.println(productCode);
+		ProductDTO  productCodeForAdmin =prodService.selectByProductCode(Integer.parseInt(productCode));
+		
+		request.setAttribute("productCodeForAdmin", productCodeForAdmin);
+		
+		return new ModelAndView("Admin_update.jsp");
+	}
+	
+	/**
 	 * 상품이름에 해당하는 레코드 검색
 	 * */
 	public ModelAndView selectByProductName(HttpServletRequest request, HttpServletResponse response)
@@ -138,7 +153,7 @@ public class ProductController implements Controller {
 		request.setAttribute("productFile", selectByCode.getProductFileList());
 		request.setAttribute("detailPhoto", selectByCode.getDetailPhoto());
 
-		return new ModelAndView("product_detail2.jsp");
+		return new ModelAndView("product_detail_best.jsp");
 
 	}
 	
@@ -249,18 +264,17 @@ public class ProductController implements Controller {
 		String productPrice=request.getParameter("productPrice");
 		String productQty=request.getParameter("productQty");
 		String productExplain=request.getParameter("productExplain");
-		String pFileName=request.getParameter("pFileName");
+		String fname=request.getParameter("fname");
 		
 		//페이징처리 자리 
-		String pageNo = request.getParameter("pageNo");
 				
-		prodService.update(new ProductDTO(Integer.parseInt(productCode),productName, Integer.parseInt(productPrice), Integer.parseInt(productQty), productExplain, pFileName));
+		prodService.update(new ProductDTO(Integer.parseInt(productCode),productName, Integer.parseInt(productPrice), Integer.parseInt(productQty), productExplain, fname));
 		
 		//ModelAndView mv= new ModelAndView();
 		//mv.setViewName("");
 		//mv.setRedirect(true);
 		
-		return new ModelAndView("testForKyu.jsp", true);
+		return new ModelAndView("Admin_update.jsp", true);
 	}
 	/**
 	 * 상품 코드별 판매통계 조회 월별

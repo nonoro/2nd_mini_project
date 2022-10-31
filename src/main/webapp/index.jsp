@@ -1,11 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <html>
 
-
-
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -15,45 +11,49 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${path}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- banner.css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main/banner.css">
+    <link rel="stylesheet" type="text/css" href="${path}/css/main/banner.css">
 
     <!-- dropdownMenu.css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main/dropdownMenu.css">
+    <link rel="stylesheet" type="text/css" href="${path}/css/main/dropdownMenu.css">
 
 
     <!-- slide css -->
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/carousel/">
-    <link href="${pageContext.request.contextPath}/css/main/carousel.css" rel="stylesheet">
+    <link href="${path}/css/main/carousel.css" rel="stylesheet">
 
     <!-- advertise.css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/advertise.css">
+    <link rel="stylesheet" href="${path}/css/main/advertise.css">
 
     <!-- middle.css -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/middle.css">
+    <link rel="stylesheet" href="${path}/css/main/middle.css">
 
     <!-- 페이징처리 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/paging.css">
+    <link rel="stylesheet" href="${path}/css/main/paging.css">
 
-	<script type="text/javascript" src="js/jquery-3.6.0.min.js">
-		$(function(){
-			alert("message ="+ "${message}");	
-			
-			if("${message}" != "ㅅㅊ"){		
-				alert("${message}");
-			}
-				
-		});
-	</script>
+    <script src="${path}/js/jquery-3.6.0.min.js"></script>
+
+<%--    <script>
+        $(function(){
+            console.log("message ="+ "${message}");
+
+            if ("${message}" == "ㅅㅊ" || "${message}" == "") {
+                return;
+            } else {
+                alert("${message}");
+            }
+        });
+    </script>--%>
+
 
 </head>
 
 <!-- header -->
 
-<body id="mainBody">
+<body id="mainBody" style="background-color: rgba(255,241,193,1)">
 <jsp:include page="header.jsp"/>
 <!-- 슬라이드 -->
 <main>
@@ -119,10 +119,6 @@
     </div>
     <div class="container marketing">
 </main>
-<script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
 
 <!-- advertisementBanner -->
 <div class="ad-main">
@@ -160,29 +156,29 @@
         <div class="middle-best"><span id="best">Review&nbsp;</span><span id="bContents">댕댕이들의 생생한후기</span></div>
         <div class="middle-container2">
             <div class="middle-container-item">
-                <div class="middle-img"><a href="#"><img src="${pagecontext.request.contextpath}/img/dog.png" alt=""></a></div>
+                <div class="middle-img"><a href="#"><img src="${path}/img/dog.png" alt=""></a></div>
                 <div class="middle-detail">작성자 : ㅇㅇㅇ<br>정순이 귀여워<br>18,000원<br>귀엽고 깜찍한 강아지!<br>16년동안 인증된 건강한 강아지</div>
             </div>
             <div class="middle-container-item">
-                <div class="middle-img"><a href="#"><img src="${pagecontext.request.contextpath}/img/dog1.png" alt=""></a></div>
+                <div class="middle-img"><a href="#"><img src="${path}/img/dog1.png" alt=""></a></div>
                 <div class="middle-detail">작성자 : ㅇㅇㅇ<br>정순이 귀여워<br>18,000원<br>귀엽고 깜찍한 강아지!<br>16년동안 인증된 건강한 강아지</div>
             </div>
             <div class="middle-container-item">
-                <div class="middle-img"><a href="#"><img src="${pagecontext.request.contextpath}/img/dog3.png" alt=""></a></div>
+                <div class="middle-img"><a href="#"><img src="${path}/img/dog3.png" alt=""></a></div>
                 <div class="middle-detail">작성자 : ㅇㅇㅇ<br>정순이 귀여워<br>18,000원<br>귀엽고 깜찍한 강아지!<br>16년동안 인증된 건강한 강아지</div>
             </div>
         </div>
         <div class="middle-container2">
             <div class="middle-container-item">
-                <div class="middle-img"><a href="#"><img src="${pagecontext.request.contextpath}/img/dog.png" alt=""></a></div>
+                <div class="middle-img"><a href="#"><img src="${path}/img/dog.png" alt=""></a></div>
                 <div class="middle-detail">작성자 : ㅇㅇㅇ<br>정순이 귀여워<br>18,000원<br>귀엽고 깜찍한 강아지!<br>16년동안 인증된 건강한 강아지</div>
             </div>
             <div class="middle-container-item">
-                <div class="middle-img"><a href="#"><img src="${pagecontext.request.contextpath}/img/dog1.png" alt=""></a></div>
+                <div class="middle-img"><a href="#"><img src="${path}/img/dog1.png" alt=""></a></div>
                 <div class="middle-detail">작성자 : ㅇㅇㅇ<br>정순이 귀여워<br>18,000원<br>귀엽고 깜찍한 강아지!<br>16년동안 인증된 건강한 강아지</div>
             </div>
             <div class="middle-container-item">
-                <div class="middle-img"><a href="#"><img src="${pagecontext.request.contextpath}/img/dog3.png" alt=""></a></div>
+                <div class="middle-img"><a href="#"><img src="${path}/img/dog3.png" alt=""></a></div>
                 <div class="middle-detail">작성자 : ㅇㅇㅇ<br>정순이 귀여워<br>18,000원<br>귀엽고 깜찍한 강아지!<br>16년동안 인증된 건강한 강아지</div>
             </div>
         </div>

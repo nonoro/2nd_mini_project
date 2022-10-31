@@ -19,28 +19,23 @@
 
 		<c:choose>
 		  <c:when test="${empty loginUser}">
-		      <div class="col-lg-6  col-lg-offset-3" style="margin-left: 24%; margin-top: 20px">
+		  <div>
 			<div class="btn-group btn-group-justified">
-				<a href="${pageContext.request.contextPath}/mypagepart/signIn.jsp" class="btn btn-primary">Login</a>
-				<a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-success">Return Website</a>
-				<a href="javascript:history.back()" class="btn btn-success">뒤로가기</a>
+				<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/mypagepart/signIn.jsp" class="btn btn-primary">로그인</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/index.jsp" class="btn btn-success">메인으로</a>
 			</div>
-
-		    </div>
+		  </div>
 		  </c:when>
 		  <c:otherwise>
-		      <div class="col-lg-6  col-lg-offset-3">
+		  <div>
 			<div class="btn-group btn-group-justified">
-				<a href="javascript:history.back()" class="btn btn-primary">Back</a>
-				<a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-success">Return Website</a>
-				<a href="javascript:history.back()" class="btn btn-success">뒤로가기</a>
+				<a class="btn btn-outline-success" href="${pageContext.request.contextPath}/index.jsp" class="btn btn-success">메인으로</a>
+				<a class="btn btn-outline-danger" href="javascript:history.back()" class="btn btn-success">뒤로가기</a>
 			</div>
-
-		</div>
+		  </div>
 		  </c:otherwise>
 		</c:choose>	
 	</div>
-
 </div>
 
 
