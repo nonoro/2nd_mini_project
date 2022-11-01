@@ -21,7 +21,7 @@
         $(function () {
             $(document).on("click", "#order", function () {
                 if (true) {
-                    $("#order").attr("href", "${path}/mypagepart/myPageOrder.jsp");
+                    $("#order").attr("href", "${path}/front?key=order&methodName=selectOrderByUserId&userId=${loginUser}");
                 } else {
                     $("#order").attr("href", "${path}/mypagepart/myPageOrderEmpty.jsp");
                 }
@@ -38,7 +38,7 @@
             $(document).on("click", "#pointDetail", function () {
                 if (true) {
 
-                    $("#pointDetail").attr("href", "${path}/front?key=point&methodName=selectPointByUserId&userId=" + userId);     
+                    $("#pointDetail").attr("href", "${path}/front?key=point&methodName=selectPointByUserId&userId=${loginUser}");     
                 } else {
                     $("#pointDetail").attr("href", "${path}/mypagepart/pointEmpty.jsp");
                 }
@@ -57,7 +57,7 @@
 
 <!-- header -->
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 
 <div class="menu-container">
     <div class="menu-container-a">
@@ -66,20 +66,25 @@
     <hr style="margin: 0;">
     <div class="menu-container-a" >
         <a
-                href="#" id="order"><span>&nbsp;&nbsp;주문&nbsp;∙&nbsp;배송&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
+                href="#" id="order"><span>&nbsp;&nbsp;주문&nbsp;∙&nbsp;배송&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
 
     <div class="menu-container-a">
-        <a href="#" id="pointDetail"><span>&nbsp;&nbsp;포인트내역
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
+        <a href="#" id="pointDetail"><span>&nbsp;&nbsp;포인트내역 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
     <div class="menu-container-a">
         <a href="#" id="notice"
-        ><span>&nbsp;&nbsp;공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
+        ><span>&nbsp;&nbsp;공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span></a><br>
     </div>
     <div class="menu-container-a">
         <a href="${path}/mypagepart/repeatedQuestion.jsp">
-            <span>&nbsp;&nbsp;자주묻는질문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span>
+            <span>&nbsp;&nbsp;자주묻는질문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span>
+        </a><br>
+    </div>
+    <div class="menu-container-a">
+        <a href="${path}/front?key=review&methodName=selectByUserId&userId=${loginUser}">
+            <span>&nbsp;&nbsp;내가 작성한 후기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;></span>
         </a><br>
     </div>
 </div>

@@ -22,7 +22,7 @@
 
 <!-- header -->
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 <div class="myPageMain-container" style="height: 230px">
     <div class="state-container">
         <div class="stateImage" style="margin-left: 0px;">
@@ -33,19 +33,14 @@
             <span id="email">${loginEmail}</span>
         </div>
         <div class="stateImage">
-            <img src="${path}/img/c.jpg" alt="">
+            <img src="${path}/img/point.jpg" alt="">
         </div>
         <div class="userDetail">
             <span id="currentPoint">포인트</span><br>
             <span id="currentPoint">${loginPoint}</span>
         </div>
-        <div class="stateImage">
-            <img src="${path}/img/c.jpg" alt="">
-        </div>
-        <div class="userDetail">
-            <span id="currentPoint">내가작성한리뷰</span><br>
-            <span id="currentPoint">5개</span>
-        </div>
+       
+
     </div>
 </div>
 

@@ -104,7 +104,7 @@ td {text-align: center;}
 				let total = arr[1] * pro; 
 
 				str += `<tr>`;
-				str += `<td><img src="${arr[1]}" class="poster"></td>`;
+				str += `<td><img src="img/${"${arr[3]}"}" class="poster"></td>`;
 				str += `<td>${"${arr[0]}"}</td>`;
 				str += `<td>
 						<button class="minus" tabindex="0" type="button" name="minus" id="${"${key}"}">
@@ -232,7 +232,7 @@ td {text-align: center;}
 </script>
 
 </head>
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 	<jsp:include page="header.jsp"/>
 
 	<div class="menu-result-container" id="menu-result-container">

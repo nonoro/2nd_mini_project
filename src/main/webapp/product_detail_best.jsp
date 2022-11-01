@@ -23,11 +23,11 @@
 <link href="${path}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!--product_detail_test.css-->
-<%-- <link href="${path}/css/product_detail_test.css" rel="stylesheet"> --%>
+<link href="${path}/css/product_detail_test.css" rel="stylesheet">
 
 <script src="${path}/js/jquery-3.6.0.min.js"></script>
 
-style="width: 200px";
+
 
 </head>
 
@@ -56,70 +56,92 @@ style="width: 200px";
     	<c:if test="${star eq '5'}">⭐⭐⭐⭐⭐</c:if>
     
     	
-    	/* $("[name=minus]").on("click", function() { 
-            let value = $(this).next().val();
-            value--;
-            $('#qty').val(value).change();
 
-            newPrice = onePrice * $('#qty').val();
-            $('#proPrice').text(newPrice);
-        });
+   		$(function() {
+   			let userId;
+   			let newPrice = 0;
+   			let onePrice = ${selectByName.productPrice};
+   			let nf = Intl.NumberFormat();
+			sessionStorage.setItem("userId", ${loginUser});
 
-        $("[name=plus]").on("click", function() { 
-            let value = $('#qty').val();
-            value++;
-            $('#qty').val(value).change();
+   			
+			$("[name=cartInsert]").click(function() { 
+				userId = sessionStorage.getItem("userId");
+				if(userId == null) {
+					alert("로그인 먼저 해주세요!");
+					location.href = "mypagepart/signIn.jsp";
+				} else {
+					let str = "";
+					str += "${selectByName.productName}" + ",";
+					str += $('#qty').val() + ",";
+					str += ${selectByName.productPrice};
+					
+					let key = "${selectByName.productCode}";
 
-            newPrice = onePrice * $('#qty').val();
-            $('#proPrice').text(newPrice);
-        }); */
-        
-        	  //수량 조절 버튼 
-        	  function count(type){
-        	  // 결과를 표시할 element
-        	  const resultElement = document.getElementById('result');
-        	  // 현재 화면에 표시된 값
-        	  let number = resultElement.innerText;
-        	  // 더하기/빼기
-        	  if(type === 'plus') {
-        	    number = parseInt(number) + 1;
-        	  }else if(type === 'minus')  {
-        	    number = parseInt(number) - 1;
-        	  }
-        	  // 결과 출력
-        	  resultElement.innerText = number;
-        	  }
-        
-        	
-        //수량조절버튼 
-        $("[name=minus]").on("click", function() { 
-                let value = $(this).next().val();
-                value--;
-                $('#qty').val(value).change();
-				//proPrice어디에...? onePrice 어디에...?
-                newPrice = onePrice * $('#qty').val();
-                $('#proPrice').text(newPrice);
-            });
+					localStorage.setItem(key, str);
+					
+					if(confirm("장바구니를 확인하시겠습니까?")) {
+						location.href = "${path}/cartList.jsp";
+					}
+				}
+			});
+			
+			$("[name=order]").click(function() { 
+				userId = sessionStorage.getItem("userId");
+				if(userId == null) {
+					alert("로그인 먼저 해주세요!");
+					location.href = "mypagepart/signIn.jsp";
+				} else {
+					let str = "";
+					str += "${selectByName.productName}" + ",";
+					str += $('#qty').val() + ",";
+					str += "${selectByName.productPrice}";
+					
+					let key = "${selectByName.productCode}";
 
-            $("[name=plus]").on("click", function() { 
-                let value = $('#qty').val();
-                value++;
-                $('#qty').val(value).change();
+					localStorage.setItem(key, str);
+					
+					location.href = "${path}/order2.jsp";
+				}
+				
+			});
+			
+			$("[name=minus]").on("click", function() { 
+				let value = $(this).next().val();
+				value--;
+				$('#qty').val(value).change();
+				
+				newPrice = onePrice * $('#qty').val();
+				$('#totalPrice').html("<h4>" + nf.format(newPrice) + "원</h4>");
+			});
 
-                newPrice = onePrice * $('#qty').val();
-                $('#proPrice').text(newPrice);
-            });
+			$("[name=plus]").on("click", function() { 
+				let value = $('#qty').val();
+				value++;
+				$('#qty').val(value).change();
+				
+				newPrice = onePrice * $('#qty').val();
+				$('#totalPrice').html("<h4>" + nf.format(newPrice) + "원</h4>");
+			});
+			
+			//alert(nf.format(onePrice));
+			
+			//let nfOnePrice = 
+   			$("#productPrice").html("<h1><b>" + nf.format(onePrice) + "원</b></h1>");
+   			$("#totalPrice").html("<h4>" + nf.format(onePrice) + "원</h4>");
+		}); //readyEnd
+
         
         
     </script>
-
+	
 	<table class="review-box">
 		<tr>
 			<td rowspan="4" colspan="4">
 				<!-- 상품 상세 메인사진 big -->
 				<div id="big" class="product-detail-photo">
 					<img id="bigimg"
-						src="img/${selectByName.pFileName}.jpeg">
+						src="img/${selectByName.pFileName}.jpeg" style="width:500px; height:500px;">
 				</div>
 			</td>
 			<td>
@@ -141,25 +163,21 @@ style="width: 200px";
 		<tr>
 			<td>
 				<div class="product-detail-price jump">
-					<h1>
-						<strong>${selectByName.productPrice}원</strong>
-					</h1>
+					
 					
 				</div>
 				<br>
-				<div class="product-detail-price">
-					<h4>&nbsp;&nbsp;&nbsp;${selectByName.productPrice }원</h4>
-					<!--고정-->
-				</div>
+				<div class="detail_price">
+                        <div class="detail_price_1" id="productPrice"><h1></h1></div>    
+                        <div class="detail_price_2"><h2></h2></div>    
+                    </div>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<!-- 플러스/마이너스 수량계산 버튼 시작 -->
 				<div class="order_name">
-					수량 <br>
-					<br>
-					<br>
+					수량 <br><br>
 					<button class="minus" tabindex="0" type="button" name="minus">
 						<span class="minus">&nbsp;-&nbsp;</span>
 					</button>
@@ -171,6 +189,11 @@ style="width: 200px";
 					<button class="plus" tabindex="0" type="button" name="plus">
 						<span class="plus">&nbsp;+&nbsp;</span>
 					</button>
+					
+                   <div class="total_price">
+                    <p>총 상품 금액</p>
+                    <p class="result_price" id="totalPrice"></p>
+                   </div>
 				</div> <!-- 플러스/마이너스 수량계산 버튼 끝 -->
 
 			</td>
@@ -183,7 +206,7 @@ style="width: 200px";
 					<!-- 클릭하면 상품 디테일 메인 사진이 보여진다. -->
 					<div class="product-detail-photo2">
 						<img class="small" id="img1"
-							src="img/${pf.productFile}.jpeg">
+							src="img/${pf.productFile}.jpeg" style="width:110px; height:110px;">
 					</div>
 				</td>
 				</c:forEach>
@@ -193,13 +216,11 @@ style="width: 200px";
 			<td>
 				<div class="d-grid gap-2">
 					<!-- 구매하기 버튼누르면 구매창으로 페이지 이동(현재창) -->
-					<button class="btn btn-danger" type="button"
-						onclick="location='${pageContext.request.contextPath}/.jsp'">구매하기</button>
-
+					<button class="btn btn-danger" type="button" name="order">구매하기</button>
+					<input type="hidden" id="${selectByName.productCode}" value="${selectByName.productCode},${selectByName.productName},${selectByName.productPrice},${selectByName.pFileName}">
 					<!-- 장바구니 버튼누르면 장바구니으로 페이지 이동(현재창) -->
-					<button class="btn btn-danger" type="button"
-						onclick="location='${pageContext.request.contextPath}/.jsp'">장바구니</button>
-
+					<button class="btn btn-danger" type="button" name="cartInsert">장바구니</button>
+	
 
 				</div>
 			</td>
@@ -208,11 +229,11 @@ style="width: 200px";
 
 	<ul class="quick_menu">
 		<div class="product-detail-menubar1">
-			<li style="display: inline-block"><a class="btn1"
+			<li style="display: inline-block" class="quick_menu2"><a class="btn1"
 				href="#target1" style="text-decoration: none"><h6>상 품 정 보</h6></a></li>
-			<li style="display: inline-block"><a class="btn2"
+			<li style="display: inline-block" class="quick_menu2"><a class="btn2"
 				href="#target2" style="text-decoration: none"><h6>운 영 방 침</h6></a></li>
-			<li style="display: inline-block"><a class="btn3"
+			<li style="display: inline-block" class="quick_menu2"><a class="btn3"
 				href="#target3" style="text-decoration: none"><h6>구 매 후 기</h6></a></li>
 		</div>
 	</ul>
@@ -276,6 +297,7 @@ style="width: 200px";
         })
         </script>
 	<!-- ####################################### 원하는 위치로 스크롤 이동 끝-->
+<body style="background-color: rgba(255,241,193,1)">
 
 	<div id="target1" class="product-detail-menubar2 target">
 		<h5>상 품 정 보</h5>
@@ -298,7 +320,7 @@ style="width: 200px";
 	</div>
 	<div class="product-detail-main-box2">
 		<div class="product-detail-main-character">
-			<img src="img/info.jpg">
+			<img src="img/info.jpg" class="info-img">
 		</div>
 	</div>
 

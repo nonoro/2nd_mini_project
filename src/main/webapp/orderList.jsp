@@ -23,7 +23,7 @@
 </script>
 
 </head>
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 <table align="center" border="0" cellpadding="5" cellspacing="2" width="100%" bordercolordark="white" bordercolorlight="black">
 <caption><h2 align="center">Order LIST</h2></caption>
 <colgroup>

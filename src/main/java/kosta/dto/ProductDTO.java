@@ -9,13 +9,12 @@ public class ProductDTO {
 	private int productPrice;
 	private int productQty;
 	private String productExplain;
-	private String  fname; 
+	private String  fname; //등록할때 메인
 	
 	private String orderDate;
 	private int orderTotalPrice;
 	
 	private int productCategoryCode;
-	private String productMgr;
 
 	private String pFileName;	
 	

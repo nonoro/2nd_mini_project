@@ -1,27 +1,34 @@
 package kosta.controller;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import kosta.dto.OrderDTO;
-import kosta.dto.PointDTO;
-import kosta.dto.UserDTO;
-import kosta.service.UserService;
-import kosta.service.UserServiceImpl;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+
+import kosta.dto.OrderDTO;
+import kosta.dto.UserDTO;
+import kosta.service.UserService;
+import kosta.service.UserServiceImpl;
 
 public class UserController implements Controller {
+	private static final Map<String, ModelAndView> MAP = new HashMap<>();
+
+    static {
+        MAP.put("2022", new ModelAndView("Adimin_sale_2022.jsp"));
+        MAP.put("2021", new ModelAndView("Adimin_sale_2021.jsp"));
+        MAP.put("2020", new ModelAndView("Adimin_sale_2020.jsp"));
+    }
     private UserService userService = new UserServiceImpl();
 
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
         // TODO Auto-generated method stub
         return null;
     }
@@ -183,19 +190,21 @@ public class UserController implements Controller {
      */
 
     /**
-     * 가입 회원수조회(-1은 관리자 아이디 제외)
-     * SELECT COUNT(USER_ID)-1 FROM T_USER;
-     */
-    public ModelAndView userCount(HttpServletRequest request, HttpServletResponse response)
+    * 가입 회원수조회 및 회원정보 조회(-1은 관리자 아이디 제외)
+    * SELECT COUNT(USER_ID)-1 FROM T_USER;
+    */
+   public ModelAndView userCount(HttpServletRequest request, HttpServletResponse response)
+
             throws Exception {
-        int userCount = userService.userCount();
-
-        request.setAttribute("userCount", userCount);
-
-
-        return new ModelAndView("jongmintest.jsp");
-    }
-
+         int userCount = userService.userCount();
+         List<UserDTO> userList = userService.selectAll();
+         System.out.println(userCount);
+         request.setAttribute("userCount", userCount);
+         request.setAttribute("userList", userList);
+         
+         
+         return new ModelAndView("Admin_userCount.jsp");
+      }
     /**
      * 매출액조회(당월 매출)
      * SELECT SUM(ORDER_TOTALPRICE) FROM T_ORDER WHERE ORDER_DATE LIKE '?/?/%';
@@ -222,12 +231,12 @@ public class UserController implements Controller {
             throws Exception {
         String year = request.getParameter("year");
 
-        int yearSalse = userService.yearSalse(Integer.parseInt(year));
-
+        List<OrderDTO> yearSalse = userService.yearSalse(Integer.parseInt(year));
+        //System.out.println(yearSalse);
         request.setAttribute("yearSalse", yearSalse);
 
 
-        return new ModelAndView("jongmintest.jsp");
+        return MAP.get(year);
     }
 
 

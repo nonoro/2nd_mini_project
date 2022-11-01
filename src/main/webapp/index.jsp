@@ -119,14 +119,17 @@
     </div>
     <div class="container marketing">
 </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 
 <!-- advertisementBanner -->
 <div class="ad-main">
     <div class="ad-side"></div>
     <div class="ad-center">
-        <a href="#">눈을떠요</a>
-        <a href="#">밥이 보약</a>
-        <a href="#">관절 팔팔</a>
+        <a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=15">눈을떠요</a>
+        <a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=7">밥이 보약</a>
+        <a href="${path}/front?key=product&methodName=productSelectByCategory&productCategory=18">관절 팔팔</a>
     </div>
     <div class="ad-side"></div>
 </div>
@@ -138,7 +141,7 @@
         <div class="middle-container1">
             <div class="middle-container-item">
                 <div class="middle-img"><a href="#"><img src="https://img.dogpre.com/mobile/dogpre/product/85/84177_detailView_01116403.jpg" alt=""></a></div>
-                <div class="middle-detail">정순이 귀여워<br>18,000원<br>귀엽고 깜찍한 강아지!<br>16년동안 인증된 건강한 강아지</div>
+                <div class="middle-detail">상품명<br>18,000원<br>귀엽고 설명강아지!<br> 간단 한줄평 </div>
             </div>
             <div class="middle-container-item">
                 <div class="middle-img"><a href="#"><img src="https://img.dogpre.com/mobile/dogpre/product/89/88066_detailView_01265200.jpg" alt=""></a></div>

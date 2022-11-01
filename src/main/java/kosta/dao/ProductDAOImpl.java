@@ -155,8 +155,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into Product values(11,?,?,?,?,?,?)";// insert into Electronics
-																	// values(?,?,?,?,?,sysdate,0,?,?)
+		String sql = "insert into Product values(PRODUCT_CODE_SEQ.nextval,?,?,?,?,?,?)";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -180,7 +179,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into product_file values(product_file_seq.nextval,11,?,2)";
+		String sql = "insert into product_file values(product_file_seq.nextval,PRODUCT_CODE_SEQ.currval,?,2)";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -198,7 +197,7 @@ public class ProductDAOImpl implements ProductDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "insert into product_file values(product_file_seq.nextval,11,?,3)";
+		String sql = "insert into product_file values(product_file_seq.nextval,PRODUCT_CODE_SEQ.currval,?,3)";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -340,23 +339,6 @@ public class ProductDAOImpl implements ProductDAO {
 		return list;
 	}
 
-				/*하위카테고리
-				 * 
-				 * 
-				 * @Override public List<ProductDTO> productSelectByCategorybottom(int
-				 * productCategory) throws SQLException { Connection con=null; PreparedStatement
-				 * ps =null; ResultSet rs= null; List<ProductDTO> list = new
-				 * ArrayList<ProductDTO>(); String
-				 * sql="select distinct(p.p_code), p.p_name, p.p_price, p.p_explain\r\n" +
-				 * "from product p, product_category pc\r\n" +
-				 * "where p.p_category = pc.p_category and p.p_category like ?"; try {
-				 * con=DbUtil.getConnection(); ps=con.prepareStatement(sql);
-				 * ps.setInt(1,Integer.parseInt("%"+productCategory+"__"));//'%0__' rs=
-				 * ps.executeQuery(); while(rs.next()) { ProductDTO product= new
-				 * ProductDTO(rs.getInt(1), rs.getString(2),rs.getInt(3),rs.getString(4));
-				 * list.add(product); } } finally { DbUtil.dbClose(con, ps, rs); } return list;
-				 * }
-				 */
 
 	/**
 	 * 정렬 - 주문많은순 1 , 후기 많은순 2, 별점 높은순

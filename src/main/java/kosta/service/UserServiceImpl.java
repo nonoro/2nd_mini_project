@@ -116,10 +116,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int userCount() throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	   public int userCount() throws SQLException {
+
+	      int userCount = userDAO.userCount();
+	      
+	      return userCount;
+	   }
 
 	@Override
 	public int monthSalse(int year, int month) throws SQLException {
@@ -130,13 +132,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int yearSalse(int year) throws SQLException {
-		int yearSalse = userDAO.yearSalse(year);
-		if(yearSalse == 0) throw new SQLException(year+"년 매출액이 없습니다.");
-		
-		return yearSalse;
-	}
-
+	   public List<OrderDTO> yearSalse(int year) throws SQLException {
+	      List<OrderDTO> orderlist = userDAO.yearSalse(year);
+	      
+	      System.out.println(orderlist);
+	      if(orderlist == null) throw new SQLException(year+"년 매출액이 없습니다.");
+	      
+	      return orderlist;
+	   }
+	
 	@Override
 	public int allSalse() throws SQLException {
 		int allSalse = userDAO.allSalse();
@@ -205,7 +209,13 @@ public class UserServiceImpl implements UserService {
 		boolean result = userDAO.idCheck(id);
 		return result;
 	}
+	@Override
+	   public List<UserDTO> selectAll() throws SQLException {
+	      List<UserDTO> userList = userDAO.selectAll();
+	      
+	      return userList;
 
+	   }
 
 }
 

@@ -39,7 +39,7 @@
 </script>
 
 </head>
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 	<!-- header -->
 	<jsp:include page="header.jsp" />
 	<div class="clear">

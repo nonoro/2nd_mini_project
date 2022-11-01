@@ -11,6 +11,7 @@ public class UserDTO {
 	private String dogBirthday;
 	private int userPoint;
 	
+	
 	public UserDTO() { }
 
 	public UserDTO(String userId, String userPwd, String userEmail, String userAddr, String userPhone, String userProfile,

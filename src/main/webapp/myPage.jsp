@@ -25,16 +25,9 @@
 
 <!-- header -->
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 <jsp:include page="header.jsp"/>
-    <div class="shopTool">
-        <div class="shopTool-detail">
-            <span style="margin-left: 10px">홈&nbsp;>&nbsp;</span>
-            <span>마이페이지&nbsp;>&nbsp;</span>
-            <span id="pageName">회원정보&nbsp;</span>
-        </div>
-    </div>
-
+   
     <div class="myPageMain">
         <jsp:include page="informationBar.jsp"/>
         <div class="menuMain">

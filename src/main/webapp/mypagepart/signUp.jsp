@@ -98,7 +98,7 @@
 
 <!-- header -->
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 <div class="header">
     <div class="header-side"></div>
     <div class="header-center">

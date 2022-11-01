@@ -384,28 +384,34 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public int yearSalse(int year) throws SQLException {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        int yearSalse = 0;
+    public List<OrderDTO> yearSalse(int year) throws SQLException {
+         Connection con = null;
+         PreparedStatement ps = null;
+         ResultSet rs = null;
+         List<OrderDTO> orderlist = new ArrayList<OrderDTO>();
+         //int yearSalse = 0;
 
-        String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS WHERE ORDER_DATE LIKE '?/%'";
+//       String sql = "SELECT SUM(ORDER_TOTALPRICE) FROM ORDERS WHERE ORDER_DATE LIKE '?/%'";
+         String sql = "SELECT to_char(order_date,'yyyy-MM-dd'),SUM(ORDER_TOTALPRICE)\r\n"
+         		+ "FROM ORDERS\r\n"
+         		+ "group by order_date\r\n"
+         		+ "order by order_date desc";
 
-        try {
-            con = DbUtil.getConnection();
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, year);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                yearSalse = rs.getInt(1);
-            }
+         try {
+             con = DbUtil.getConnection();
+             ps = con.prepareStatement(sql);
+//           ps.setInt(1, year);  ?표시가 있을 때만
+             rs=ps.executeQuery();
+            while (rs.next()) {
+               OrderDTO order = new OrderDTO(rs.getDate(1),rs.getInt(2));
+               orderlist.add(order);
+               }
 
-        } finally {
-            DbUtil.dbClose(con, ps, rs);
-        }
-        return yearSalse;
-    }
+         } finally {
+             DbUtil.dbClose(con, ps, rs);
+         }
+         return orderlist;
+     }
 
     @Override
     public int allSalse() throws SQLException {
@@ -622,6 +628,30 @@ public class UserDAOImpl implements UserDAO {
             DbUtil.dbClose(con, ps, rs);
         }
         return result;
+    }
+    @Override
+    public List<UserDTO> selectAll() throws SQLException {
+       Connection con = null;
+       PreparedStatement ps = null;
+       ResultSet rs = null;
+       List<UserDTO> list = new ArrayList<UserDTO>();
+       UserDTO user = null;
+       
+       String sql = "SELECT * FROM USERS";
+       
+       try {
+          con=DbUtil.getConnection();
+          ps=con.prepareStatement(sql);
+          rs=ps.executeQuery();
+          while(rs.next()) {
+             user = new  UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8),rs.getInt(9));
+             list.add(user);
+          }
+          
+       } finally {
+          DbUtil.dbClose(con, ps, rs);
+       }
+       return list;
     }
 
 }

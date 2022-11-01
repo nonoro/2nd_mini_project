@@ -35,7 +35,7 @@
 				let total = arr[1] * pro; 
 
 				str += `<tr>`;
-				str += `<td><img src="${"${arr[1]}"}" class="poster"></td>`;
+				str += `<td><img src="${"${arr[3]}"}" class="poster"></td>`;
 				str += `<td><strong>${"${arr[0]}"}</strong></td>`;
 				str += `<td><strong>${"${arr[1]}"}개</strong></td>`;
 				str += `<td><strong>${"${nf.format(total)}"}</strong>원`;
@@ -170,7 +170,7 @@
 </style>
 </head>
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 	<jsp:include page="header.jsp"/>
 	<div class="shopTool">
     	<div class="shopTool-detail">

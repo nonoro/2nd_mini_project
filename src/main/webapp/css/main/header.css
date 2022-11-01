@@ -3,6 +3,7 @@ body {
   padding: 0;
   width: 100%;
   overflow-x: hidden;
+  background-color: rgba(255,241,193,1);
 }
 
 .header {

@@ -70,7 +70,7 @@
 
 <!-- header -->
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 <jsp:include page="../header.jsp"/>
 <div class="shopTool">
     <div class="shopTool-detail">

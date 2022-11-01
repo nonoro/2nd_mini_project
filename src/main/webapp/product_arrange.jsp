@@ -79,7 +79,7 @@
    
 </head>
 
-<body>
+<body style="background-color: rgba(255,241,193,1)">
 
 <div class="header-wrap">헤더자리</div>
 
